@@ -4,8 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My GitHub Site</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin: 40px; }
+        canvas { border: 1px solid #ccc; background: #fff; cursor: crosshair; }
+        button { margin: 8px; padding: 8px 16px; cursor: pointer; }
+    </style>
 </head>
 <body>
     <h1>Hello! World!</h1>
+    <canvas id="draw" width="600" height="400"></canvas>
+    <br>
+    <button id="clearBtn">Clear Canvas</button>
+    <button id="clearRemoteBtn">Clear All (Remote)</button>
+
+    <script src="pubnub.js"></script>
+    <script src="q.js"></script>
+    <script>
+        const canvas = document.getElementById('draw');
+        Q.setCanvas(canvas);
+
+        // Local clear button
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            Q.clearAll();
+        });
+
+        // Remote clear button - clears canvas on all connected clients
+        document.getElementById('clearRemoteBtn').addEventListener('click', async () => {
+            await Q.clearAllRemote();
+            Q.clearAll();
+        });
+
+        // Listen for remote draw/clear commands
+        Q.connect((msg) => {
+            if (msg.type === 'draw') {
+                Q.drawLine(msg.x1, msg.y1, msg.x2, msg.y2, msg.color, msg.width);
+            }
+        });
+
+        // Local drawing with mouse
+        let drawing = false;
+        let lastX = 0, lastY = 0;
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            const r = canvas.getBoundingClientRect();
+            lastX = e.clientX - r.left;
+            lastY = e.clientY - r.top;
+        });
+        canvas.addEventListener('mousemove', (e) => {
+            if (!drawing) return;
+            const r = canvas.getBoundingClientRect();
+            const x = e.clientX - r.left;
+            const y = e.clientY - r.top;
+            Q.drawLine(lastX, lastY, x, y, '#000', 2);
+            Q.drawRemote(lastX, lastY, x, y, '#000', 2);
+            lastX = x; lastY = y;
+        });
+        canvas.addEventListener('mouseup', () => { drawing = false; });
+        canvas.addEventListener('mouseleave', () => { drawing = false; });
+    </script>
 </body>
 </html>
