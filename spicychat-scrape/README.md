@@ -2,6 +2,8 @@
 
 Public frontend assets scraped from [spicychat.ai](https://spicychat.ai) (app version **4.2.1**).
 
+**Decoded / beautified copy:** https://codenirccc.github.io/decoded/
+
 > For research / analysis only. All assets belong to NextDay AI (SpicyChat).
 
 ## Contents

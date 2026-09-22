@@ -1,0 +1,4662 @@
+import {
+    dH as xe,
+    E as n,
+    J as o,
+    c_ as mn,
+    h4 as Et,
+    h5 as _i,
+    h6 as Ae,
+    h7 as ki,
+    h8 as Yo,
+    h9 as Ni,
+    ha as Li,
+    hb as ji,
+    hc as Oi,
+    hd as Pi,
+    he as Di,
+    hf as Ui,
+    hg as Xo,
+    hh as Bi,
+    hi as Hi,
+    hj as pn,
+    hk as Gi,
+    aR as wn,
+    aP as Vi,
+    d3 as ue,
+    as as $,
+    n as O,
+    aq as lt,
+    ar as le,
+    dA as zi,
+    a0 as Fi,
+    ch as Ko,
+    bw as gn,
+    ax as cs,
+    H as us,
+    dC as ds,
+    cj as Qo,
+    aS as fs,
+    c9 as es,
+    b9 as ts,
+    _ as $e,
+    $ as yt,
+    c4 as xn,
+    a9 as ps,
+    d5 as qo,
+    bP as Wi,
+    bW as $i,
+    V as Jo,
+    cn as Zt,
+    e2 as He,
+    d6 as Yi,
+    N as en,
+    e as Zo,
+    ae as er,
+    l as vo,
+    I as Xi,
+    bY as tr,
+    e8 as nr,
+    dl as sr,
+    ea as Ki,
+    eb as Qi,
+    ec as Mt,
+    dT as qi,
+    e9 as Ji,
+    di as hs,
+    dj as or,
+    af as rr,
+    d4 as ns,
+    fN as Zi,
+    b5 as ea,
+    ag as ta,
+    G as na,
+    dM as sa,
+    av as oa,
+    eP as ra,
+    C as ia,
+    eQ as aa,
+    eR as la,
+    p as To,
+    ai as Ao,
+    co as Ro,
+    ds as ca,
+    c6 as ua,
+    de as da,
+    bv as fa,
+    cu as Yn,
+    eS as pa,
+    e3 as ha,
+    dd as ma,
+    bA as ga
+} from "./vendor-CPQsO5nz.js";
+import {
+    M as xa,
+    r as ir,
+    a as ar,
+    c as Y,
+    S as Cn,
+    u as lr,
+    f as ba,
+    b as qt,
+    d as wa,
+    i as Ca,
+    C as _t,
+    e as Ea,
+    g as Gt,
+    h as cr,
+    j as ur,
+    k as ya,
+    A as Io,
+    l as ss,
+    m as os,
+    n as Sa,
+    o as va,
+    R as je,
+    p as kt,
+    q as Ta,
+    s as Aa,
+    t as Ra,
+    v as Ia,
+    w as Ma,
+    I as _a,
+    x as Mo,
+    y as ka,
+    z as Na,
+    B as La,
+    D as ja,
+    E as Xn,
+    F as _o,
+    G as Oa,
+    H as Pa,
+    J as Da,
+    K as Ua,
+    O as Ba,
+    Q as Ha,
+    T as Ga,
+    V as ko,
+    U as Va,
+    W as za,
+    X as Fa,
+    Y as Wa,
+    Z as $a,
+    _ as Ya,
+    $ as Xa,
+    a0 as Ka,
+    a1 as Qa,
+    a2 as qa,
+    a3 as Ja,
+    P as Za,
+    a4 as No,
+    a5 as el,
+    a6 as tl,
+    a7 as nl,
+    a8 as sl,
+    a9 as ol,
+    aa as rl,
+    ab as il,
+    ac as Lo,
+    ad as Kn,
+    ae as al,
+    af as ll,
+    ag as cl,
+    ah as ul,
+    ai as dl,
+    aj as fl,
+    ak as pl,
+    al as hl,
+    am as ml,
+    an as Le,
+    ao as gl,
+    ap as xl
+} from "./common-GQ-Rvgly.js";
+import "./lodash-B4kOJTym.js";
+const bl = {
+        em: "text-sky-10 dark:text-sky-6",
+        para: "leading-[1.35] tracking-[0.01em] text-zinc-700 dark:text-zinc-100 block",
+        textPrimary: "leading-[1.35] tracking-[0.01em] text-zinc-900 dark:text-zinc-300",
+        commandBar: "text-zinc-700 dark:text-zinc-300 "
+    },
+    wl = ({
+        message: e,
+        userName: t,
+        characterName: r,
+        isAvatarImageBlurred: s,
+        showCheckbox: l
+    }) => {
+        if (!e) return null;
+        const u = e == null ? void 0 : e.image_url,
+            i = (e == null ? void 0 : e.role) === xe.USER;
+        return n.jsxs(n.Fragment, {
+            children: [n.jsx("div", {
+                className: "[&>span]:block [&>span]:mb-[10px] [&>span:last-child]:mb-0",
+                children: n.jsx(xa, {
+                    classNames: bl,
+                    isCommandBarVisible: i,
+                    children: ir(e == null ? void 0 : e.content, {
+                        characterName: r,
+                        userName: t
+                    })
+                })
+            }), u ? n.jsx("div", {
+                className: "max-w-[500px] mx-auto",
+                children: n.jsx(ar, {
+                    imageUrl: u,
+                    alt: r,
+                    isAvatarImageBlurred: s,
+                    isUserMessage: i,
+                    showCheckbox: l
+                })
+            }) : null]
+        })
+    },
+    Cl = ({
+        position: e,
+        listItems: t,
+        onClose: r
+    }) => {
+        const s = o.useRef(null),
+            [l, u] = o.useState(!0);
+        o.useEffect(() => {
+            const a = d => {
+                    s.current && !s.current.contains(d.target) && r()
+                },
+                c = d => {
+                    d.key === "Escape" && r()
+                };
+            return document.addEventListener("mousedown", a), document.addEventListener("keydown", c), () => {
+                document.removeEventListener("mousedown", a), document.removeEventListener("keydown", c)
+            }
+        }, [r]);
+        const i = t.map(a => ({
+            ...a,
+            onPress: () => {
+                a.onPress(), r()
+            }
+        }));
+        return n.jsx("div", {
+            ref: s,
+            className: "fixed z-50",
+            style: {
+                left: e.x,
+                top: e.y
+            },
+            children: n.jsx(mn, {
+                listItems: i,
+                placement: "bottom-start",
+                isOpen: l,
+                onOpenChange: u,
+                children: n.jsx("div", {})
+            })
+        })
+    };
+
+function El(e, t) {
+    const r = o.useRef(null),
+        s = o.useRef(null),
+        l = o.useCallback(() => {
+            e.current && t && s.current === null && (s.current = window.requestAnimationFrame(() => {
+                s.current = null;
+                const a = e.current;
+                if (!a) return;
+                const c = Math.ceil(a.contentHeight);
+                r.current !== c && (r.current = c, t(c))
+            }))
+        }, [e, t]),
+        u = o.useCallback(() => {
+            s.current !== null && (window.cancelAnimationFrame(s.current), s.current = null)
+        }, []);
+    return {
+        scheduleHeightReport: l,
+        cleanup: u
+    }
+}
+
+function yl(e, t) {
+    const r = o.useCallback((i, a = !1) => {
+            const c = e.current;
+            if (!c || !i || i.length !== 1) return;
+            const {
+                state: d
+            } = c, h = d.selection.ranges;
+            if (h.some(N => N.from !== N.to)) {
+                const N = [...h].map(R => ({
+                    from: R.from,
+                    to: R.to,
+                    insert: `${i}${d.sliceDoc(R.from,R.to)}${i}`
+                })).sort((R, M) => M.from - R.from);
+                c.dispatch({
+                    changes: N,
+                    selection: Et.create(h.map((R, M) => {
+                        let T = 0;
+                        for (let I = 0; I < M; I++) h[I].to <= R.from && (T += i.length * 2);
+                        if (a) {
+                            const I = R.to + T + i.length + i.length;
+                            return Et.range(I, I)
+                        }
+                        return Et.range(R.from + T + i.length, R.to + T + i.length)
+                    }), d.selection.mainIndex)
+                });
+                return
+            }
+            const g = d.selection.main,
+                p = g.from > 0 ? d.sliceDoc(g.from - 1, g.from) : "",
+                x = g.from < d.doc.length ? d.sliceDoc(g.from, g.from + 1) : "";
+            if (i === "*" && x === "*" && p !== "*") {
+                c.dispatch({
+                    selection: {
+                        anchor: g.from + 1
+                    }
+                });
+                return
+            }
+            if (i !== "*" && x === i) {
+                c.dispatch({
+                    selection: {
+                        anchor: g.from + 1
+                    }
+                });
+                return
+            }
+            p === "" || (N => N === "" || /\s/.test(N))(p) || p === "(" || p === "[" || p === "{" || p === ">" ? c.dispatch({
+                changes: {
+                    from: g.from,
+                    to: g.to,
+                    insert: `${i}${i}`
+                },
+                selection: {
+                    anchor: g.from + i.length
+                }
+            }) : c.dispatch({
+                changes: {
+                    from: g.from,
+                    to: g.to,
+                    insert: i
+                },
+                selection: {
+                    anchor: g.from + i.length
+                }
+            })
+        }, [e]),
+        s = o.useCallback(i => {
+            const a = e.current;
+            if (!a) return;
+            const {
+                state: c
+            } = a, d = c.selection.main, h = i === "left" ? Math.max(0, d.from - 1) : Math.min(c.doc.length, d.to + 1);
+            a.dispatch({
+                selection: {
+                    anchor: h
+                }
+            }), a.focus()
+        }, [e]),
+        l = o.useCallback(i => {
+            const a = e.current;
+            if (!a) return;
+            const c = a.state.doc.length;
+            a.dispatch({
+                changes: {
+                    from: c,
+                    to: c,
+                    insert: i
+                },
+                selection: {
+                    anchor: c + i.length
+                }
+            }), a.focus()
+        }, [e]),
+        u = o.useCallback(() => {
+            var i;
+            (i = e.current) == null || i.focus()
+        }, [e]);
+    return o.useEffect(() => {
+        if (t) return t.current = {
+            focus: u,
+            insertSymmetricDelimiter: r,
+            moveCursor: s,
+            insertTextAtEnd: l
+        }, () => {
+            t.current && (t.current = null)
+        }
+    }, [t, u, r, s, l]), {
+        insertSymmetricDelimiter: r,
+        moveCursor: s,
+        insertTextAtEnd: l,
+        focus: u
+    }
+}
+const Qn = (e, t, r) => {
+        const {
+            state: s
+        } = e, l = s.selection.ranges, u = l.map(i => {
+            const a = i.from,
+                c = i.to,
+                d = s.sliceDoc(a, c);
+            return {
+                from: a,
+                to: c,
+                insert: `${t}${d}${r}`
+            }
+        }).sort((i, a) => a.from - i.from);
+        e.dispatch({
+            changes: u,
+            selection: Et.create(l.map((i, a) => {
+                const c = i.from,
+                    d = i.to,
+                    h = c !== d;
+                let w = 0;
+                for (let x = 0; x < a; x++) l[x].to <= c && (w += t.length + r.length);
+                const g = c + w + t.length,
+                    p = h ? g + (d - c) : g;
+                return Et.range(g, p)
+            }))
+        }), e.focus()
+    },
+    jo = (e, t, r) => {
+        const {
+            state: s
+        } = e, {
+            from: l,
+            to: u
+        } = s.selection.main;
+        e.dispatch({
+            changes: {
+                from: l,
+                to: u,
+                insert: t
+            },
+            selection: r === void 0 ? {
+                anchor: l + t.length
+            } : {
+                anchor: l + t.length - r
+            }
+        }), e.focus()
+    },
+    Sl = [{
+        label: "Bold",
+        type: "keyword",
+        detail: "**bold**",
+        apply: e => Qn(e, "**", "**")
+    }, {
+        label: "Italic",
+        type: "keyword",
+        detail: "*italic*",
+        apply: e => Qn(e, "*", "*")
+    }, {
+        label: "Inline code",
+        type: "keyword",
+        detail: "`code`",
+        apply: e => Qn(e, "`", "`")
+    }, {
+        label: "Link",
+        type: "keyword",
+        detail: "[text](url)",
+        apply: e => {
+            const t = e.state.selection.main,
+                s = `[${e.state.sliceDoc(t.from,t.to)||"text"}](url)`;
+            jo(e, s, 1);
+            const l = t.from + s.indexOf("url"),
+                u = l + 3;
+            e.dispatch({
+                selection: {
+                    anchor: l,
+                    head: u
+                }
+            })
+        }
+    }, {
+        label: "Blockquote",
+        type: "keyword",
+        detail: "> quote",
+        apply: e => jo(e, "> ", 0)
+    }],
+    vl = (e, t) => e.explicit ? !0 : /(?:\*\*|\*|`|\[|>\s)$/.test(t),
+    Tl = e => {
+        const {
+            state: t,
+            pos: r
+        } = e, s = t.doc.lineAt(r), l = s.text.slice(0, r - s.from);
+        return vl(e, l) ? {
+            from: r,
+            to: r,
+            options: Sl
+        } : null
+    },
+    Al = [{
+        label: "{{char}}",
+        type: "variable",
+        detail: "Chatbot Name",
+        apply: "{{char}}"
+    }, {
+        label: "{{user}}",
+        type: "variable",
+        detail: "Persona Name",
+        apply: "{{user}}"
+    }],
+    Rl = e => {
+        const {
+            state: t,
+            pos: r
+        } = e, s = t.doc.lineAt(r), l = s.text.slice(0, r - s.from), u = s.text.slice(r - s.from), i = l.match(/\{\{?[a-zA-Z]*$/);
+        if (!i) return null;
+        const a = i[0];
+        if (!e.explicit && a === "{") return null;
+        const c = r - a.length;
+        let d = r;
+        return u.startsWith("}}") && (d = r + 2), {
+            from: c,
+            to: d,
+            options: Al,
+            validFor: /\{\{?[a-zA-Z]*$/
+        }
+    },
+    dr = () => _i({
+        override: [Rl, Tl],
+        activateOnTyping: !0,
+        defaultKeymap: !0,
+        tooltipClass: () => "cm-autocomplete-tooltip-mobile",
+        aboveCursor: !1
+    });
+
+function Il() {
+    return Ae.updateListener.of(e => {
+        var d;
+        if (!e.view.hasFocus || typeof window > "u" || window.innerWidth > 768) return;
+        const t = e.view.dom.querySelector(".cm-tooltip-autocomplete");
+        if (!t) return;
+        const r = e.view.coordsAtPos(e.state.selection.main.head);
+        if (!r) return;
+        const s = ((d = window.visualViewport) == null ? void 0 : d.height) ?? window.innerHeight,
+            u = t.getBoundingClientRect().height,
+            i = r.top,
+            a = s - r.bottom,
+            c = Math.min(u + 16, 120);
+        if (a < c && i > a) {
+            const h = Math.max(8, r.top - u - 8);
+            t.style.top = `${h}px`, t.style.bottom = "auto"
+        } else if (a >= c) {
+            const h = r.bottom + 4;
+            h + u > s ? t.style.top = `${Math.max(8,s-u-8)}px` : t.style.top = `${h}px`, t.style.bottom = "auto"
+        }
+    })
+}
+const Ml = e => e === "" || /\s/.test(e),
+    _l = e => e === "" || Ml(e) ? !0 : e === "(" || e === "[" || e === "{" || e === ">",
+    Oo = (e, t, r, s = !1) => {
+        const {
+            state: l
+        } = e, u = l.selection.ranges;
+        if (u.some(c => c.from !== c.to)) {
+            const c = [...u].map(d => ({
+                from: d.from,
+                to: d.to,
+                insert: `${t}${l.sliceDoc(d.from,d.to)}${r}`
+            })).sort((d, h) => h.from - d.from);
+            return e.dispatch({
+                changes: c,
+                selection: Et.create(u.map((d, h) => {
+                    let w = 0;
+                    for (let g = 0; g < h; g++) u[g].to <= d.from && (w += t.length + r.length);
+                    if (s) {
+                        const g = d.to + w + t.length + r.length;
+                        return Et.range(g, g)
+                    }
+                    return Et.range(d.from + w + t.length, d.to + w + t.length)
+                }))
+            }), !0
+        }
+        const a = l.selection.main;
+        return t === r && a.from === a.to && (a.from < l.doc.length ? l.sliceDoc(a.from, a.from + 1) : "") === r ? (e.dispatch({
+            selection: {
+                anchor: a.from + 1
+            }
+        }), !0) : (e.dispatch({
+            changes: {
+                from: a.from,
+                to: a.to,
+                insert: `${t}${r}`
+            },
+            selection: {
+                anchor: a.from + t.length
+            }
+        }), !0)
+    },
+    hn = (e, t, r) => {
+        const {
+            state: s
+        } = e, l = s.selection.main;
+        if (s.selection.ranges.some(a => a.from !== a.to)) return Oo(e, t, t, r);
+        const u = l.from > 0 ? s.sliceDoc(l.from - 1, l.from) : "",
+            i = l.from < s.doc.length ? s.sliceDoc(l.from, l.from + 1) : "";
+        return t === "*" && i === "*" && u !== "*" ? (e.dispatch({
+            selection: {
+                anchor: l.from + 1
+            }
+        }), !0) : t !== "*" && i === t ? (e.dispatch({
+            selection: {
+                anchor: l.from + 1
+            }
+        }), !0) : _l(u) ? Oo(e, t, t, r) : (e.dispatch({
+            changes: {
+                from: l.from,
+                to: l.to,
+                insert: t
+            },
+            selection: {
+                anchor: l.from + 1
+            }
+        }), !0)
+    },
+    kl = e => {
+        const {
+            state: t
+        } = e, r = t.selection.main, s = t.sliceDoc(r.from, r.to);
+        if (s) return e.dispatch({
+            changes: {
+                from: r.from,
+                to: r.to,
+                insert: `{{${s}}}`
+            },
+            selection: {
+                anchor: r.from + 2,
+                head: r.from + 2 + s.length
+            }
+        }), !0;
+        const l = r.from > 0 ? t.sliceDoc(r.from - 1, r.from) : "",
+            u = r.from < t.doc.length ? t.sliceDoc(r.from, r.from + 1) : "";
+        return l === "{" && u !== "}" ? (e.dispatch({
+            changes: {
+                from: r.from,
+                to: r.from,
+                insert: "{}"
+            },
+            selection: {
+                anchor: r.from + 1
+            }
+        }), !0) : !1
+    },
+    fr = () => [ki(), Yo.of([{
+        key: "'",
+        run: e => hn(e, "'", !1)
+    }, {
+        key: '"',
+        run: e => hn(e, '"', !1)
+    }, {
+        key: "`",
+        run: e => hn(e, "`", !0)
+    }, {
+        key: "*",
+        run: e => hn(e, "*", !0)
+    }, {
+        key: "{",
+        run: e => kl(e)
+    }, ...Ni])],
+    Nl = Ae.theme({
+        "&": {
+            fontSize: "16px",
+            lineHeight: "1.8",
+            width: "100%"
+        },
+        ".cm-content::selection": {
+            backgroundColor: "rgba(14, 165, 233, 0.25)"
+        },
+        ".cm-content *::selection": {
+            backgroundColor: "rgba(14, 165, 233, 0.25)"
+        },
+        ".cm-selectionLayer .cm-selectionBackground": {
+            backgroundColor: "rgba(14, 165, 233, 0.25)"
+        },
+        ".cm-editor": {
+            width: "100%",
+            height: "100%",
+            display: "block"
+        },
+        ".cm-content": {
+            padding: "2px 4px",
+            caretColor: "rgb(14 165 233)",
+            width: "100%",
+            touchAction: "pan-y"
+        },
+        ".cm-line": {
+            padding: "0"
+        },
+        ".cm-scroller": {
+            fontFamily: "inherit",
+            width: "100%",
+            overflowY: "auto",
+            overflowX: "hidden",
+            WebkitOverflowScrolling: "touch",
+            overscrollBehavior: "contain",
+            touchAction: "pan-y"
+        },
+        ".cm-md-italic-inner": {
+            fontStyle: "italic"
+        },
+        ".cm-md-bold-inner": {
+            fontWeight: "700"
+        },
+        ".cm-md-link-inner": {
+            textUnderlineOffset: "2px"
+        },
+        ".cm-md-code-chip": {
+            display: "inline-block",
+            borderRadius: "6px",
+            padding: "0 4px"
+        },
+        ".cm-template-token": {
+            borderRadius: "4px",
+            padding: "0 2px"
+        },
+        ".cm-template-error": {
+            textDecoration: "underline",
+            textDecorationColor: "rgba(239, 68, 68, 0.95)",
+            textUnderlineOffset: "3px",
+            color: "rgb(248 113 113)",
+            backgroundColor: "rgba(239, 68, 68, 0.12)",
+            borderRadius: "4px"
+        },
+        ".cm-md-orphan": {
+            textDecoration: "underline",
+            textDecorationColor: "rgba(239, 68, 68, 0.9)",
+            textUnderlineOffset: "3px",
+            color: "rgb(248 113 113)",
+            backgroundColor: "rgba(239, 68, 68, 0.12)",
+            borderRadius: "4px"
+        },
+        ".cm-tooltip": {
+            zIndex: "60"
+        },
+        ".cm-tooltip.cm-tooltip-lint": {
+            zIndex: "60"
+        },
+        ".cm-tooltip.cm-tooltip-autocomplete": {
+            borderRadius: "8px",
+            padding: "4px",
+            minWidth: "140px",
+            maxWidth: "260px",
+            maxHeight: "min(200px, 40vh)",
+            overflowY: "auto"
+        },
+        "@media (max-width: 768px)": {
+            ".cm-tooltip.cm-tooltip-autocomplete": {
+                position: "fixed !important",
+                maxHeight: "min(160px, 35vh)"
+            }
+        },
+        ".cm-tooltip-autocomplete ul": {
+            listStyle: "none",
+            margin: "0",
+            padding: "0",
+            maxHeight: "200px",
+            overflowY: "auto"
+        },
+        ".cm-tooltip-autocomplete ul li": {
+            display: "flex",
+            alignItems: "center",
+            padding: "4px 6px",
+            cursor: "pointer",
+            borderRadius: "4px",
+            margin: "1px 0",
+            gap: "4px"
+        },
+        ".cm-tooltip-autocomplete ul li[aria-selected]": {
+            backgroundColor: "rgb(59 130 246)",
+            color: "white"
+        },
+        ".cm-completionIcon": {
+            fontSize: "16px",
+            width: "20px",
+            textAlign: "center",
+            flexShrink: "0"
+        },
+        ".cm-completionLabel": {
+            fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+            fontSize: "14px",
+            fontWeight: "500",
+            flexGrow: "1"
+        },
+        ".cm-tooltip-autocomplete ul li[aria-selected] .cm-completionLabel": {
+            color: "white"
+        },
+        ".cm-completionDetail": {
+            fontSize: "12px",
+            fontStyle: "italic",
+            marginLeft: "auto",
+            paddingLeft: "8px"
+        },
+        ".cm-tooltip-autocomplete ul li[aria-selected] .cm-completionDetail": {
+            color: "rgba(255, 255, 255, 0.8)"
+        }
+    }),
+    Ll = Ae.theme({
+        ".cm-content::selection": {
+            backgroundColor: "rgba(56, 189, 248, 0.22)"
+        },
+        ".cm-content *::selection": {
+            backgroundColor: "rgba(56, 189, 248, 0.22)"
+        },
+        ".cm-selectionLayer .cm-selectionBackground": {
+            backgroundColor: "rgba(56, 189, 248, 0.22)"
+        },
+        ".cm-content": {
+            caretColor: "rgb(56 189 248)"
+        },
+        ".cm-tooltip.cm-tooltip-autocomplete": {
+            backgroundColor: "rgb(39 39 42)",
+            border: "1px solid rgb(63 63 70)",
+            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)"
+        },
+        ".cm-completionLabel": {
+            color: "rgb(228 228 231)"
+        },
+        ".cm-completionDetail": {
+            color: "rgb(161 161 170)"
+        }
+    }, {
+        dark: !0
+    }),
+    jl = Ae.theme({
+        ".cm-tooltip.cm-tooltip-autocomplete": {
+            backgroundColor: "rgb(255 255 255)",
+            border: "1px solid rgb(228 228 231)",
+            boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)"
+        },
+        ".cm-completionLabel": {
+            color: "rgb(39 39 42)"
+        },
+        ".cm-completionDetail": {
+            color: "rgb(113 113 122)"
+        }
+    }, {
+        dark: !1
+    }),
+    pr = (e = !0) => [Nl, e ? Ll : jl];
+
+function Ol() {
+    let e = "",
+        t = !1;
+    return [Ae.contentAttributes.of({
+        autocorrect: "on",
+        autocapitalize: "sentences",
+        spellcheck: "true"
+    }), Ae.domEventHandlers({
+        beforeinput: r => (r.inputType === "insertText" && r.data === " " ? t = !0 : t = !1, !1),
+        compositionstart: (r, s) => (e = "", s.contentDOM.classList.add("cm-composing"), !1),
+        compositionupdate: r => (e = r.data || "", !1),
+        compositionend: (r, s) => {
+            const l = r.data || e;
+            if (s.contentDOM.classList.remove("cm-composing"), t && l && !l.endsWith(" ")) {
+                const u = s.state.selection.main;
+                s.dispatch({
+                    changes: {
+                        from: u.head,
+                        insert: " "
+                    },
+                    selection: {
+                        anchor: u.head + 1
+                    }
+                })
+            }
+            return t = !1, e = "", !1
+        }
+    })]
+}
+const Po = "cm-md-italic-inner italic text-sky-10 dark:text-sky-5",
+    Do = "cm-md-bold-inner font-bold",
+    qn = "cm-md-quote-inner text-colorQuote text-zinc-900 dark:text-zinc-400",
+    Jt = "cm-md-link-inner underline text-sky-10 dark:text-sky-5",
+    Pl = "cm-md-code-chip bg-colorHighlight",
+    Dl = "cm-md-code-inner text-black",
+    Uo = "cm-md-code-delim text-zinc-500 dark:text-zinc-400",
+    Bo = "cm-template-token inline-block align-baseline rounded-md bg-secondary/10 px-1 py-0.5 leading-none text-secondary dark:bg-secondary/20 dark:text-secondary",
+    Ce = (e, t) => {
+        let r = 0;
+        for (let s = t - 1; s >= 0 && e[s] === "\\"; s -= 1) r += 1;
+        return r % 2 === 1
+    },
+    Ho = e => e === '"' || e === "“" || e === "”",
+    Go = e => {
+        const t = e.state.doc.toString(),
+            r = [],
+            s = new Array(t.length).fill(!1);
+        for (let i = 0; i < t.length; i += 1) {
+            if (t[i] !== "`" || Ce(t, i)) continue;
+            const a = i;
+            let c = i + 1;
+            for (; c < t.length && !(t[c] === "`" && !Ce(t, c)); c += 1);
+            if (c >= t.length) break;
+            for (let d = a; d <= c; d += 1) s[d] = !0;
+            r.push({
+                from: a,
+                to: c + 1,
+                className: Pl
+            }), c - a > 1 && r.push({
+                from: a + 1,
+                to: c,
+                className: Dl
+            }), r.push({
+                from: a,
+                to: a + 1,
+                className: Uo
+            }), r.push({
+                from: c,
+                to: c + 1,
+                className: Uo
+            }), i = c
+        }
+        const l = i => i >= 0 && i < s.length ? s[i] : !1;
+        for (let i = 0; i < t.length; i += 1)
+            if (!l(i) && t[i] === "{") {
+                if (t.startsWith("{{user}}", i)) {
+                    r.push({
+                        from: i,
+                        to: i + 8,
+                        className: Bo
+                    }), i += 7;
+                    continue
+                }
+                t.startsWith("{{char}}", i) && (r.push({
+                    from: i,
+                    to: i + 8,
+                    className: Bo
+                }), i += 7)
+            } for (let i = 0; i < t.length; i += 1) {
+            if (l(i)) continue;
+            const a = t[i];
+            if (a !== "*" && a !== "_" || Ce(t, i)) continue;
+            const c = t[i + 1] === a && t[i + 2] === a && !Ce(t, i + 1) && !Ce(t, i + 2),
+                d = !c && t[i + 1] === a && !Ce(t, i + 1),
+                h = c ? a + a + a : d ? a + a : a,
+                w = c ? `${Do} ${Po}` : d ? Do : Po,
+                g = i,
+                p = i + h.length;
+            let x = -1;
+            for (let C = p; C < t.length; C += 1)
+                if (!l(C) && !(t[C] !== a || Ce(t, C)))
+                    if (c) {
+                        if (t[C + 1] === a && t[C + 2] === a && !Ce(t, C + 1) && !Ce(t, C + 2)) {
+                            x = C;
+                            break
+                        }
+                    } else if (d) {
+                if (t[C + 1] === a && !Ce(t, C + 1)) {
+                    x = C;
+                    break
+                }
+            } else {
+                if (t[C + 1] === a) continue;
+                x = C;
+                break
+            }
+            if (x !== -1) {
+                const C = g + h.length,
+                    k = x;
+                k > C && r.push({
+                    from: C,
+                    to: k,
+                    className: w
+                }), r.push({
+                    from: g,
+                    to: g + h.length,
+                    className: w
+                }), r.push({
+                    from: x,
+                    to: x + h.length,
+                    className: w
+                }), i = x + (c ? 2 : d ? 1 : 0)
+            }
+        }
+        for (let i = 0; i < t.length; i += 1) {
+            if (l(i) || !Ho(t[i]) || Ce(t, i)) continue;
+            const a = i;
+            let c = -1;
+            for (let d = i + 1; d < t.length; d += 1)
+                if (!l(d) && Ho(t[d]) && !Ce(t, d)) {
+                    c = d;
+                    break
+                } c !== -1 && c - a > 1 && (r.push({
+                from: a + 1,
+                to: c,
+                className: qn
+            }), r.push({
+                from: a,
+                to: a + 1,
+                className: qn
+            }), r.push({
+                from: c,
+                to: c + 1,
+                className: qn
+            }), i = c)
+        }
+        for (let i = 0; i < t.length; i += 1) {
+            if (l(i) || t[i] !== "[" || Ce(t, i)) continue;
+            let a = -1;
+            for (let h = i + 1; h < t.length; h += 1)
+                if (!l(h) && t[h] === "]" && !Ce(t, h)) {
+                    a = h;
+                    break
+                } if (a === -1 || !(t[a + 1] === "(")) continue;
+            let d = -1;
+            for (let h = a + 2; h < t.length; h += 1)
+                if (!l(h) && t[h] === ")" && !Ce(t, h)) {
+                    d = h;
+                    break
+                } d !== -1 && (a - i > 1 && r.push({
+                from: i + 1,
+                to: a,
+                className: Jt
+            }), r.push({
+                from: i,
+                to: i + 1,
+                className: Jt
+            }), r.push({
+                from: a,
+                to: a + 1,
+                className: Jt
+            }), r.push({
+                from: a + 1,
+                to: a + 2,
+                className: Jt
+            }), r.push({
+                from: d,
+                to: d + 1,
+                className: Jt
+            }), i = d)
+        }
+        r.sort((i, a) => i.from !== a.from ? i.from - a.from : i.to - a.to);
+        const u = new ji;
+        for (const i of r) i.to <= i.from || u.add(i.from, i.to, Oi.mark({
+            class: i.className
+        }));
+        return u.finish()
+    },
+    hr = () => Li.fromClass(class {
+        decorations;
+        constructor(e) {
+            this.decorations = Go(e)
+        }
+        update(e) {
+            (e.docChanged || e.viewportChanged) && (this.decorations = Go(e.view))
+        }
+    }, {
+        decorations: e => e.decorations
+    }),
+    wt = (e, t) => {
+        let r = 0;
+        for (let s = t - 1; s >= 0 && e[s] === "\\"; s -= 1) r += 1;
+        return r % 2 === 1
+    },
+    Ul = ["user", "char"],
+    Jn = e => Ul.includes(e),
+    Bl = e => {
+        const t = [];
+        let r = !1;
+        for (let s = 0; s < e.length; s += 1) {
+            const l = e[s];
+            if (l === "`" && !wt(e, s)) {
+                r = !r;
+                continue
+            }
+            if (r || l !== "{") continue;
+            if (!(e[s + 1] === "{")) {
+                if (s > 0 && e[s - 1] === "{") continue;
+                const h = e.indexOf("}", s + 1);
+                if (h === -1) continue;
+                const w = e.slice(s + 1, h).trim();
+                if (Jn(w)) {
+                    if (e[h + 1] === "}") {
+                        t.push({
+                            from: s,
+                            to: h + 2,
+                            markClass: "cm-template-error",
+                            severity: "error",
+                            message: `Malformed template token: expected {{${w}}}`
+                        }), s = h + 1;
+                        continue
+                    }
+                    t.push({
+                        from: s,
+                        to: h + 1,
+                        markClass: "cm-template-error",
+                        severity: "error",
+                        message: `Template token must use double braces: {{${w}}}`
+                    })
+                }
+                continue
+            }
+            const a = e.indexOf("}}", s + 2),
+                c = e.indexOf("}", s + 2);
+            if (c !== -1 && (a === -1 || c < a)) {
+                const h = e.slice(s + 2, c).trim();
+                Jn(h) && t.push({
+                    from: s,
+                    to: c + 1,
+                    markClass: "cm-template-error",
+                    severity: "error",
+                    message: `Unclosed template token: expected {{${h}}}`
+                }), s = c;
+                continue
+            }
+            if (a === -1) {
+                t.push({
+                    from: s,
+                    to: s + 2,
+                    markClass: "cm-template-error",
+                    severity: "error",
+                    message: "Unclosed template token"
+                });
+                continue
+            }
+            const d = e.slice(s + 2, a).trim();
+            d.length === 0 ? t.push({
+                from: s,
+                to: a + 2,
+                markClass: "cm-template-error",
+                severity: "error",
+                message: "Empty template key"
+            }) : Jn(d) || t.push({
+                from: s,
+                to: a + 2,
+                markClass: "cm-template-error",
+                severity: "error",
+                message: `Unknown template key: ${d}`
+            }), s = a + 1
+        }
+        return t
+    },
+    Hl = e => mr(e).filter(t => t.severity === "error" && t.markClass === "cm-md-orphan").length,
+    mr = e => {
+        const t = [],
+            r = [];
+        let s = !1;
+        for (let l = 0; l < e.length; l += 1) {
+            const u = e[l];
+            if (u === "`" && !wt(e, l)) {
+                s = !s;
+                continue
+            }
+            if (!s) {
+                if ((u === "*" || u === "_") && !wt(e, l)) {
+                    const i = l,
+                        a = e[l + 1] === u && e[l + 2] === u,
+                        c = !a && e[l + 1] === u,
+                        d = u === "*" ? a ? "***" : c ? "**" : "*" : a ? "___" : c ? "__" : "_";
+                    a ? l += 2 : c && (l += 1);
+                    const h = r[r.length - 1];
+                    h && h.kind === d ? r.pop() : r.push({
+                        kind: d,
+                        pos: i
+                    });
+                    continue
+                }
+                if (u === '"' && !wt(e, l)) {
+                    const i = r[r.length - 1];
+                    i && i.kind === '"' ? r.pop() : r.push({
+                        kind: '"',
+                        pos: l
+                    });
+                    continue
+                }
+                if (u === "[" && !wt(e, l)) {
+                    r.push({
+                        kind: "[",
+                        pos: l
+                    });
+                    continue
+                }
+                if (u === "]" && !wt(e, l)) {
+                    const i = [...r].reverse().findIndex(a => a.kind === "[");
+                    if (i === -1) t.push({
+                        from: l,
+                        to: l + 1,
+                        markClass: "cm-md-orphan",
+                        severity: "error",
+                        message: "Unmatched ]"
+                    });
+                    else {
+                        const a = r.length - 1 - i;
+                        r.splice(a, 1)
+                    }
+                    continue
+                }
+                if (u === "(" && !wt(e, l)) {
+                    r.push({
+                        kind: "(",
+                        pos: l
+                    });
+                    continue
+                }
+                if (u === ")" && !wt(e, l)) {
+                    const i = [...r].reverse().findIndex(a => a.kind === "(");
+                    if (i === -1) t.push({
+                        from: l,
+                        to: l + 1,
+                        markClass: "cm-md-orphan",
+                        severity: "error",
+                        message: "Unmatched )"
+                    });
+                    else {
+                        const a = r.length - 1 - i;
+                        r.splice(a, 1)
+                    }
+                    continue
+                }
+            }
+        }
+        for (const l of r) {
+            const u = typeof l.kind == "string" ? l.kind : "delimiter",
+                i = typeof l.kind == "string" ? l.kind.length : 1;
+            t.push({
+                from: l.pos,
+                to: l.pos + i,
+                markClass: "cm-md-orphan",
+                severity: "error",
+                message: `Unclosed ${u}`
+            })
+        }
+        return t.push(...Bl(e)), t
+    },
+    gr = (e = 500) => Pi(t => mr(t.state.doc.toString()), {
+        delay: e
+    });
+
+function Gl(e, {
+    disabled: t,
+    placeholderText: r,
+    isDarkTheme: s,
+    enableAutoPair: l,
+    enableAutocomplete: u,
+    enableInlineDecorations: i,
+    enableLint: a,
+    lintDelayMs: c,
+    submitOnEnter: d,
+    onChangeRef: h,
+    onSaveRef: w,
+    onCancelRef: g,
+    onKeyDownRef: p,
+    focusListener: x,
+    scheduleHeightReport: C
+}) {
+    return o.useMemo(() => {
+        const N = Ae.updateListener.of(_ => {
+                _.docChanged && (h.current(_.state.doc.toString()), _.view.contentDOM.classList.contains("cm-composing") || C())
+            }),
+            R = Ae.updateListener.of(_ => {
+                _.viewportChanged && !_.view.contentDOM.classList.contains("cm-composing") && C()
+            }),
+            M = Ae.domEventHandlers({
+                keydown: _ => {
+                    var y;
+                    return (y = p.current) == null || y.call(p, _), !1
+                }
+            }),
+            T = d ? {
+                key: "Enter",
+                run: () => {
+                    var _;
+                    return (_ = w.current) == null || _.call(w), !0
+                },
+                shift: () => !1
+            } : null,
+            I = Yo.of([...T ? [T] : [], {
+                key: "Mod-Enter",
+                run: () => {
+                    var _;
+                    return (_ = w.current) == null || _.call(w), !0
+                }
+            }, {
+                key: "Escape",
+                run: () => {
+                    var _;
+                    return (_ = g.current) == null || _.call(g), !0
+                }
+            }, ...Di, ...Ui]),
+            H = r ? Xo(r) : [],
+            L = [];
+        return l && L.push(fr()), u && L.push(dr()), i && L.push(hr()), a && L.push(gr(c)), [e.theme.current.of(pr(s)), Ae.lineWrapping, e.placeholder.current.of(H), e.editable.current.of(Ae.editable.of(!t)), e.optional.current.of(L), Bi(), I, Hi(), x, N, R, M, Ol(), Il()]
+    }, [e, t, l, u, i, a, c, d, r, s, h, w, g, p, x, C])
+}
+
+function Vl(e, t, r) {
+    const {
+        value: s,
+        disabled: l,
+        placeholderText: u,
+        isDarkTheme: i,
+        enableAutoPair: a,
+        enableAutocomplete: c,
+        enableInlineDecorations: d,
+        enableLint: h,
+        lintDelayMs: w,
+        scheduleHeightReport: g
+    } = r;
+    o.useEffect(() => {
+        const p = e.current;
+        p && p.dispatch({
+            effects: t.theme.reconfigure(pr(i))
+        })
+    }, [e, t.theme, i]), o.useEffect(() => {
+        const p = e.current;
+        !p || p.state.doc.toString() === (s ?? "") || (p.dispatch({
+            changes: {
+                from: 0,
+                to: p.state.doc.length,
+                insert: s ?? ""
+            }
+        }), g())
+    }, [e, s, g]), o.useEffect(() => {
+        const p = e.current;
+        p && p.dispatch({
+            effects: t.editable.reconfigure(Ae.editable.of(!l))
+        })
+    }, [e, t.editable, l]), o.useEffect(() => {
+        const p = e.current;
+        if (!p) return;
+        const x = u ? Xo(u) : [];
+        p.dispatch({
+            effects: t.placeholder.reconfigure(x)
+        })
+    }, [e, t.placeholder, u]), o.useEffect(() => {
+        const p = e.current;
+        if (!p) return;
+        const x = [];
+        a && x.push(fr()), c && x.push(dr()), d && x.push(hr()), h && x.push(gr(w)), p.dispatch({
+            effects: t.optional.reconfigure(x)
+        })
+    }, [e, t.optional, a, c, d, h, w])
+}
+
+function zl(e) {
+    o.useEffect(() => {
+        if (!e) return;
+        const t = i => {
+                if (e.scrollHeight <= e.clientHeight + 1) return;
+                const a = e.scrollTop;
+                e.scrollTop += i.deltaY, e.scrollTop !== a && (i.preventDefault(), i.stopPropagation())
+            },
+            r = {
+                pointerId: -1,
+                startY: 0,
+                startScrollTop: 0
+            },
+            s = i => {
+                if (i.pointerType === "touch") {
+                    r.pointerId = i.pointerId, r.startY = i.clientY, r.startScrollTop = e.scrollTop;
+                    try {
+                        e.setPointerCapture(i.pointerId)
+                    } catch {}
+                }
+            },
+            l = i => {
+                if (i.pointerType !== "touch" || r.pointerId !== i.pointerId || e.scrollHeight <= e.clientHeight + 1) return;
+                const a = i.clientY - r.startY;
+                e.scrollTop = r.startScrollTop - a, i.preventDefault(), i.stopPropagation()
+            },
+            u = i => {
+                if (i.pointerType === "touch" && r.pointerId === i.pointerId) {
+                    r.pointerId = -1;
+                    try {
+                        e.releasePointerCapture(i.pointerId)
+                    } catch {}
+                }
+            };
+        return e.addEventListener("wheel", t, {
+            passive: !1
+        }), e.addEventListener("pointerdown", s), e.addEventListener("pointermove", l, {
+            passive: !1
+        }), e.addEventListener("pointerup", u), e.addEventListener("pointercancel", u), () => {
+            e.removeEventListener("wheel", t), e.removeEventListener("pointerdown", s), e.removeEventListener("pointermove", l), e.removeEventListener("pointerup", u), e.removeEventListener("pointercancel", u)
+        }
+    }, [e])
+}
+const Fl = 250,
+    Wl = 400,
+    $l = 20,
+    Yl = 750,
+    Xl = 400,
+    Vo = 120;
+
+function Kl(e) {
+    o.useEffect(() => {
+        if (typeof window > "u") return;
+        const t = window.visualViewport;
+        if (!t) return;
+        const r = () => {
+            e.current = Date.now()
+        };
+        return t.addEventListener("resize", r), t.addEventListener("scroll", r), window.addEventListener("scroll", r, {
+            passive: !0
+        }), () => {
+            t.removeEventListener("resize", r), t.removeEventListener("scroll", r), window.removeEventListener("scroll", r)
+        }
+    }, [e])
+}
+
+function Ql(e) {
+    o.useEffect(() => {
+        if (typeof window > "u") return;
+        const t = () => e(),
+            r = () => {
+                document.visibilityState !== "visible" && e()
+            };
+        return window.addEventListener("blur", t), document.addEventListener("visibilitychange", r), () => {
+            window.removeEventListener("blur", t), document.removeEventListener("visibilitychange", r)
+        }
+    }, [e])
+}
+
+function ql(e, t, r, s) {
+    const l = o.useRef(null),
+        u = o.useRef(0),
+        i = o.useRef(0),
+        a = o.useRef(0),
+        c = o.useRef(s);
+    o.useEffect(() => {
+        c.current = s
+    }, [s]), Kl(u);
+    const d = o.useCallback(() => {
+        var g;
+        typeof window > "u" || (l.current !== null && (window.clearTimeout(l.current), l.current = null), (g = c.current) == null || g.call(c, !1))
+    }, []);
+    Ql(d);
+    const h = Ae.domEventHandlers({
+            focus: () => {
+                var p;
+                typeof window < "u" && l.current !== null && (window.clearTimeout(l.current), l.current = null), i.current = Date.now();
+                const g = e.current;
+                g && g.state.doc.length === 0 && window.requestAnimationFrame(() => {
+                    g.state.doc.length === 0 && g.dispatch({
+                        selection: {
+                            anchor: 0
+                        }
+                    })
+                }), (p = c.current) == null || p.call(c, !0)
+            },
+            blur: () => {
+                var M;
+                if (typeof window > "u") {
+                    (M = c.current) == null || M.call(c, !1);
+                    return
+                }
+                l.current !== null && (window.clearTimeout(l.current), l.current = null);
+                const g = Date.now(),
+                    p = g - u.current < Fl,
+                    x = g - i.current < Wl,
+                    C = window.visualViewport,
+                    k = !!C && Math.abs(window.innerHeight - (C.height + C.offsetTop)) < $l,
+                    N = (p || x) && !k && document.visibilityState === "visible" && window.document.hasFocus(),
+                    R = N ? Math.max(Vo, Yl) : Vo;
+                l.current = window.setTimeout(() => {
+                    var _;
+                    if (!r.current) return;
+                    const T = e.current,
+                        I = t.current,
+                        H = document.activeElement,
+                        L = !!(T != null && T.hasFocus) || !!I && !!H && I.contains(H);
+                    if (!L && N && ((H == null ? void 0 : H.tagName) === "BODY" || H === null) && T) {
+                        const y = Date.now();
+                        if (y - a.current > Xl) {
+                            a.current = y, T.focus(), window.requestAnimationFrame(() => {
+                                var z;
+                                const S = document.activeElement;
+                                !!T.hasFocus || !!I && !!S && I.contains(S) || (z = c.current) == null || z.call(c, !1)
+                            }), l.current = null;
+                            return
+                        }
+                    }
+                    L || (_ = c.current) == null || _.call(c, !1), l.current = null
+                }, R)
+            },
+            keydown: g => {}
+        }),
+        w = o.useCallback(() => {
+            typeof window < "u" && l.current !== null && (window.clearTimeout(l.current), l.current = null)
+        }, []);
+    return {
+        focusListener: h,
+        forceBlur: d,
+        cleanup: w
+    }
+}
+const xr = ({
+    value: e,
+    onChange: t,
+    disabled: r = !1,
+    autoFocus: s = !1,
+    placeholderText: l,
+    className: u,
+    enableAutoPair: i = !0,
+    enableAutocomplete: a = !0,
+    enableLint: c = !0,
+    enableInlineDecorations: d = !0,
+    lintDelayMs: h = 500,
+    onSave: w,
+    onCancel: g,
+    onFocusChange: p,
+    onKeyDown: x,
+    onContentHeightChange: C,
+    apiRef: k,
+    isDarkTheme: N = !0,
+    submitOnEnter: R = !1
+}) => {
+    const M = o.useRef(null),
+        T = o.useRef(null),
+        I = o.useRef(!0),
+        [, H] = o.useState(!1),
+        [L, _] = o.useState(null),
+        y = o.useRef(new pn),
+        S = o.useRef(new pn),
+        F = o.useRef(new pn),
+        z = o.useRef(new pn),
+        B = o.useMemo(() => ({
+            theme: y,
+            editable: S,
+            placeholder: F,
+            optional: z
+        }), [y, S, F, z]),
+        K = o.useRef(t),
+        W = o.useRef(w),
+        q = o.useRef(g),
+        ce = o.useRef(x);
+    o.useEffect(() => {
+        K.current = t
+    }, [t]), o.useEffect(() => {
+        W.current = w
+    }, [w]), o.useEffect(() => {
+        q.current = g
+    }, [g]), o.useEffect(() => {
+        ce.current = x
+    }, [x]);
+    const {
+        scheduleHeightReport: m,
+        cleanup: ee
+    } = El(T, C), P = be => {
+        H(be), p == null || p(be)
+    }, {
+        focusListener: re,
+        cleanup: et
+    } = ql(T, M, I, P), J = Gl(B, {
+        disabled: r,
+        placeholderText: l,
+        isDarkTheme: N,
+        enableAutoPair: i,
+        enableAutocomplete: a,
+        enableInlineDecorations: d,
+        enableLint: c,
+        lintDelayMs: h,
+        submitOnEnter: R,
+        onChangeRef: K,
+        onSaveRef: W,
+        onCancelRef: q,
+        onKeyDownRef: ce,
+        focusListener: re,
+        scheduleHeightReport: m
+    });
+    return yl(T, k), zl(L), Vl(T, {
+        theme: B.theme.current,
+        editable: B.editable.current,
+        placeholder: B.placeholder.current,
+        optional: B.optional.current
+    }, {
+        value: e,
+        disabled: r,
+        placeholderText: l,
+        isDarkTheme: N,
+        enableAutoPair: i,
+        enableAutocomplete: a,
+        enableInlineDecorations: d,
+        enableLint: c,
+        lintDelayMs: h,
+        scheduleHeightReport: m
+    }), o.useEffect(() => {
+        if (!M.current || T.current) return;
+        const be = Gi.create({
+                doc: e ?? "",
+                extensions: J
+            }),
+            X = new Ae({
+                state: be,
+                parent: M.current
+            });
+        return X.scrollDOM.style.overflowY = "auto", X.scrollDOM.style.overflowX = "hidden", X.scrollDOM.style.height = "100%", X.scrollDOM.style.width = "100%", X.scrollDOM.style.WebkitOverflowScrolling = "touch", X.scrollDOM.style.overscrollBehavior = "contain", X.scrollDOM.style.touchAction = "pan-y", T.current = X, _(X.scrollDOM), m(), s && (X.focus(), X.dispatch({
+            selection: {
+                anchor: X.state.doc.length
+            }
+        })), () => {
+            var Oe;
+            I.current = !1, ee(), et(), (Oe = T.current) == null || Oe.destroy(), T.current = null, _(null)
+        }
+    }, []), n.jsx(n.Fragment, {
+        children: n.jsx("div", {
+            className: Y("w-full h-full min-h-0 overflow-hidden", "outline-none whitespace-pre-wrap block min-h-[1.8em]", u),
+            children: n.jsx("div", {
+                ref: M,
+                className: "w-full h-full"
+            })
+        })
+    })
+};
+
+function br(e = 140) {
+    const [t, r] = o.useState(!1);
+    return o.useEffect(() => {
+        if (typeof window > "u") return;
+        const s = window.visualViewport;
+        if (!s) return;
+        let l = s.height,
+            u = s.width;
+        const i = () => {
+                if (Math.abs(s.width - u) > 20) {
+                    u = s.width, l = s.height, r(!1);
+                    return
+                }
+                const d = l - s.height > e;
+                r(d), d || (l = s.height)
+            },
+            a = () => {
+                u = s.width, l = s.height, r(!1)
+            };
+        return s.addEventListener("resize", i), window.addEventListener("resize", a), window.addEventListener("orientationchange", a), i(), () => {
+            s.removeEventListener("resize", i), window.removeEventListener("resize", a), window.removeEventListener("orientationchange", a)
+        }
+    }, [e]), t
+}
+const zo = "chatMarkdownEditorMobileQuickBar",
+    Jl = 80,
+    bn = 26,
+    Fo = 0,
+    rs = 0,
+    Wo = 6,
+    Zl = bn,
+    ec = 0,
+    tc = 100,
+    nc = 500,
+    sc = 150,
+    oc = 50,
+    rc = .8;
+
+function ic({
+    tabBottomPx: e,
+    tabSide: t,
+    tabChevron: r,
+    isDraggingTab: s,
+    setIsDraggingTab: l,
+    dragStartRef: u,
+    tabBottomOffsetPx: i,
+    setTabBottomOffsetPx: a,
+    setTabSide: c,
+    setIsCollapsed: d,
+    clampTabBottomOffsetPx: h,
+    apiRef: w
+}) {
+    const g = p => {
+        p.preventDefault(), p.stopPropagation()
+    };
+    return n.jsx("div", {
+        className: "fixed z-[50] pointer-events-none",
+        style: {
+            left: t === "left" ? `calc(env(safe-area-inset-left, 0px) + ${Math.max(Fo,ec)}px)` : void 0,
+            right: t === "right" ? `${Fo}px` : void 0,
+            bottom: `${e}px`
+        },
+        children: n.jsx("div", {
+            className: "pointer-events-auto touch-none",
+            onPointerDown: p => {
+                g(p), l(!0), u.current = {
+                    pointerId: p.pointerId,
+                    startClientX: p.clientX,
+                    startClientY: p.clientY,
+                    startBottomOffsetPx: i,
+                    didDrag: !1
+                };
+                try {
+                    p.currentTarget.setPointerCapture(p.pointerId)
+                } catch {}
+            },
+            onPointerMove: p => {
+                if (!s || (g(p), typeof window > "u")) return;
+                const x = u.current;
+                if (!x) return;
+                const C = Math.abs(p.clientX - x.startClientX),
+                    k = Math.abs(p.clientY - x.startClientY);
+                !x.didDrag && (C > Wo || k > Wo) && (x.didDrag = !0);
+                const N = p.clientY - x.startClientY,
+                    R = h(x.startBottomOffsetPx - N);
+                a(R);
+                const M = p.clientX < window.innerWidth / 2 ? "left" : "right";
+                c(M)
+            },
+            onPointerUp: p => {
+                var C;
+                g(p), l(!1);
+                const x = (C = u.current) == null ? void 0 : C.didDrag;
+                u.current = null;
+                try {
+                    p.currentTarget.releasePointerCapture(p.pointerId)
+                } catch {}
+                x || (d(!1), typeof window < "u" && window.requestAnimationFrame(() => {
+                    var k;
+                    return (k = w.current) == null ? void 0 : k.focus()
+                }))
+            },
+            onPointerCancel: p => {
+                g(p), l(!1), u.current = null;
+                try {
+                    p.currentTarget.releasePointerCapture(p.pointerId)
+                } catch {}
+            },
+            children: n.jsx(Cn, {
+                variant: "primary_smallest",
+                color: "transparent",
+                "aria-label": "expand-quickbar",
+                className: "pointer-events-none h-12 w-4 !bg-gray-3/90 backdrop-blur !text-gray-12 text-xl !leading-none",
+                children: n.jsx("span", {
+                    className: "!text-gray-12 text-xl !leading-none",
+                    children: r
+                })
+            })
+        })
+    })
+}
+
+function Zn({
+    ariaLabel: e,
+    onAction: t,
+    children: r,
+    className: s
+}) {
+    const [l, u] = o.useState(!1), i = a => {
+        a.preventDefault(), a.stopPropagation()
+    };
+    return n.jsx("div", {
+        className: "pointer-events-auto touch-none p-1",
+        onPointerDown: a => {
+            i(a), u(!0);
+            try {
+                a.currentTarget.setPointerCapture(a.pointerId)
+            } catch {}
+        },
+        onPointerUp: a => {
+            i(a), u(!1);
+            try {
+                a.currentTarget.releasePointerCapture(a.pointerId)
+            } catch {}
+            t()
+        },
+        onPointerCancel: a => {
+            i(a), u(!1);
+            try {
+                a.currentTarget.releasePointerCapture(a.pointerId)
+            } catch {}
+        },
+        children: n.jsx(Cn, {
+            isIconOnly: !0,
+            variant: "primary",
+            color: "transparent",
+            "aria-label": e,
+            className: Y("pointer-events-none transition-opacity", l && "opacity-50", s),
+            children: r
+        })
+    })
+}
+
+function ac({
+    ariaLabel: e,
+    onCollapse: t,
+    children: r,
+    className: s
+}) {
+    const [l, u] = o.useState(!1), i = o.useRef(null), a = c => {
+        c.preventDefault(), c.stopPropagation()
+    };
+    return o.useEffect(() => () => {
+        i.current !== null && window.clearTimeout(i.current)
+    }, []), n.jsx("div", {
+        className: "pointer-events-auto touch-none",
+        onPointerDown: c => {
+            a(c), u(!0);
+            try {
+                c.currentTarget.setPointerCapture(c.pointerId)
+            } catch {}
+        },
+        onPointerUp: c => {
+            a(c), u(!1);
+            try {
+                c.currentTarget.releasePointerCapture(c.pointerId)
+            } catch {}
+            i.current !== null && window.clearTimeout(i.current), i.current = window.setTimeout(() => {
+                i.current = null, t()
+            }, oc)
+        },
+        onPointerCancel: c => {
+            a(c), u(!1);
+            try {
+                c.currentTarget.releasePointerCapture(c.pointerId)
+            } catch {}
+        },
+        children: n.jsx(Cn, {
+            isIconOnly: !0,
+            variant: "primary_smallest",
+            color: "transparent",
+            "aria-label": e,
+            className: Y("pointer-events-none transition-opacity", l && "opacity-50", s),
+            children: r
+        })
+    })
+}
+
+function lc({
+    quickBarBottomPx: e,
+    maxWidthPx: t,
+    collapseChevron: r,
+    apiRef: s,
+    onCollapse: l,
+    onInsertDelimiter: u,
+    onJumpToEndAndSpace: i
+}) {
+    return n.jsx("div", {
+        className: "fixed left-0 right-0 z-[50] pointer-events-none",
+        style: {
+            bottom: `${e}px`
+        },
+        children: n.jsx("div", {
+            className: "mx-auto w-full px-md pb-0 pointer-events-auto",
+            style: {
+                maxWidth: `${t}px`
+            },
+            children: n.jsx("div", {
+                className: "bg-gray-2/90 dark:bg-gray-3/90 backdrop-blur rounded-[12px]",
+                children: n.jsxs("div", {
+                    className: "flex items-center justify-between px-1.5",
+                    children: [n.jsxs("div", {
+                        className: "flex items-center gap-0.5",
+                        children: [n.jsx(Zn, {
+                            ariaLabel: "insert-asterisk",
+                            onAction: () => u("*", !0),
+                            className: Y("h-7 min-w-12 w-7 flex items-center justify-center rounded-[9px]", "text-[24px] leading-none text-gray-12", "!bg-gray-4/80 dark:!bg-gray-5/80 border border-gray-6/50", "shadow-sm"),
+                            children: n.jsx("span", {
+                                className: "inline-flex items-center justify-center translate-y-[4px]",
+                                children: "*"
+                            })
+                        }), n.jsx(Zn, {
+                            ariaLabel: "insert-quote",
+                            onAction: () => u('"', !1),
+                            className: Y("h-7 min-w-12 w-7 flex items-center justify-center rounded-[9px]", "text-[24px] leading-none text-gray-12", "!bg-gray-4/80 dark:!bg-gray-5/80 border border-gray-6/50", "shadow-sm"),
+                            children: n.jsx("span", {
+                                className: "inline-flex items-center justify-center translate-y-[5px]",
+                                children: '"'
+                            })
+                        }), n.jsx(Zn, {
+                            ariaLabel: "append-space",
+                            onAction: i,
+                            className: Y("h-7 min-w-12 w-7 flex items-center justify-center rounded-[9px]", "text-[24px] leading-none text-gray-12", "!bg-gray-4/80 dark:!bg-gray-5/80 border border-gray-6/50", "shadow-sm"),
+                            children: n.jsx("span", {
+                                className: "inline-flex items-center justify-center translate-y-[-2px]",
+                                children: "↦"
+                            })
+                        })]
+                    }), n.jsx(ac, {
+                        ariaLabel: "collapse-quickbar",
+                        className: "h-9 min-w-9 w-9 rounded-[11px] flex items-center justify-center text-[20px] !leading-none text-gray-11",
+                        onCollapse: () => {
+                            l(), typeof window < "u" && window.requestAnimationFrame(() => {
+                                var a;
+                                return (a = s.current) == null ? void 0 : a.focus()
+                            })
+                        },
+                        children: r
+                    })]
+                })
+            })
+        })
+    })
+}
+
+function cc(e, t) {
+    const r = e > tc || e === 0 && t,
+        s = o.useRef(0),
+        l = o.useRef(r);
+    return l.current && !r && (s.current = Date.now() + nc), l.current = r, r ? !0 : typeof window > "u" ? !1 : Date.now() < s.current
+}
+
+function uc(e, t) {
+    const [r, s] = o.useState(!1), [l, u] = o.useState("right"), [i, a] = o.useState(Jl), c = o.useRef(!1);
+    return o.useEffect(() => {
+        if (!(typeof window > "u") && !t && !c.current) try {
+            const d = window.localStorage.getItem(zo);
+            if (!d) {
+                c.current = !0;
+                return
+            }
+            const h = JSON.parse(d);
+            if (typeof h.collapsed == "boolean" && s(h.collapsed), (h.side === "left" || h.side === "right") && u(h.side), typeof h.bottomOffsetPx == "number" && Number.isFinite(h.bottomOffsetPx)) {
+                a(Math.max(0, h.bottomOffsetPx)), c.current = !0;
+                return
+            }
+            if (typeof h.yRatio == "number" && Number.isFinite(h.yRatio)) {
+                const w = Math.max(0, Math.min(1, h.yRatio)),
+                    g = Math.max(0, window.innerHeight - e),
+                    p = Math.max(0, g - bn - rs),
+                    x = Math.round(w * p) + rs,
+                    C = Math.max(0, g - (x + bn));
+                a(C)
+            }
+            c.current = !0
+        } catch {
+            c.current = !0
+        }
+    }, [e, t]), o.useEffect(() => {
+        if (!(typeof window > "u") && c.current) try {
+            window.localStorage.setItem(zo, JSON.stringify({
+                collapsed: r,
+                side: l,
+                bottomOffsetPx: i
+            }))
+        } catch {}
+    }, [r, l, i]), {
+        isCollapsed: r,
+        setIsCollapsed: s,
+        tabSide: l,
+        setTabSide: u,
+        tabBottomOffsetPx: i,
+        setTabBottomOffsetPx: a
+    }
+}
+
+function dc(e, t) {
+    const [r, s] = o.useState(!1), l = o.useRef(null);
+    return o.useEffect(() => {
+        if (typeof window < "u" && l.current !== null && (window.clearTimeout(l.current), l.current = null), !e) {
+            s(!1);
+            return
+        }
+        return l.current = window.setTimeout(() => {
+            s(!0), l.current = null
+        }, t), () => {
+            typeof window < "u" && l.current !== null && (window.clearTimeout(l.current), l.current = null)
+        }
+    }, [e, t]), r
+}
+
+function fc() {
+    const [e, t] = o.useState(0);
+    return o.useEffect(() => {
+        if (typeof window > "u") return;
+        const r = window.visualViewport;
+        if (!r) return;
+        const s = () => {
+            const l = Math.max(0, window.innerHeight - (r.height + r.offsetTop));
+            t(l)
+        };
+        return r.addEventListener("resize", s), r.addEventListener("scroll", s), window.addEventListener("resize", s), s(), () => {
+            r.removeEventListener("resize", s), r.removeEventListener("scroll", s), window.removeEventListener("resize", s)
+        }
+    }, []), e
+}
+
+function wr({
+    apiRef: e,
+    isEditorFocused: t,
+    disabled: r = !1,
+    maxWidthPx: s = 560,
+    reserveSpace: l = !0
+}) {
+    const {
+        isMobile: u
+    } = wn(), i = br(), a = fc(), [c, d] = o.useState(!1), {
+        isCollapsed: h,
+        setIsCollapsed: w,
+        tabSide: g,
+        setTabSide: p,
+        tabBottomOffsetPx: x,
+        setTabBottomOffsetPx: C
+    } = uc(a, c), k = o.useRef(null), N = cc(a, i), M = dc(u && N && !r && t, sc), T = (() => {
+        if (typeof window > "u") return 0;
+        const B = Math.max(0, a),
+            K = window.innerHeight * rc;
+        return Math.min(B, K)
+    })(), I = M && h, H = M && !h, L = g === "right" ? "‹" : "›", _ = g === "right" ? "›" : "‹", y = B => {
+        if (typeof window > "u") return Math.max(0, B);
+        const K = Math.max(0, window.innerHeight - T),
+            W = Math.max(0, K - bn - rs);
+        return Math.max(0, Math.min(W, B))
+    }, S = typeof window > "u" ? 0 : T + y(x), F = (B, K) => {
+        var W, q;
+        (W = e.current) == null || W.insertSymmetricDelimiter(B, K), (q = e.current) == null || q.focus()
+    }, z = () => {
+        var B, K;
+        (B = e.current) == null || B.insertTextAtEnd(" "), (K = e.current) == null || K.focus()
+    };
+    return n.jsxs(n.Fragment, {
+        children: [l && n.jsx("div", {
+            "aria-hidden": !0,
+            style: {
+                height: H ? `${Zl}px` : "0px",
+                pointerEvents: "none"
+            }
+        }), H && n.jsx(lc, {
+            quickBarBottomPx: T,
+            maxWidthPx: s,
+            collapseChevron: _,
+            apiRef: e,
+            onCollapse: () => w(!0),
+            onInsertDelimiter: F,
+            onJumpToEndAndSpace: z
+        }), I && n.jsx(ic, {
+            tabBottomPx: S,
+            tabSide: g,
+            tabChevron: L,
+            isDraggingTab: c,
+            setIsDraggingTab: d,
+            dragStartRef: k,
+            tabBottomOffsetPx: x,
+            setTabBottomOffsetPx: C,
+            setTabSide: p,
+            setIsCollapsed: w,
+            clampTabBottomOffsetPx: y,
+            apiRef: e
+        })]
+    })
+}
+const pc = ({
+        value: e = "",
+        onChange: t,
+        onCancel: r,
+        onSettings: s,
+        onSave: l,
+        isSaving: u = !1,
+        isImageEditMode: i = !1
+    }) => {
+        const a = o.useRef(null),
+            [c, d] = o.useState(!1),
+            {
+                isDark: h
+            } = lr(),
+            [w] = Vi(e ?? "", 500),
+            g = Hl(w);
+        return n.jsx("div", {
+            className: "flex flex-col w-full gap-sm",
+            children: n.jsxs("div", {
+                className: "relative w-full",
+                children: [n.jsx(xr, {
+                    value: e,
+                    onChange: t,
+                    disabled: u,
+                    autoFocus: !0,
+                    placeholderText: "Enter your message...",
+                    enableAutoPair: !0,
+                    enableAutocomplete: !0,
+                    enableLint: !0,
+                    enableInlineDecorations: !0,
+                    lintDelayMs: 500,
+                    className: "bg-sky-500/10 dark:bg-zinc-500/20 px-1 py-0.5 -mx-1 rounded-sm text-zinc-700 dark:text-zinc-300 leading-[1.8] tracking-[0.01em] text-base",
+                    apiRef: a,
+                    onFocusChange: d,
+                    onSave: () => {
+                        e != null && e.trim() && l()
+                    },
+                    onCancel: r,
+                    isDarkTheme: h
+                }), n.jsx(wr, {
+                    apiRef: a,
+                    isEditorFocused: c,
+                    disabled: u,
+                    maxWidthPx: 800,
+                    reserveSpace: !1
+                }), n.jsxs("div", {
+                    className: "flex items-center justify-between gap-sm mt-xs",
+                    children: [n.jsx("div", {
+                        className: "min-h-[18px]",
+                        children: g > 0 ? n.jsxs("div", {
+                            className: "pl-2 text-xs font-small text-warning-300 dark:text-warning-300",
+                            children: ["Formatting issues detected (", g, ")."]
+                        }) : null
+                    }), n.jsxs("div", {
+                        className: "flex items-center justify-end gap-sm",
+                        children: [i && s ? n.jsx(ue, {
+                            icon: O.SETTINGS,
+                            variant: $.TRANSPARENT,
+                            onClick: s,
+                            disabled: u,
+                            "aria-label": "Image settings",
+                            className: "text-gray-9 hover:text-gray-11 dark:text-gray-7 dark:hover:text-gray-5 !w-6 !h-6"
+                        }) : null, n.jsx(lt, {
+                            onClick: r,
+                            disabled: u,
+                            variant: $.TEXT,
+                            size: le.SMALL,
+                            className: "!text-zinc-600 dark:!text-zinc-300 hover:!text-zinc-900 dark:hover:!text-white !px-sm !py-xs !h-6",
+                            "aria-label": "Cancel edit",
+                            children: "Cancel"
+                        }), n.jsx(lt, {
+                            onClick: l,
+                            disabled: !(e != null && e.trim()) || u,
+                            loading: u,
+                            variant: $.TRANSPARENT,
+                            size: le.SMALL,
+                            className: "!bg-green-9 dark:!bg-green-5 text-white !px-sm !py-xs !h-6",
+                            "aria-label": "Save edit",
+                            children: i ? "Generate" : "Save"
+                        })]
+                    })]
+                })]
+            })
+        })
+    },
+    hc = e => n.jsx(Fi, {
+        icon: e ? O.CHEVRON_DOWN : O.CHEVRON_UP,
+        className: "min-w-lg size-lg text-white ml-sm"
+    }),
+    mc = ({
+        content: e,
+        userName: t,
+        characterName: r,
+        imageUrl: s,
+        isAvatarImageBlurred: l,
+        showCheckbox: u
+    }) => {
+        const [i, a] = o.useState(!0), c = () => {
+            a(!i)
+        }, d = ir(e, {
+            characterName: r,
+            userName: t
+        }), h = ba(d), w = h.hasCommands, g = h.cleanContent, p = [];
+        if (w && h.commandsContent) {
+            const C = new RegExp(`<aside role="(${qt.SEARCH}|${qt.CMD}|${qt.OOC})">(.*?)<\\/aside>`, "g"),
+                k = h.commandsContent.matchAll(C);
+            for (const N of k) p.push({
+                type: N[1],
+                content: N[2]
+            })
+        }
+        const x = g || (w && p.length > 0 ? p[0].content : d);
+        return n.jsxs("div", {
+            className: "text-sm flex flex-col w-full",
+            children: [n.jsxs("button", {
+                className: Y("bg-transparent cursor-pointer flex items-start transition-opacity text-white opacity-[0.76] w-full", i ? "justify-end" : "justify-between"),
+                onClick: c,
+                children: [n.jsxs("p", {
+                    className: Y("inline-block max-w-[600px] whitespace-nowrap overflow-hidden font-roboto-mono flex", i ? "text-end" : "text-start"),
+                    children: ["Writer's Notes", n.jsxs("span", {
+                        className: Y("font-roboto-mono truncate", !i && "opacity-0"),
+                        children: [": ", x]
+                    })]
+                }), hc(i)]
+            }), n.jsxs(zi.div, {
+                className: "text-yellow-9 overflow-hidden w-full",
+                initial: !1,
+                animate: {
+                    height: i ? 0 : "auto",
+                    opacity: i ? 0 : 1,
+                    marginTop: i ? 0 : 4
+                },
+                children: [w && p.length > 0 ? n.jsxs(n.Fragment, {
+                    children: [n.jsx("div", {
+                        className: "space-y-2",
+                        children: p.map((C, k) => n.jsxs("div", {
+                            children: [n.jsxs("span", {
+                                className: "text-white opacity-60 text-xs uppercase",
+                                children: [C.type === qt.SEARCH ? "Search" : C.type === qt.CMD ? "Command" : "OOC", ":"]
+                            }), n.jsx("div", {
+                                className: "mt-1 whitespace-pre-wrap",
+                                children: C.content
+                            })]
+                        }, k))
+                    }), g && n.jsx("div", {
+                        className: "mt-3 pt-3 border-t border-yellow-9/20 whitespace-pre-wrap",
+                        children: g
+                    })]
+                }) : n.jsx("div", {
+                    className: "whitespace-pre-wrap",
+                    children: d
+                }), s && n.jsx("div", {
+                    className: "max-w-[500px] mx-auto mt-3",
+                    children: n.jsx(ar, {
+                        imageUrl: s,
+                        alt: "User uploaded image",
+                        isAvatarImageBlurred: l,
+                        isUserMessage: !0,
+                        showCheckbox: u
+                    })
+                })]
+            })]
+        })
+    };
+var is = (e => (e.TEXT = "Text", e.IMAGE = "Image", e))(is || {}),
+    as = (e => (e.PLAY = "Play", e.STOP = "Stop", e.IDLE = "Idle", e))(as || {}),
+    Ct = (e => (e.RATE_MESSAGE = "RateMessage", e.REGENERATE = "Regenerate", e.CONTINUE_CHAT = "ContinueChat", e.GENERATE_IMAGE = "GenerateImage", e.VOICE = "Voice", e.EDIT = "Edit", e.STORY_CHOICES = "StoryChoices", e))(Ct || {});
+const ls = ({
+        onClickPrevious: e,
+        onClickNext: t,
+        count: r,
+        message: s,
+        sendRating: l,
+        conversationLength: u,
+        chatIndex: i,
+        altMsgs: a,
+        isClonePartial: c,
+        removalMode: d,
+        isTyping: h,
+        onShowStoryChoices: w,
+        isStoryChoicesVisible: g,
+        onRegenerate: p,
+        handlePreferredVoiceActions: x,
+        setIsMessageEditMode: C,
+        currentAudioMessageId: k,
+        voiceId: N,
+        currentConversationId: R,
+        defaultPersonaId: M,
+        isAudioLoading: T,
+        loadMessages: I,
+        handleModalVisibility: H,
+        handleVoiceButtonClick: L,
+        showVoiceSelectionModal: _,
+        requestErrorHandler: y,
+        messageEditMode: S,
+        setMessageEditMode: F,
+        setEditMessageContent: z,
+        scrollToBottom: B,
+        isChatWithGroup: K,
+        hasPendingMessage: W,
+        isLastMessage: q
+    }) => {
+        const [ce, m] = o.useState(""), [ee, P] = o.useState(!1), [re, et] = o.useState(!1), J = Ko(gn.ChatImageImageGenerationSettings), {
+            status: be
+        } = cs(v => v.waitingQueue) || {}, {
+            characterId: X
+        } = us(), Oe = S === "image", [Pe, te] = o.useState(!1), {
+            isMobile: de
+        } = wn(), Ee = be !== xn.WAITING || u === 1, [Z, Ye] = o.useState(!1), Re = ((a == null ? void 0 : a.length) ?? 0) > 0 || (i ?? 0) > 0 && u - 1 === i && (s == null ? void 0 : s.role) === xe.BOT && !(a != null && a.length) && !h, ye = Re && !S && !h && Ee && !c && !d && q, ie = !S && !h && Ee && !c && !d && q && (s == null ? void 0 : s.role) === xe.BOT, ne = ye && Pe, se = ye && (s == null ? void 0 : s.id) && Ee, U = !!(s != null && s.image_url) && !!(s != null && s.image_prompt), {
+            handleOnPress: Ie,
+            chatVoiceButtonVariant: ge,
+            isAudioLoadingForCurrentMessage: fe
+        } = wa({
+            currentAudioMessageId: k,
+            messageId: s == null ? void 0 : s.id,
+            voiceId: N,
+            conversationId: R,
+            characterId: X,
+            defaultPersonaId: M,
+            isAudioLoading: T,
+            handlePreferredVoiceActions: x,
+            loadMessages: I,
+            handleModalVisibility: H,
+            handleVoiceButtonClick: L,
+            showVoiceSelectionModal: _
+        }), pe = ds(Qo.Tts), Xe = (pe == null ? void 0 : pe.allowed) ?? !1, {
+            ttsIncludeNarration: tt
+        } = fs();
+        o.useEffect(() => {
+            (ne || ee || Oe) && B()
+        }, [ne, ee, Oe, B]);
+        const Ke = (s == null ? void 0 : s.role) === xe.BOT,
+            Ge = !h && !S && Ke && !(s != null && s.image_url) && (Xe || (pe == null ? void 0 : pe.isPaywall)) && Ca(s == null ? void 0 : s.content, tt) && !c && !d && !K && q,
+            Me = (a == null ? void 0 : a.length) ?? 0,
+            Nt = Me > 1,
+            Qe = de && Nt,
+            we = o.useRef(Qe);
+        Z || (we.current = Qe);
+        const ae = {
+                messageId: s == null ? void 0 : s.id,
+                rating: s == null ? void 0 : s.rating,
+                sendRating: l,
+                messageType: s != null && s.image_url ? is.IMAGE : is.TEXT
+            },
+            G = async () => {
+                x({
+                    action: Gt.Stop
+                }), Ye(!0);
+                const v = {
+                    regenerate: !0,
+                    image_prompt: s == null ? void 0 : s.image_prompt,
+                    continue_chat: (s == null ? void 0 : s.role) === xe.BOT,
+                    subCharacterId: s == null ? void 0 : s.character_id
+                };
+                await p(v), Ye(!1)
+            }, oe = async () => {
+                x({
+                    action: Gt.Stop
+                }), Ye(!0), await p({
+                    type: "text",
+                    continue_chat: !0,
+                    subCharacterId: s == null ? void 0 : s.character_id
+                }), Ye(!1)
+            }, qe = () => {
+                F && z && (F("image"), z((s == null ? void 0 : s.image_prompt) ?? ""), C(!0))
+            }, he = [we.current ? {
+                Component: ue,
+                variant: $.TEXT,
+                size: le.MEDIUM,
+                icon: O.MESSAGE_PLUS,
+                isHidden: !ie || K,
+                onPress: () => oe(),
+                isDisabled: Z,
+                key: Ct.CONTINUE_CHAT,
+                title: "Continue Story"
+            } : {
+                Component: lt,
+                variant: $.OUTLINED,
+                size: le.MEDIUM,
+                icon: O.MESSAGE_PLUS,
+                isHidden: !ie || K,
+                onPress: () => oe(),
+                isDisabled: Z,
+                key: Ct.CONTINUE_CHAT,
+                title: "Continue Story"
+            }, {
+                Component: ue,
+                variant: $.TEXT,
+                icon: O.LIGHT,
+                isHidden: typeof w != "function" || !!h || !R,
+                onPress: w,
+                key: Ct.STORY_CHOICES,
+                title: "Story Choices",
+                classNames: {
+                    icon: g ? "" : "!text-yellow-9 !fill-yellow-9"
+                }
+            }, {
+                Component: ue,
+                variant: $.TEXT,
+                icon: O.REFRESH,
+                isHidden: !ye || W,
+                onPress: () => G(),
+                isDisabled: Z,
+                key: Ct.REGENERATE,
+                title: "Regenerate"
+            }, {
+                Component: ue,
+                variant: $.TEXT,
+                icon: O.EDIT,
+                onPress: qe,
+                isHidden: !U || !Re || !J,
+                key: Ct.REGENERATE,
+                isDisabled: Z,
+                title: "Edit"
+            }, {
+                Component: ue,
+                variant: $.TEXT,
+                icon: O.STAR,
+                isDisabled: !!(s != null && s.rating) || re || Z,
+                isHidden: !se || W,
+                isFilled: !!(s != null && s.rating) || ne || re,
+                isLoading: ee && !ne,
+                onPress: () => te(!0),
+                key: Ct.RATE_MESSAGE,
+                className: "!opacity-100",
+                title: "Rate"
+            }, {
+                Component: ue,
+                variant: $.TEXT,
+                icon: ge === as.STOP ? O.STOP_CIRCLE : O.VOLUME_2,
+                isHidden: !Ge,
+                onPress: Ie,
+                isLoading: fe,
+                key: Ct.VOICE,
+                classNames: {
+                    icon: ge === as.STOP ? "fill-backgroundInvert stroke-backgroundInvert [&_rect]:!fill-background [&_rect]:!stroke-background" : ""
+                },
+                title: "Listen"
+            }], Ve = !!e && !!r && r > 1, Je = !!t && !!r && r < Me, ct = Me && Me > 1, St = !Ge && !ye && !se || (y == null ? void 0 : y.isError);
+        return o.useEffect(() => {
+            let v;
+            return ce && (v = setTimeout(() => {
+                m("")
+            }, 5e3)), () => clearTimeout(v)
+        }, [ce]), St ? n.jsx(n.Fragment, {}) : n.jsxs(_t, {
+            className: "gap-md pt-1",
+            children: [n.jsxs("div", {
+                className: "flex justify-between items-center",
+                children: [n.jsx("div", {
+                    className: "flex items-center gap-2",
+                    children: he == null ? void 0 : he.map((v, ut) => {
+                        var nt;
+                        return v != null && v.isHidden ? null : n.jsx(es, {
+                            title: v == null ? void 0 : v.title,
+                            offset: 0,
+                            children: n.jsx(v.Component, {
+                                ...v.Component === lt ? {
+                                    iconEnd: v == null ? void 0 : v.icon
+                                } : {
+                                    icon: v == null ? void 0 : v.icon
+                                },
+                                onClick: v == null ? void 0 : v.onPress,
+                                disabled: v == null ? void 0 : v.isDisabled,
+                                shape: ts.PILL,
+                                variant: v == null ? void 0 : v.variant,
+                                size: v.size || le.MEDIUM,
+                                className: Y("!text-gray-11", v == null ? void 0 : v.className),
+                                loading: v == null ? void 0 : v.isLoading,
+                                classNames: {
+                                    icon: Y(v != null && v.isFilled ? "!fill-gray-11" : "", (nt = v == null ? void 0 : v.classNames) == null ? void 0 : nt.icon)
+                                },
+                                children: v.Component === lt ? v == null ? void 0 : v.title : null
+                            })
+                        }, ut)
+                    })
+                }), n.jsx("div", {
+                    className: "flex items-center",
+                    children: !!ct && n.jsxs(n.Fragment, {
+                        children: [n.jsx(ue, {
+                            icon: O.CHEVRON_LEFT,
+                            onClick: e,
+                            disabled: !Ve,
+                            size: le.SMALL,
+                            variant: $.TEXT,
+                            "aria-label": "previous"
+                        }), !!(r && Me) && n.jsxs($e, {
+                            variant: yt.LABEL_MEDIUM_REGULAR,
+                            className: "text-gray-12",
+                            children: [r, "/", Me]
+                        }), n.jsx(ue, {
+                            icon: O.CHEVRON_RIGHT,
+                            onClick: t,
+                            disabled: !Je,
+                            size: le.SMALL,
+                            variant: $.TEXT,
+                            "aria-label": "next"
+                        })]
+                    })
+                })]
+            }), Pe ? n.jsx(Ea, {
+                isSubmitting: ee,
+                setIsSubmitting: P,
+                setLabelSentMessage: m,
+                messageRating: ae,
+                setShowRatingBox: te,
+                setIsRatingSent: et
+            }) : null, ce ? n.jsx($e, {
+                variant: yt.LABEL_MEDIUM_REGULAR,
+                className: "text-gray-11",
+                children: ce
+            }) : null]
+        })
+    },
+    $o = Zo.withTag("StoryBubble"),
+    gc = ({
+        character: e,
+        message: t,
+        user_name: r,
+        user_avatar_url: s,
+        isTyping: l = !1,
+        onRegenerate: u,
+        isSelectedForRemoval: i,
+        onRemovalSelected: a,
+        setConversation: c,
+        currentConversationId: d,
+        createConversation: h,
+        removalMode: w,
+        loadMessages: g,
+        altMsgs: p,
+        chatIndex: x,
+        isClonePartial: C,
+        isSelectedForClone: k,
+        onCloneSelected: N,
+        setErrorCode: R,
+        conversationLength: M,
+        isRemoveMessageLoading: T,
+        handleFlagModalOpen: I,
+        voiceId: H,
+        infoMessage: L,
+        handlePreferredVoiceActions: _,
+        showCheckbox: y,
+        requestErrorHandler: S,
+        isMessageEditMode: F,
+        setIsMessageEditMode: z,
+        children: B,
+        isChatWithGroup: K,
+        handleEditPendingMessage: W,
+        onClickPrevious: q,
+        onClickNext: ce,
+        altMsgCount: m,
+        altMsgPosition: ee,
+        onDeleteMessage: P,
+        handleDeleteMessageImage: re,
+        isImageDeleteFromMessageLoading: et,
+        deletingMessageIds: J
+    }) => {
+        var tn, nn;
+        const {
+            displayToast: be
+        } = cr(), [X, Oe] = o.useState(!1), [Pe, te] = o.useState(!1), [de, Ee] = o.useState(null), {
+            callApi: Z,
+            jsonApiService: Ye,
+            errorData: Re,
+            isLoading: ye
+        } = ur(), [ie, ne] = o.useState(null), se = ie === "image", [De, U] = o.useState(t == null ? void 0 : t.content), {
+            blurNSFW: Ie
+        } = fs(), {
+            onlyUserId: ge,
+            isAuthenticated: fe
+        } = ps(), {
+            isUserPremium: pe
+        } = ya(), Xe = Ko(Qo.Tts), tt = cs(D => D.waitingQueue.status) ?? {}, {
+            characterId: Ke
+        } = us(), Ge = tt !== xn.WAITING || M === 1, Me = (Ie && (e == null ? void 0 : e.avatar_is_nsfw) || !fe && (e == null ? void 0 : e.is_nsfw)) && ((t == null ? void 0 : t.role) === xe.BOT || !(t != null && t.role)), Qe = (((p == null ? void 0 : p.length) ?? 0) > 0 || x > 0 && M - 1 === x && (t == null ? void 0 : t.role) === xe.BOT && ((p == null ? void 0 : p.length) ?? 0) === 0) && !ie && !l && Ge && !C && !w, we = ((p == null ? void 0 : p.length) ?? 0) > 0, ae = (t == null ? void 0 : t.role) === xe.BOT, G = (t == null ? void 0 : t.role) === xe.USER, oe = t == null ? void 0 : t.image_url, qe = G && !!oe && !(t != null && t.image_prompt), he = !w && !C && !l && !ie && (!oe || qe), Ve = !w && !C && !l && !ie, Je = x === M - 1, ct = Ve && (!!oe || Je || we || G), St = F || !!l, v = Qe || he || Ve, ut = (J == null ? void 0 : J.has((t == null ? void 0 : t.id) ?? "")) ?? !1, nt = (t == null ? void 0 : t.id) && ae && H && pe && Xe && !(t != null && t.image_url) && !K, Lt = (L == null ? void 0 : L.messageId) === (t == null ? void 0 : t.id), zt = qe && !!((nn = (tn = t == null ? void 0 : t.content) == null ? void 0 : tn.trim()) != null && nn.length), Ft = (t == null ? void 0 : t.role) === xe.USER ? s : e == null ? void 0 : e.avatar_url;
+        (t == null ? void 0 : t.role) === xe.USER ? r || Io : e == null || e.name;
+        const jt = r || Io;
+        ss(Ft ?? "", {
+            preset: os.AVATAR_64X64
+        });
+        const Ue = {
+                blurred: Me
+            },
+            Wt = async () => {
+                await re(t.id), te(!1)
+            }, {
+                onTouchStart: Ot,
+                onTouchMove: _e,
+                onTouchEnd: dt,
+                onTouchCancel: ft,
+                isPressingRef: pt
+            } = Sa({
+                enabled: he,
+                onTouchStart: () => {
+                    var D;
+                    (D = window.getSelection()) == null || D.removeAllRanges()
+                },
+                onLongPress: () => {
+                    var D;
+                    (D = window.getSelection()) == null || D.removeAllRanges(), st()
+                },
+                durationMs: 1e3,
+                moveThresholdPx: 10
+            }), vt = o.useCallback(D => {
+                he && (D.preventDefault(), pt.current || Ee({
+                    x: D.clientX,
+                    y: D.clientY
+                }))
+            }, [he, pt]), ht = o.useCallback(() => {
+                Ee(null)
+            }, []), ze = m && m > 1, {
+                onTouchStart: Fe,
+                onTouchEnd: Se
+            } = va({
+                enabled: !!ze,
+                thresholdPx: 50,
+                onSwipeLeft: ce && ee && m ? () => {
+                    ee < m && ce()
+                } : void 0,
+                onSwipeRight: q && ee ? () => {
+                    ee > 1 && q()
+                } : void 0
+            }), Ze = async () => {
+                let D = "",
+                    xt = -1;
+                try {
+                    c(E => E.map((Ne, j) => (Ne == null ? void 0 : Ne.id) === (t == null ? void 0 : t.id) ? (D = Ne.content ?? "", xt = j, {
+                        ...Ne,
+                        content: De ?? Ne.content
+                    }) : Ne)), t != null && t.id ? await Z(Ye.updateResource, "messages", t == null ? void 0 : t.id, {
+                        content: De
+                    }) : !d && x === 0 && h && await h([{
+                        role: xe.BOT,
+                        content: De || ""
+                    }])
+                } catch (E) {
+                    t != null && t.id && $o.error("Error while editing message", E, {
+                        error_type: Ia.MESSAGE_EDIT,
+                        user_id: ge,
+                        chatbot_id: Ke,
+                        message: E.message
+                    }), c(Ne => Ne.map((j, $t) => $t === xt ? {
+                        ...j,
+                        content: D
+                    } : j))
+                }
+            };
+        o.useEffect(() => {
+            Re.errorCode && R(Re.errorCode)
+        }, [Re.errorCode, R]);
+        const mt = o.useCallback(() => {
+            ne(null), z(!1), U(t == null ? void 0 : t.content)
+        }, [t == null ? void 0 : t.content, z]);
+        o.useEffect(() => {
+            if (!ie) return;
+            const D = xt => {
+                xt.key === "Escape" && mt()
+            };
+            return document.addEventListener("keydown", D), () => document.removeEventListener("keydown", D)
+        }, [ie, mt]);
+        async function st() {
+            ne("text"), U(t == null ? void 0 : t.content), z(!0), d && !(t != null && t.id) && g && g()
+        }
+        const ke = async () => {
+            try {
+                await navigator.clipboard.writeText((t == null ? void 0 : t.content) ?? ""), be({
+                    message: Ra,
+                    type: en.success
+                })
+            } catch (D) {
+                $o.error("Error in handleCopy", D)
+            }
+        }, me = D => {
+            switch (document.body.style.overflow = "", _({
+                    action: Gt.Stop
+                }), D) {
+                case He.COPY:
+                    return ke();
+                case He.EDIT:
+                    return st();
+                case He.REMOVE_IMAGE: {
+                    te(!0);
+                    return
+                }
+                case He.RATE_VOICE:
+                    return _({
+                        action: Gt.Rate_Modal,
+                        messageId: t == null ? void 0 : t.id
+                    });
+                case He.REPORT:
+                    return I(t == null ? void 0 : t.id, we);
+                case He.DELETE:
+                    return P == null ? void 0 : P((t == null ? void 0 : t.id) ?? "")
+            }
+        }, ot = [{
+            label: "Copy",
+            icon: O.COPY,
+            onPress: () => me(He.COPY),
+            isHidden: !Ve || !!oe
+        }, {
+            label: "Edit",
+            icon: O.EDIT,
+            onPress: () => me(He.EDIT),
+            isHidden: !he
+        }, {
+            label: "Remove Image",
+            icon: O.TRASH,
+            onPress: () => me(He.REMOVE_IMAGE),
+            isHidden: !zt
+        }, {
+            label: "Rate voice quality",
+            icon: O.AUDIO,
+            onPress: () => me(He.RATE_VOICE),
+            isHidden: !nt
+        }, {
+            label: "Report",
+            icon: O.FLAG,
+            onPress: () => me(He.REPORT),
+            isHidden: !Qe
+        }, {
+            label: "Delete",
+            icon: O.TRASH,
+            onPress: () => me(He.DELETE),
+            isHidden: !P || !ct
+        }], A = () => {
+            y && (C ? N(k ? -1 : x) : a(i ? null : we ? M : x))
+        }, V = () => {
+            t.id === "pending-temp" ? W == null || W(De ?? t.content) : se ? u({
+                regenerate: !0,
+                image_prompt: De
+            }) : Ze(), ne(null), z(!1)
+        }, gt = D => {
+            D === Yi.CTA && S && (S == null || S.actionHandler())
+        }, We = i || k;
+        return S != null && S.isError ? n.jsx(je, {
+            className: "w-full px-md",
+            style: {
+                maxWidth: kt
+            },
+            children: n.jsx(qo, {
+                visible: S.isError,
+                title: S.errorMessage,
+                actionHandler: gt,
+                actionTitle: S == null ? void 0 : S.actionTitle,
+                variant: S.variant,
+                isDismissable: !1
+            })
+        }) : n.jsxs(n.Fragment, {
+            children: [n.jsxs("div", {
+                className: Y("w-full flex justify-end mb-lg bg-transparent items-start", G ? "justify-between" : "justify-start"),
+                style: {
+                    maxWidth: kt
+                },
+                onClick: A,
+                onTouchStart: Fe,
+                onTouchEnd: Se,
+                children: [n.jsx("div", {
+                    children: n.jsx(n.Fragment, {
+                        children: y ? n.jsx("div", {
+                            className: "ml-md self-start",
+                            children: n.jsx(Wi, {
+                                size: $i.MEDIUM,
+                                className: "rounded-sm border-gray-6 dark:border-gray-9",
+                                checked: i || k,
+                                disabled: T
+                            })
+                        }) : null
+                    })
+                }), n.jsxs(_t, {
+                    style: {
+                        maxWidth: kt
+                    },
+                    className: Y("gap-0 w-full px-[13px] py-0 pr-1", (w || C) && "mx-md", ie && "!bg-transparent !w-full", We && "bg-sky-9 dark:bg-sky-2 text-white"),
+                    children: [n.jsxs("div", {
+                        className: Y("flex justify-between items-start gap-0 flex-row-reverse min-w-0 w-full"),
+                        children: [n.jsx("div", {
+                            className: Y("flex justify-between items-center gap-0", !G && "flex-row-reverse"),
+                            style: {
+                                maxWidth: kt
+                            },
+                            children: v && !y && (ot != null && ot.length) ? n.jsx(mn, {
+                                listItems: ot,
+                                placement: "bottom-end",
+                                children: n.jsx(ue, {
+                                    variant: $.TRANSPARENT,
+                                    icon: O.MORE_VERTICAL,
+                                    className: Y(G ? "text-white" : "text-gray-10", "w-[20px]"),
+                                    disabled: St,
+                                    "aria-label": "message-dropdown"
+                                })
+                            }) : null
+                        }), n.jsxs(n.Fragment, {
+                            children: [!ie && n.jsxs("div", {
+                                className: Y("flex-1 min-w-0 break-words relative", he && "cursor-text"),
+                                style: he ? {
+                                    WebkitUserSelect: "none",
+                                    userSelect: "none",
+                                    WebkitTouchCallout: "none",
+                                    touchAction: "manipulation"
+                                } : void 0,
+                                onDoubleClick: he ? st : void 0,
+                                onTouchStart: Ot,
+                                onTouchMove: _e,
+                                onTouchEnd: dt,
+                                onTouchCancel: ft,
+                                onContextMenu: vt,
+                                children: [ut ? n.jsx("div", {
+                                    className: "absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-10 rounded",
+                                    children: n.jsx(Jo, {})
+                                }) : null, G ? n.jsx(mc, {
+                                    content: (t == null ? void 0 : t.content) ?? "",
+                                    userName: jt,
+                                    characterName: e == null ? void 0 : e.name,
+                                    imageUrl: oe,
+                                    isAvatarImageBlurred: (Ue == null ? void 0 : Ue.blurred) ?? !1,
+                                    showCheckbox: y
+                                }) : n.jsx(wl, {
+                                    message: t,
+                                    userName: jt,
+                                    characterName: e == null ? void 0 : e.name,
+                                    isAvatarImageBlurred: (Ue == null ? void 0 : Ue.blurred) ?? !1,
+                                    isSelected: We,
+                                    showCheckbox: y
+                                })]
+                            }), ie ? n.jsxs(n.Fragment, {
+                                children: [n.jsx("div", {
+                                    className: "fixed inset-0 z-30 pointer-events-none"
+                                }), n.jsx("div", {
+                                    className: "relative z-40 w-full min-w-0 pointer-events-auto",
+                                    children: n.jsx(pc, {
+                                        value: De,
+                                        onChange: U,
+                                        onCancel: mt,
+                                        onSettings: () => Oe(!0),
+                                        onSave: V,
+                                        isSaving: ye,
+                                        isImageEditMode: se
+                                    })
+                                })]
+                            }) : null]
+                        })]
+                    }), Zt.Children.map(B, D => Zt.isValidElement(D) && D.type === ls ? Zt.cloneElement(D, {
+                        messageEditMode: ie,
+                        setMessageEditMode: ne,
+                        setEditMessageContent: U,
+                        chatIndex: x,
+                        message: t,
+                        requestErrorHandler: S
+                    }) : D), Lt ? n.jsx($e, {
+                        variant: yt.LABEL_MEDIUM_REGULAR,
+                        className: "text-gray-11",
+                        children: L == null ? void 0 : L.message
+                    }) : null]
+                })]
+            }), n.jsx(Ta, {
+                isOpen: X,
+                setIsOpen: Oe
+            }), Pe ? n.jsx(Aa, {
+                isOpen: Pe,
+                isLoading: et,
+                onClose: te,
+                onConfirm: Wt
+            }) : null, de ? n.jsx(Cl, {
+                position: de,
+                listItems: ot,
+                onClose: ht
+            }) : null]
+        })
+    },
+    xc = Zo.withTag("StoryChatInput");
+
+function bc({
+    character: e,
+    typingMode: t,
+    isCloneLoading: r,
+    errorCode: s,
+    scrollToBottom: l,
+    isInputActionDisabled: u,
+    isLastMessageImage: i,
+    wrapperRef: a,
+    generate: c,
+    setIsInputActionDisabled: d,
+    isMessageEditMode: h,
+    setCharacterThatIsTyping: w,
+    isAutoResponseActivated: g,
+    onPendingMessage: p,
+    hasPendingMessage: x,
+    isCharacterAvatarBlurred: C,
+    isChatWithGroup: k,
+    hideSuggest: N = !1,
+    droppedFile: R,
+    shouldRenderImageUploader: M,
+    setDroppedFile: T,
+    onInputFocusChange: I,
+    isTopMenuHidden: H = !1,
+    onNeedsMoreSpace: L
+}) {
+    const _ = er(),
+        {
+            isDesktop: y,
+            isMobile: S
+        } = wn(),
+        {
+            isDark: F
+        } = lr(),
+        [z, B] = o.useState(""),
+        K = o.useRef(null),
+        [W, q] = o.useState(!1),
+        ce = e,
+        [m, ee] = o.useState(!1),
+        P = o.useRef(null),
+        {
+            permissions: re,
+            isAuthenticated: et
+        } = ps(),
+        J = ds(gn.ChatImageImageGeneration),
+        be = (J == null ? void 0 : J.allowed) ?? !1,
+        X = (J == null ? void 0 : J.isPaywall) ?? !1,
+        [Oe, Pe] = o.useState(!1),
+        [te, de] = o.useState(!1),
+        [Ee, Z] = o.useState(null),
+        Ye = !et && (e == null ? void 0 : e.is_nsfw),
+        [Re, ye] = o.useState(null),
+        [ie, ne] = o.useState(!1),
+        [se, De] = o.useState(0),
+        [U, Ie] = o.useState(""),
+        [ge, fe] = o.useState(""),
+        [pe, Xe] = o.useState(!1),
+        [tt, Ke] = o.useState(!1),
+        Ge = (ge != null && ge.trim() ? `/search ${ge}
+` : "") + (U != null && U.trim() ? `/cmd ${U}
+` : "") + z,
+        Me = vo.getItem(Xi) === "true",
+        Nt = tr(s, nr.RATE_LIMIT_BREACHED),
+        Qe = o.useRef(new AbortController),
+        we = Qe.current,
+        ae = Ge.trim().length > 0 || Re,
+        G = !!t || r || Nt || x,
+        oe = be || X,
+        qe = Ge || u || ae || Me || !oe,
+        [Vt, he] = o.useState(!1),
+        Ve = o.useRef(null),
+        [Je, ct] = o.useState(!1),
+        {
+            isUploading: St,
+            displayImageKey: v,
+            handleClearImage: ut,
+            processDroppedFile: nt,
+            handleUploadClick: Lt,
+            isImageCleared: zt
+        } = Ma({
+            fileInputRef: Ve,
+            onImageUploaded: A => {
+                ye == null || ye(A), ne == null || ne(!1)
+            },
+            onUploadingChange: ne,
+            resetSignal: se,
+            disabled: G,
+            isEnabled: M,
+            onImageCleared: () => {
+                ye(null), he(!1)
+            }
+        });
+    o.useEffect(() => {
+        R && (nt([R]), T(null))
+    }, [R, nt, T]);
+    const Ft = async () => {
+        var A;
+        if (m) {
+            (A = P == null ? void 0 : P.current) == null || A.stop(), ee(!1);
+            return
+        }
+        try {
+            const {
+                state: V
+            } = await navigator.permissions.query({
+                name: "microphone"
+            });
+            V !== "granted" && de(!0);
+            const gt = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!gt) {
+                ee(!1);
+                return
+            }
+            P.current = new gt, P.current.interimResults = !1, P.current.lang = "en-US", P.current.onresult = We => {
+                We.results[We.results.length - 1].isFinal && B(We.results[We.results.length - 1][0].transcript)
+            }, P.current.onspeechend = () => {
+                ee(!1)
+            }, P.current.onerror = We => {
+                Oa(We.error), ee(!1)
+            }, P.current.start(), ee(!0)
+        } catch (V) {
+            xc.error("Error while getting permissions : ", V)
+        }
+    }, jt = async (A, V) => {
+        k && !g ? p(A, V) : (w(e), await c({
+            type: "text",
+            content: A,
+            image_key: V
+        }))
+    }, Ue = async () => {
+        if (ie) return;
+        if (Ye) return _(Ji());
+        const A = Ge;
+        B(""), fe(""), Ie(""), Ke(!1), Xe(!1), Re && (ye(null), De(V => V + 1)), await jt(A, Re ?? void 0), Oe && Pe(!1)
+    };
+    o.useLayoutEffect(() => {
+        l()
+    }, [Ge, l]);
+    const Wt = async () => {
+        d(!0);
+        const A = await c({
+            type: "text",
+            autopilot: !0,
+            abortSignal: we.signal
+        });
+        A && (B(A), Pe(!0)), Qe.current = new AbortController, d(!1)
+    }, Ot = async () => {
+        if (X) {
+            Z(Xn.PREMIUM_ACCESS);
+            return
+        }
+        if (!be) return;
+        const A = await vo.getItem(qi) === "true";
+        (ce == null ? void 0 : ce.lora_status) === "ready" || re != null && re.includes(_o.conversation_images_v2) && !A ? (w(e), await c({
+            type: "image",
+            regenerate: i
+        })) : re != null && re.includes(_o.image_training) ? Z(Xn.TRAINING) : Z(Xn.PREMIUM_TRAINING)
+    }, _e = A => {
+        switch (A) {
+            case Mt.SEND:
+                return Ue();
+            case Mt.AUTO_PILOT:
+                return Wt();
+            case Mt.TOGGLE_RECORDING:
+                return Ft()
+        }
+    }, dt = (() => {
+        const A = [{
+            icon: O.GLOBE,
+            label: "Web Search",
+            isDisabled: G,
+            onPress: () => {
+                Ke(!0)
+            }
+        }, {
+            icon: "Command",
+            label: "Command (OOC)",
+            isDisabled: G,
+            onPress: () => {
+                Xe(!0)
+            }
+        }];
+        return M && A.unshift({
+            icon: "Camera",
+            label: "Attach Image",
+            isDisabled: G,
+            onPress: Lt
+        }), ae && (N || A.unshift({
+            icon: O.LIGHT,
+            label: "Suggest Reply",
+            onPress: () => _e(Mt.AUTO_PILOT),
+            isDisabled: G
+        }), !(Me || k) && oe && A.unshift({
+            icon: O.IMAGE,
+            label: "Generate Image",
+            onPress: Ot,
+            isDisabled: G
+        })), A
+    })(), [ft, pt] = o.useState(0), [vt, ht] = o.useState(null);
+    o.useEffect(() => {
+        if (!S || typeof window > "u") return;
+        const A = window.visualViewport;
+        if (!A) return;
+        const V = () => {
+            ht(A.height)
+        };
+        return A.addEventListener("resize", V), A.addEventListener("scroll", V), V(), () => {
+            A.removeEventListener("resize", V), A.removeEventListener("scroll", V)
+        }
+    }, [S]);
+    const ze = tt && pe ? 124 : 188,
+        Fe = 32,
+        Se = o.useMemo(() => {
+            if (!S || !vt) return ze;
+            let A = H ? 70 : 120;
+            W && (A += 35);
+            const V = Math.max(0, vt - A),
+                gt = Math.min(V, 600);
+            return Math.max(ze, Math.max(Fe, gt))
+        }, [S, W, H, ze, Fe, vt]),
+        Ze = Math.max(Fe, Math.min(Se, ft || Fe)),
+        mt = (ft || 0) > Se;
+    o.useEffect(() => {
+        if (!S || !W) {
+            L == null || L(!1);
+            return
+        }
+        const A = ft > 90;
+        L == null || L(A)
+    }, [ft, W, S, L]), o.useEffect(() => {
+        Ze > 60 && !Je ? ct(!0) : Ze < 48 && Je && ct(!1)
+    }, [Ze, Je]);
+    const st = Je,
+        ke = A => {
+            A.isComposing || A.key === "Enter" && (A.metaKey || A.ctrlKey) || A.key !== "Enter" || A.shiftKey || ae && (S || (A.preventDefault(), Ue()))
+        },
+        me = o.useRef(null);
+    o.useEffect(() => () => {
+        typeof window < "u" && me.current !== null && (window.clearTimeout(me.current), me.current = null)
+    }, []);
+    const ot = A => {
+        if (typeof window < "u" && me.current !== null && (window.clearTimeout(me.current), me.current = null), A) {
+            q(!0), I == null || I(!0);
+            return
+        }
+        if (typeof window > "u") {
+            q(!1), I == null || I(!1);
+            return
+        }
+        me.current = window.setTimeout(() => {
+            q(!1), I == null || I(!1), me.current = null
+        }, 160)
+    };
+    return S && h ? null : n.jsx(je, {
+        className: "bg-transparent w-full right-0 pb-1 z-[1] flex justify-center m-auto",
+        style: {
+            maxWidth: kt
+        },
+        children: n.jsxs("div", {
+            className: "w-full",
+            children: [n.jsxs("div", {
+                ref: a,
+                className: "flex items-end gap-sm max-mob:px-md w-full",
+                children: [!st && n.jsx("div", {
+                    className: "h-full flex items-end gap-sm mb-0",
+                    children: n.jsx(mn, {
+                        listItems: dt,
+                        placement: "top-start",
+                        children: n.jsx(ue, {
+                            loading: u,
+                            disabled: u,
+                            variant: $.SECONDARY,
+                            icon: O.PLUS,
+                            size: le.MEDIUM,
+                            shape: ts.PILL
+                        })
+                    })
+                }), !st && n.jsxs("div", {
+                    className: "h-full flex items-end gap-sm mb-1",
+                    children: [!(qe || k) && n.jsx(es, {
+                        title: "Image",
+                        offset: 0,
+                        children: n.jsx(ue, {
+                            icon: O.IMAGE,
+                            size: le.MEDIUM,
+                            variant: $.TRANSPARENT,
+                            disabled: G,
+                            onClick: Ot,
+                            "aria-label": "generate-image"
+                        })
+                    }), !ae && !u && !N && n.jsx(es, {
+                        title: "Suggest",
+                        offset: 0,
+                        visible: !u,
+                        children: n.jsx(ue, {
+                            icon: O.LIGHT,
+                            size: le.MEDIUM,
+                            variant: u ? $.SECONDARY : $.TRANSPARENT,
+                            onClick: () => _e(Mt.AUTO_PILOT),
+                            loading: u ? !!x : !1,
+                            loaderSize: sr.SMALL,
+                            disabled: G,
+                            "aria-label": "autogenerate"
+                        })
+                    })]
+                }), n.jsx("div", {
+                    className: "w-full flex",
+                    children: n.jsxs("div", {
+                        className: "grow border-1 border-solid border-gray-5 rounded-[13px] py-sm px-2 bg-gray-3 transition-colors focus-within:border-blue-10 relative z-[51]",
+                        children: [M ? n.jsx(_a, {
+                            imageFileKey: v ?? null,
+                            isImageCleared: zt,
+                            isUploading: St,
+                            onClearImage: ut,
+                            isImageModalOpen: Vt,
+                            onImageModalOpenChange: he
+                        }) : null, n.jsx(Mo, {
+                            label: "/search",
+                            isVisible: tt,
+                            onClose: () => Ke(!1),
+                            value: ge,
+                            onValueChange: fe,
+                            isDisabled: G
+                        }), n.jsx(Mo, {
+                            label: "/cmd",
+                            isVisible: pe,
+                            onClose: () => Xe(!1),
+                            value: U,
+                            onValueChange: Ie,
+                            isDisabled: G
+                        }), n.jsx("div", {
+                            className: "flex flex-1 items-end gap-0",
+                            children: n.jsx("div", {
+                                className: "flex-grow w-full min-h-0 overflow-hidden",
+                                style: {
+                                    height: `${Ze}px`,
+                                    maxHeight: `${Se}px`
+                                },
+                                children: n.jsx(xr, {
+                                    value: z,
+                                    onChange: B,
+                                    onFocusChange: ot,
+                                    onKeyDown: ke,
+                                    onSave: () => {
+                                        ae && Ue()
+                                    },
+                                    disabled: G,
+                                    autoFocus: y,
+                                    placeholderText: m ? "Say something..." : "Instructions...",
+                                    enableAutoPair: !0,
+                                    enableAutocomplete: !0,
+                                    enableLint: !0,
+                                    enableInlineDecorations: !0,
+                                    lintDelayMs: 500,
+                                    submitOnEnter: y,
+                                    onContentHeightChange: pt,
+                                    apiRef: K,
+                                    isDarkTheme: F,
+                                    className: Y("h-full min-h-0 overflow-hidden", "bg-transparent rounded-none px-0 py-0 -mx-0", "text-paragraph-md leading-[1.8]", "focus:outline-none", "[&_.cm-editor]:h-full [&_.cm-scroller]:h-full", mt ? "[&_.cm-scroller]:overflow-auto" : "[&_.cm-scroller]:overflow-hidden", "[&_.cm-content]:py-0.5")
+                                })
+                            })
+                        })]
+                    })
+                }), n.jsxs("div", {
+                    className: "mb-1 flex flex-col items-end gap-1",
+                    children: [st ? n.jsx(mn, {
+                        listItems: dt,
+                        placement: "top-start",
+                        children: n.jsx(ue, {
+                            loading: u,
+                            disabled: u,
+                            variant: $.SECONDARY,
+                            icon: O.PLUS,
+                            size: le.MEDIUM,
+                            shape: ts.PILL
+                        })
+                    }) : null, u && !x ? n.jsx(ue, {
+                        classNames: {
+                            icon: "fill-background !size-[14px]"
+                        },
+                        icon: O.SQUARE,
+                        onClick: () => {
+                            we == null || we.abort()
+                        },
+                        size: le.MEDIUM,
+                        variant: $.INVERSE,
+                        "aria-label": "cancel-generation"
+                    }) : null, ae && !u ? n.jsx(ue, {
+                        icon: O.ARROW_UP,
+                        size: le.MEDIUM,
+                        variant: $.INVERSE,
+                        onClick: () => _e(Mt.SEND),
+                        disabled: G || ie,
+                        "aria-label": "send-message"
+                    }) : null, !(ae || k) && !u && n.jsx(ue, {
+                        icon: m ? O.CHECK : O.MIC,
+                        size: le.MEDIUM,
+                        variant: $.SECONDARY,
+                        onClick: () => _e(Mt.TOGGLE_RECORDING),
+                        disabled: G,
+                        "aria-label": "record-voice"
+                    })]
+                })]
+            }), n.jsx(wr, {
+                apiRef: K,
+                isEditorFocused: W,
+                disabled: !S || G,
+                maxWidthPx: 560
+            }), M ? n.jsx("input", {
+                ref: Ve,
+                id: Ki,
+                type: "file",
+                accept: Qi.join(","),
+                hidden: !0
+            }) : null, n.jsx(ka, {
+                isOpen: Ee === "PremiumAccess",
+                onClose: () => Z(null),
+                characterAvatarUrl: e.avatar_url,
+                isCharacterAvatarBlurred: C,
+                paywallRoles: J == null ? void 0 : J.paywallRoles
+            }), n.jsx(Na, {
+                isOpen: Ee === "PremiumTraining",
+                onClose: () => Z(null)
+            }), Ee === "Training" && n.jsx(La, {
+                isOpen: Ee === "Training",
+                onClose: () => Z(null),
+                character: e
+            }), n.jsx(ja, {
+                isOpen: te,
+                setIsPermissionsModal: de,
+                permission: "microphone"
+            })]
+        })
+    })
+}
+const wc = "w-full text-left rounded-2xl border border-border shadow-none",
+    Cc = "bg-default-100 hover:bg-default-200 active:bg-default-200 dark:bg-content1/55 dark:hover:bg-content1/65 dark:active:bg-content1/75";
+
+function Cr({
+    choice: e,
+    onSelect: t,
+    ariaLabel: r,
+    containerClassName: s,
+    headerClassName: l,
+    titleClassName: u,
+    bodyClassName: i
+}) {
+    return n.jsx(hs, {
+        isPressable: !0,
+        isHoverable: !0,
+        disableRipple: !0,
+        allowTextSelectionOnPress: !1,
+        onPress: () => t(e),
+        className: Y(wc, Cc, s),
+        "aria-label": r,
+        children: n.jsxs(or, {
+            className: "px-2.5 py-2",
+            children: [n.jsxs("div", {
+                className: Y("flex items-center gap-3", l),
+                children: [n.jsx("div", {
+                    className: "text-xl leading-none",
+                    children: e.emoji
+                }), n.jsx($e, {
+                    variant: yt.LABEL_LARGE_MEDIUM,
+                    className: Y("text-gray-12 font-semibold", u),
+                    children: e.tagline
+                })]
+            }), n.jsx($e, {
+                variant: yt.PARAGRAPH_SMALL_REGULAR,
+                className: Y("mt-0.5 text-size-13 text-gray-10 leading-snug", i),
+                children: e.content
+            })]
+        })
+    })
+}
+const Ec = ({
+    error: e,
+    onRetry: t,
+    isRefreshing: r
+}) => {
+    const {
+        t: s
+    } = rr(), l = (() => {
+        const u = e.toLowerCase();
+        return u.includes("rate limit") || u.includes("too many") || u.includes("429") ? "You're doing that a bit too fast. Try again in a moment." : typeof navigator < "u" && navigator.onLine === !1 || u.includes("network") || u.includes("connection") || u.includes("offline") ? Pa(s) : Da({
+            type: en.error,
+            t: s
+        })
+    })();
+    return n.jsx("div", {
+        className: "w-full max-w-[520px] mx-auto py-6",
+        children: n.jsx(qo, {
+            visible: !0,
+            title: l,
+            actionHandler: !r && typeof t == "function" ? t : void 0,
+            actionTitle: !r && typeof t == "function" ? "Resubmit" : "",
+            variant: ns.ERROR,
+            isDismissable: !1
+        })
+    })
+};
+
+function yc({
+    isRefreshing: e,
+    onRefresh: t,
+    onClose: r
+}) {
+    const s = "!text-zinc-700 hover:!text-zinc-900 dark:!text-zinc-300 dark:hover:!text-zinc-100",
+        l = ({
+            icon: u,
+            onClick: i,
+            ariaLabel: a
+        }) => n.jsx(ue, {
+            icon: u,
+            size: le.MEDIUM,
+            variant: $.TRANSPARENT,
+            onClick: i,
+            "aria-label": a,
+            className: s
+        });
+    return n.jsxs("div", {
+        className: "flex items-center gap-1",
+        children: [typeof t == "function" ? e ? n.jsx(Jo, {
+            size: sr.SMALL,
+            className: "text-zinc-700 dark:text-zinc-200"
+        }) : n.jsx(l, {
+            icon: O.REFRESH,
+            onClick: t,
+            ariaLabel: "refresh-story-choices"
+        }) : null, typeof r == "function" && n.jsx(l, {
+            icon: O.CLOSE,
+            onClick: r,
+            ariaLabel: "close-story-choices"
+        })]
+    })
+}
+
+function Er({
+    title: e,
+    choices: t,
+    onSelectChoice: r,
+    layout: s = "stack",
+    onClose: l,
+    onRefresh: u,
+    isRefreshing: i,
+    error: a,
+    onRetry: c,
+    headerClassName: d,
+    bodyClassName: h,
+    titleClassName: w
+}) {
+    return n.jsxs(n.Fragment, {
+        children: [n.jsxs(Zi, {
+            className: Y("flex items-center justify-between px-2.5 py-0 pb-0  max-w-[900px] mx-auto", d),
+            children: [n.jsx($e, {
+                className: Y("text-md font-medium tracking-tight", w),
+                children: e
+            }), n.jsx("div", {
+                className: "flex items-center gap-1",
+                children: n.jsx(yc, {
+                    isRefreshing: i,
+                    onRefresh: u,
+                    onClose: l
+                })
+            })]
+        }), n.jsx(or, {
+            className: Y("pt-0", h),
+            children: a ? n.jsx(Ec, {
+                error: a,
+                onRetry: c,
+                isRefreshing: i
+            }) : n.jsx(n.Fragment, {
+                children: s === "grid3" ? n.jsx(Sc, {
+                    choices: t,
+                    onSelect: r
+                }) : n.jsx(vc, {
+                    choices: t,
+                    onSelect: r
+                })
+            })
+        })]
+    })
+}
+
+function Sc({
+    choices: e,
+    onSelect: t
+}) {
+    return n.jsx("div", {
+        className: "grid grid-cols-3 gap-1.5  max-w-[900px] mx-auto",
+        children: e.map(r => n.jsx(Cr, {
+            choice: r,
+            onSelect: t,
+            ariaLabel: `Choose: ${r.tagline}`,
+            bodyClassName: "line-clamp-4"
+        }, `${r.tagline}-${r.emoji}`))
+    })
+}
+
+function vc({
+    choices: e,
+    onSelect: t
+}) {
+    return n.jsx("div", {
+        className: "space-y-1.5",
+        children: e.map(r => n.jsx(Cr, {
+            choice: r,
+            onSelect: t,
+            ariaLabel: `Choose: ${r.tagline}`
+        }, `${r.tagline}-${r.emoji}`))
+    })
+}
+
+function Tc({
+    title: e,
+    choices: t,
+    onSelectChoice: r,
+    onClose: s,
+    onRefresh: l,
+    isRefreshing: u,
+    error: i,
+    onRetry: a
+}) {
+    return n.jsx("div", {
+        className: "fixed right-4 bottom-20",
+        children: n.jsx(hs, {
+            className: "w-[360px] overflow-hidden",
+            classNames: {
+                base: "!bg-background/70 !shadow-none"
+            },
+            radius: "lg",
+            shadow: "none",
+            isBlurred: !0,
+            children: n.jsx(Er, {
+                title: e,
+                choices: t,
+                onSelectChoice: r,
+                onClose: s,
+                onRefresh: l,
+                isRefreshing: u,
+                error: i,
+                onRetry: a,
+                headerClassName: "px-5 py-1 pb-0",
+                titleClassName: "text-sm",
+                bodyClassName: "max-h-[calc(100vh-9rem)] overflow-auto px-4 pb-4 min-h-[260px]"
+            })
+        })
+    })
+}
+
+function Ac({
+    title: e,
+    choices: t,
+    onSelectChoice: r,
+    layout: s = "stack",
+    onClose: l,
+    onRefresh: u,
+    isRefreshing: i,
+    error: a,
+    onRetry: c
+}) {
+    const d = i && !a && t.length === 0 ? "min-h-[180px]" : "";
+    return n.jsx(hs, {
+        classNames: {
+            base: "!bg-background/0 !shadow-none pb-0"
+        },
+        shadow: "none",
+        children: n.jsx(Er, {
+            title: e,
+            choices: t,
+            onSelectChoice: r,
+            layout: s,
+            onClose: l,
+            onRefresh: u,
+            isRefreshing: i,
+            error: a,
+            onRetry: c,
+            bodyClassName: `px-1.5 pb-1 ${d}`.trim()
+        })
+    })
+}
+const Rc = 3,
+    Ic = 1560;
+
+function Mc({
+    choices: e,
+    onSelectChoice: t,
+    isExpanded: r,
+    onToggleExpanded: s,
+    isVisible: l = !0,
+    onClose: u,
+    onRefresh: i,
+    isRefreshing: a,
+    error: c,
+    onRetry: d,
+    nativeKeyboardOpen: h,
+    hideWhenKeyboardOpen: w = !0,
+    title: g = "Let’s go with…"
+}) {
+    const p = Zt.useRef(null),
+        x = a && !c ? "Brainstorming..." : g,
+        C = br(),
+        k = h ?? C,
+        R = (Array.isArray(e) ? e : e.choices).slice(0, Rc),
+        M = Ua(F => F.isDesktop),
+        T = Ba(Ic, "min"),
+        I = F => {
+            t(F), s(!1)
+        };
+    if (Zt.useEffect(() => {
+            if (!r || typeof window > "u" || window.matchMedia("(min-width: 1650px)").matches) return;
+            const F = p.current;
+            if (!F) return;
+            const B = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
+            requestAnimationFrame(() => {
+                F.scrollIntoView({
+                    block: "end",
+                    behavior: B
+                })
+            })
+        }, [r]), !l || w && k) return null;
+    if (T) return n.jsx(Tc, {
+        title: x,
+        choices: R,
+        onSelectChoice: I,
+        onClose: u,
+        onRefresh: i,
+        isRefreshing: a,
+        error: c,
+        onRetry: d
+    });
+    const H = M ? "grid3" : "stack",
+        L = "px-0 pb-3 mob:px-2 mob:pb-3",
+        _ = "max-w-none mob:max-w-[800px] lg:max-w-[1000px]",
+        y = {
+            title: x,
+            choices: R,
+            onSelectChoice: I,
+            layout: H,
+            onClose: u,
+            onRefresh: i,
+            isRefreshing: a,
+            error: c,
+            onRetry: d
+        },
+        S = n.jsx(Ac, {
+            ...y
+        });
+    return n.jsx("div", {
+        ref: p,
+        className: L,
+        children: n.jsx("div", {
+            className: "mx-auto w-full " + _,
+            children: S
+        })
+    })
+}
+
+function _c({
+    characterId: e,
+    conversationId: t,
+    enabled: r,
+    expectedCount: s = 3,
+    language: l,
+    cacheKey: u
+}) {
+    const {
+        callApi: i
+    } = ur(), [a, c] = o.useState([]), [d, h] = o.useState(!1), [w, g] = o.useState(null), p = o.useMemo(() => u || `${t??""}:${e??""}:${l}`, [u, t, e, l]), x = o.useRef(new Map), C = o.useCallback(async () => {
+        if (!r || !e || !t) return;
+        const R = x.current.get(p);
+        if (R != null && R.length) {
+            c(R);
+            return
+        }
+        h(!0), g(null);
+        try {
+            const M = {
+                character_id: e,
+                conversation_id: t,
+                storyMode: !0,
+                expectedCount: s
+            };
+            l && l !== ea && (M.language = l);
+            const T = await i(Ha.createResource, "chat/suggest", M, null),
+                I = (() => {
+                    const y = T,
+                        S = y == null ? void 0 : y.error;
+                    if (typeof S == "string" && S.trim()) return S;
+                    const F = y == null ? void 0 : y.errorMessage;
+                    if (typeof F == "string" && F.trim()) return F;
+                    const z = y == null ? void 0 : y.message;
+                    return typeof z == "string" && z.trim() && ((y == null ? void 0 : y.status) === "error" || (y == null ? void 0 : y.success) === !1) ? z : null
+                })();
+            if (I) {
+                c([]), g(I);
+                return
+            }
+            const H = T == null ? void 0 : T.suggestions,
+                _ = (Array.isArray(H) ? H.filter(y => !!y).map(y => {
+                    const S = y;
+                    return {
+                        emoji: String(S.emoji ?? "").trim(),
+                        tagline: String(S.tagline ?? "").trim(),
+                        content: String(S.content ?? "").trim()
+                    }
+                }) : []).filter(y => !!(y.emoji && y.tagline && y.content)).slice(0, s);
+            c(_), _.length && x.current.set(p, _)
+        } catch (M) {
+            const T = M instanceof Error ? M.message : "Failed to load suggestions";
+            g(T), c([])
+        } finally {
+            h(!1)
+        }
+    }, [i, e, t, r, s, l, p]);
+    o.useEffect(() => {
+        r && C()
+    }, [r, C]);
+    const k = o.useCallback(() => {
+            x.current.delete(p)
+        }, [p]),
+        N = o.useCallback(() => {
+            x.current.delete(p), c([]), g(null), h(!1)
+        }, [p]);
+    return {
+        choices: a,
+        isLoading: d,
+        error: w,
+        refresh: C,
+        clearCache: k,
+        reset: N
+    }
+}
+const jc = "AUTO",
+    Oc = () => {
+        var go, xo, bo, wo, Co, Eo, yo, So;
+        const {
+            characterId: e,
+            conversationId: t
+        } = us(), {
+            t: r
+        } = rr(), s = ta(), l = na(), {
+            userProfile: u
+        } = ps(), {
+            personas: i,
+            selectedPersona: a,
+            setSelectedPersonaIds: c,
+            onUserConfirmChangePersonaInConversation: d,
+            setPersonaToChat: h,
+            loading: w,
+            onUserConfirmSelectedPersonaToChat: g,
+            getDefaultPersona: p,
+            resetSelectedPersonaIds: x,
+            resetSelectedPersonaToChat: C,
+            defaultPersonaId: k,
+            selectedPersonaIds: N,
+            errorType: R
+        } = sa(), {
+            applicationName: M
+        } = oa(), {
+            isAuthenticated: T
+        } = Ga(), {
+            name: I,
+            avatar_url: H
+        } = a || p() || {}, L = T ? ko.MEMBER : ko.GUEST, {
+            isDesktop: _,
+            hoverNone: y,
+            isMobile: S,
+            isTablet: F
+        } = wn(), {
+            status: z,
+            position: B,
+            time_left: K
+        } = cs(f => f.waitingQueue) || {}, [W, q] = o.useState(!1), ce = Va.getItem(za) === "true", {
+            characterData: m
+        } = ra({
+            characterId: e ?? "",
+            withTranslation: !0
+        }), ee = o.useMemo(() => ({
+            ...m,
+            avatar_is_nsfw: (m == null ? void 0 : m.avatar_is_nsfw) ?? !1
+        }), [m]), [P, re] = o.useState(null), [et, J] = o.useState(null), [be, X] = o.useState(!1), [Oe, Pe] = o.useState(!1), [te, de] = o.useState(!1), Ee = o.useRef(null), Z = o.useRef(!1), [Ye, Re] = o.useState(void 0), [ye, ie] = o.useState(new Set), {
+            conversation: ne,
+            currentConversationId: se,
+            createConversation: De,
+            isTyping: U,
+            generate: Ie,
+            altMsgs: ge,
+            altMsgPosition: fe,
+            changeAltMsgPosition: pe,
+            onNewConversation: Xe,
+            errorCode: tt,
+            resetError: Ke,
+            removeMessages: Ge,
+            deleteSingleMessage: Me,
+            handleDeleteMessageImage: Nt,
+            isImageDeleteFromMessageLoading: Qe,
+            isRemoveMessageLoading: we,
+            removeMessageIdx: ae,
+            setRemoveMessageIdx: G,
+            removalMode: oe,
+            setRemovalMode: qe,
+            setConversation: Vt,
+            setAltMsgs: he,
+            loadMessages: Ve,
+            lastMessageId: Je,
+            isLastMessageIdDeleted: ct,
+            cappedMessageId: St,
+            loadMoreMessages: v,
+            isLoadingMessages: ut,
+            sendRating: nt,
+            invalidUrlError: Lt,
+            handleCloneTitleUpdate: zt,
+            isCloneUpdateTitleLoading: Ft,
+            conversationLabel: jt,
+            isChoosePersona: Ue,
+            setIsChoosePersona: Wt,
+            messagesLoading: Ot,
+            displayError: _e,
+            displaySuccess: dt,
+            handleLoadedMessages: ft,
+            voiceId: pt,
+            setVoiceId: vt,
+            errorMessage: ht
+        } = Fa({
+            characterId: e,
+            character: m,
+            conversationId: t,
+            name: I,
+            selectedPersona: a,
+            personas: i,
+            setPersonaToChat: h,
+            isDoNotShowChoosePersonaChecked: ce,
+            getDefaultPersona: p,
+            defaultPersonaId: k,
+            setSelectedPersonaIds: c,
+            setIsNewConversation: q,
+            isStoryMode: !0
+        }), [ze, Fe] = o.useState(null);
+        o.useEffect(() => {
+            U && (Z.current = !1, de(!1))
+        }, [U]);
+        const Se = o.useRef(null),
+            Ze = o.useRef(U),
+            mt = o.useRef(te);
+        o.useEffect(() => {
+            Ze.current = U
+        }, [U]), o.useEffect(() => {
+            mt.current = te
+        }, [te]), o.useEffect(() => () => {
+            typeof window < "u" && Se.current !== null && (window.clearTimeout(Se.current), Se.current = null)
+        }, []);
+        const st = o.useCallback(f => {
+                if (Gr(f), typeof window < "u" && Se.current !== null && (window.clearTimeout(Se.current), Se.current = null), f) {
+                    Z.current = mt.current, de(!1);
+                    return
+                }
+                if (typeof window > "u") {
+                    Z.current && !Ze.current && de(!0), Z.current = !1;
+                    return
+                }
+                Se.current = window.setTimeout(() => {
+                    Z.current && !Ze.current && de(!0), Z.current = !1, Se.current = null
+                }, 200)
+            }, []),
+            {
+                handlePreferredVoiceActions: ke,
+                rateVoiceQuality: me,
+                currentAudioMessageId: ot,
+                isAudioLoading: A,
+                rateVoiceModal: V,
+                handleRateVoiceQualityModalClose: gt,
+                setInfoMessageForRatingVoice: We,
+                infoMessage: tn,
+                loadingFromPreferredVoice: nn,
+                errorMessage: D,
+                resetSocketErrors: xt
+            } = Wa({
+                voiceId: pt,
+                setVoiceId: vt,
+                conversationId: se || "",
+                handleLoadedMessages: ft,
+                displaySuccess: dt,
+                displayError: _e,
+                setSelectedMessageToPlay: Fe
+            }),
+            E = ne,
+            Ne = Vt,
+            j = ge,
+            $t = he,
+            yr = o.useCallback(async f => {
+                await De(f)
+            }, [De]),
+            {
+                blockedUsers: En,
+                blurNSFW: Sr,
+                autoResponse: sn,
+                onUserSetAutoResponse: vr,
+                userChatLanguage: Tr
+            } = fs(),
+            rt = _c({
+                characterId: e,
+                conversationId: se,
+                enabled: te,
+                expectedCount: 3,
+                language: Tr
+            }),
+            Pt = o.useRef(rt),
+            yn = o.useRef(Ie),
+            ms = o.useRef(ke),
+            gs = o.useRef(pe),
+            xs = o.useRef(_e),
+            bs = o.useRef(xt),
+            Sn = o.useRef(s),
+            ws = o.useRef(x),
+            Cs = o.useRef(C),
+            Tt = o.useRef(null);
+        o.useEffect(() => {
+            Pt.current = rt
+        }, [rt]), o.useEffect(() => {
+            yn.current = Ie
+        }, [Ie]), o.useEffect(() => {
+            ms.current = ke
+        }, [ke]), o.useEffect(() => {
+            gs.current = pe
+        }, [pe]), o.useEffect(() => {
+            xs.current = _e
+        }, [_e]), o.useEffect(() => {
+            bs.current = xt
+        }, [xt]), o.useEffect(() => {
+            Sn.current = s
+        }, [s]), o.useEffect(() => {
+            ws.current = x
+        }, [x]), o.useEffect(() => {
+            Cs.current = C
+        }, [C]);
+        const [Ar, Rr] = o.useState(null), Ir = !0, vn = er(), [Mr, Es] = o.useState(""), it = o.useRef(null), Tn = o.useRef(null), [_r, ys] = o.useState(!0), [Dt, kr] = o.useState(!1), [Ss, vs] = o.useState(!1), [Ts, As] = o.useState(!1), [An, Nr] = o.useState(!1), [Rn, Lr] = o.useState(!1), [In, jr] = o.useState(!1), [Mn, Or] = o.useState(!1), [Pr, Dr] = o.useState(!1), [_n, Ur] = o.useState(!1), [kn, Br] = o.useState(!1), [Nn, Hr] = o.useState(!1), [Ln, on] = o.useState(!1), [Rs, Gr] = o.useState(!1), [Is, Vr] = o.useState(!1), [Ms, _s] = o.useState(!1), ks = o.useRef(0), Ns = o.useRef(0), Ls = o.useRef(0), js = o.useRef(0), jn = o.useRef(!1), Os = ht || Mr, [On, Ps] = o.useState(!1), [zr, Fr] = o.useState(""), {
+            isAgeVerificationEnabled: Ds
+        } = $a(), Be = ds(gn.GroupChatAutoResponse), Us = Be == null ? void 0 : Be.allowed, At = (m == null ? void 0 : m.type) === ia.META, Pn = Ya(), [rn, Dn] = o.useState(!1), {
+            onFlagMessageHandler: Wr,
+            success: Bs,
+            isLoading: $r,
+            error: Hs,
+            resetErrorAndSuccess: Gs,
+            progressStep: Yr,
+            setProgressStep: Xr
+        } = aa(), [Un, Vs] = o.useState(!1), [ve, zs] = o.useState(null), [Fs, Kr] = o.useState(!1), Qr = () => {}, qr = `${M} is powered by AI for creative storytelling and roleplay. All stories are fictional and nothing should be taken as real or factual. Enjoy responsibly!`, Jr = "This is an AI generated story which is fictional and for entertainment purposes only!", {
+            onUserCancelCloning: Ws,
+            onUserStartCloning: Bn,
+            onUserSelectedCloningType: $s,
+            isCloningConversationInProgress: Hn,
+            onResetCloneForNextUse: Ys,
+            clonedConversationInfo: Xs,
+            cloningConversationError: Gn,
+            isUserChoiceLastMessageRequired: an,
+            onUserConfirmPartialCloning: Zr,
+            shouldCurrentMessageBeSelectedForCloning: ei,
+            setLastMsgIndexForPartialCloning: Vn,
+            selectedMessageIndex: ti
+        } = la(), Ks = o.useRef(!1), Yt = o.useRef(!1), ln = o.useRef(null), {
+            displayToast: cn
+        } = cr(), [un, Qs] = o.useState(!1), [Ut, ni] = o.useState(!1), qs = z !== xn.WAITING || Pn || e === No, bt = l.state, Js = (bt == null ? void 0 : bt.cloneType) && (bt == null ? void 0 : bt.cloneTitle), Rt = o.useCallback(() => {
+            Yt.current = !1, ln.current = null
+        }, []), si = o.useCallback(f => {
+            Rt(), Bn(f)
+        }, [Bn, Rt]), Zs = o.useCallback(() => {
+            Rt(), Xe()
+        }, [Xe, Rt]), Xt = !!(m && ((go = Object.keys(m)) == null ? void 0 : go.length) > 0 && !Lt), eo = En == null ? void 0 : En.includes((m == null ? void 0 : m.creator_user_id) ?? ""), oi = !qs || !Xt || eo, to = (m == null ? void 0 : m.type) === "META" && (((xo = m == null ? void 0 : m.sub_characters) == null ? void 0 : xo.length) ?? 0) < Xa;
+        o.useEffect(() => {
+            m != null && m.aicq_manual_review_required && Sn.current(Ka.chatbots, {
+                replace: !0
+            }), to && Sn.current(`/group/${e}`, {
+                replace: !0
+            })
+        }, [m == null ? void 0 : m.aicq_manual_review_required, to, e]), o.useEffect(() => {
+            const f = R && Qa[R] || D;
+            f && (xs.current(f), bs.current())
+        }, [R, D]);
+        const Bt = o.useCallback(() => {
+                it.current && (it.current.scrollTop = it.current.scrollHeight)
+            }, []),
+            no = o.useCallback((f = "smooth") => {
+                const b = Ee.current;
+                if (!b) {
+                    Bt();
+                    return
+                }
+                b.scrollIntoView({
+                    behavior: f,
+                    block: "end"
+                })
+            }, [Bt]);
+        o.useEffect(() => {
+            Tt.current = no
+        }, [no]), o.useEffect(() => {
+            if (!te) return;
+            const f = requestAnimationFrame(() => {
+                var b;
+                (b = Tt.current) == null || b.call(Tt, "smooth")
+            });
+            return () => cancelAnimationFrame(f)
+        }, [te]);
+        const so = o.useRef(!1);
+        o.useEffect(() => {
+            if (!te) return;
+            const f = so.current,
+                b = rt.isLoading;
+            if (so.current = b, !f || b) return;
+            const Q = requestAnimationFrame(() => {
+                var Te;
+                (Te = Tt.current) == null || Te.call(Tt, "smooth")
+            });
+            return () => cancelAnimationFrame(Q)
+        }, [te, rt.isLoading]), o.useEffect(() => {
+            var f;
+            Ds && (m != null && m.is_nsfw) && To((f = u == null ? void 0 : u.age_verification) == null ? void 0 : f.status) && Re(!0)
+        }, [Ds, m == null ? void 0 : m.is_nsfw, (bo = u == null ? void 0 : u.age_verification) == null ? void 0 : bo.status]), o.useLayoutEffect(() => {
+            const f = it.current;
+            if (!f) return;
+            const b = ((E == null ? void 0 : E.length) || 0) + ((ge == null ? void 0 : ge.length) || 0),
+                Q = js.current;
+            if (js.current = b, Ms) {
+                if (b <= Ls.current) return;
+                const Te = f.scrollHeight - Ns.current;
+                f.scrollTop = ks.current + Te, jn.current = !0, _s(!1)
+            } else {
+                if (jn.current) {
+                    jn.current = !1;
+                    return
+                }
+                if (!se) return;
+                (b > Q || U) && Bt()
+            }
+        }, [E, ge, Ms, Bt, U, se]), o.useEffect(() => () => {
+            W && q(!1), ws.current(), Cs.current()
+        }, []), o.useEffect(() => (Bs && (dt(), ve != null && ve.isAltMsg ? ($t(f => f.filter(b => b.id !== (ve == null ? void 0 : ve.id))), pe(-1)) : Ne(f => f.filter(b => b.id !== (ve == null ? void 0 : ve.id)))), Hs && _e(), () => Gs()), [Bs, Hs, dt, _e, ve, pe, Gs, $t, Ne]), o.useEffect(() => {
+            const {
+                character_id: f,
+                id: b
+            } = Xs || {};
+            (b || Gn) && (b && (cn({
+                message: "Conversation cloned",
+                type: en.success
+            }), Yt.current || s(`/chat/${f}/${b}`)), Gn && cn({
+                message: r("error:fallbackError"),
+                type: en.error
+            }), Ys(), Vn(-1), Yt.current && (Rt(), s(-1)))
+        }, [Gn, Xs, s, Ys, cn, Vn, Rt]), o.useEffect(() => {
+            if (Ks.current) return;
+            Js && !ln.current && (ln.current = {
+                cloneType: bt.cloneType,
+                cloneTitle: bt.cloneTitle
+            }, Yt.current = !0, s(`${l.pathname}${l.search}`, {
+                replace: !0,
+                state: null
+            }));
+            const f = ln.current;
+            !f || ((E == null ? void 0 : E.length) ?? 0) + ((j == null ? void 0 : j.length) ?? 0) === 0 || (Bn([...E, ...j]), $s(f.cloneType, f.cloneTitle), Ks.current = !0)
+        }, [Js, E == null ? void 0 : E.length, j == null ? void 0 : j.length, l.pathname, l.search, s]), o.useEffect(() => {
+            ze && !Dt && (ke({
+                action: Gt.Play,
+                messageId: ze
+            }), Fe(null))
+        }, [ze, Dt, ke]), o.useEffect(() => {
+            var f;
+            Ss && !ze && Fe(((f = ne == null ? void 0 : ne[0]) == null ? void 0 : f.id) || null)
+        }, [ne, Ss, ze]);
+        const ri = f => {
+                Fe(f || null), vs(!0)
+            },
+            ii = () => {
+                const f = it.current;
+                f && (ks.current = f.scrollTop, Ns.current = f.scrollHeight, Ls.current = ((E == null ? void 0 : E.length) || 0) + ((j == null ? void 0 : j.length) || 0), _s(!0))
+            },
+            dn = o.useMemo(() => ({
+                src: ss((m == null ? void 0 : m.avatar_url) ?? "", {
+                    preset: os.IMAGE_500X650
+                }),
+                alt: m == null ? void 0 : m.name
+            }), [m]),
+            fn = !!(Sr && (m != null && m.avatar_is_nsfw) || !T && (m != null && m.is_nsfw)),
+            ai = o.useMemo(() => {
+                const f = {
+                    src: dn == null ? void 0 : dn.src,
+                    name: m == null ? void 0 : m.name,
+                    tags: m == null ? void 0 : m.tags,
+                    title: m == null ? void 0 : m.title,
+                    blurred: fn
+                };
+                return Object.assign(f, {
+                    sub_characters: m == null ? void 0 : m.sub_characters
+                }), f
+            }, [m, dn, fn]),
+            li = S || F ? Jr : qr,
+            ci = {
+                visible: !T,
+                title: S ? "Unregistered users have limited features; upgrade to unlock and save chats." : "You are not registered. you have limited text and image generation.",
+                description: S ? void 0 : "Register/upgrade plan for more features. Your chats will not be saved"
+            },
+            ui = f => {
+                if (Be != null && Be.isPaywall) {
+                    on(!0);
+                    return
+                }
+                Us && (vr(f), cn({
+                    message: f ? "Autoresponse enabled" : "Autoresponse disabled",
+                    type: en.default
+                }), f && P && Ei())
+            },
+            It = o.useCallback(f => {
+                ms.current({
+                    action: Gt.Stop
+                }), gs.current(f)
+            }, []),
+            oo = () => {
+                oe ? (qe(!1), G(null)) : (Ws(), Yt.current && (Rt(), s(-1)))
+            },
+            di = () => {
+                Zr()
+            },
+            Kt = o.useCallback(() => {
+                Ke(), Es("")
+            }, [Ke]),
+            fi = () => {
+                if (ae == null) return;
+                Kt();
+                const f = at[ae],
+                    b = at[at.length - 1],
+                    Q = (b == null ? void 0 : b.id) === "pending-temp";
+                if ((f == null ? void 0 : f.id) === "pending-temp") {
+                    zn(), hi();
+                    return
+                }
+                Ge(), Q && zn()
+            },
+            zn = () => {
+                re(null), J(null), X(!1)
+            },
+            pi = async f => {
+                if (f) {
+                    if (f === "pending-temp") {
+                        zn();
+                        return
+                    }
+                    ie(b => new Set(b).add(f));
+                    try {
+                        await Me(f)
+                    } finally {
+                        ie(b => {
+                            const Q = new Set(b);
+                            return Q.delete(f), Q
+                        })
+                    }
+                }
+            }, hi = () => {
+                qe(!1), G(null)
+            }, mi = f => {
+                if (!se || !(ve != null && ve.id) || !e) return;
+                const {
+                    comment: b,
+                    reason: Q
+                } = f, Te = {
+                    message_id: ve.id,
+                    conversation_id: se,
+                    character_id: e,
+                    label: Q,
+                    comment: b
+                };
+                Wr(Te)
+            }, gi = (f, b) => {
+                zs({
+                    id: f,
+                    isAltMsg: b
+                }), Vs(!0)
+            }, xi = () => {
+                zs(null), Vs(!1)
+            }, bi = (f, b) => {
+                if (!(f != null && f.character_id) || !(b != null && b.sub_characters) || b.sub_characters.length === 0 || f.role === xe.USER) return b;
+                {
+                    const Q = b.sub_characters.find(Te => Te.id === f.character_id);
+                    return Q ? {
+                        ...Q
+                    } : b
+                }
+            }, wi = !!(j != null && j.length && ((wo = j[0]) != null && wo.image_url) || E != null && E.length && ((Co = E[(E == null ? void 0 : E.length) - 1]) != null && Co.image_url)), ro = () => {
+                Qs(!1)
+            }, Ci = (f, b) => {
+                $s(f, b), ro()
+            }, Fn = (f, b) => {
+                switch (f) {
+                    case Le.SHOW_VOICE_SELECION_MODAL:
+                        kr(b), b || vs(!1);
+                        break;
+                    case Le.SHOW_VOICE_UPGRADE_MODAL:
+                        As(b);
+                        break;
+                    case Le.SHOW_SHARE:
+                        Nr(b);
+                        break;
+                    case Le.SHOW_MODEL_SETTINGS:
+                        Lr(b);
+                        break;
+                    case Le.SHOW_BLOCK_MODAL:
+                        jr(b);
+                        break;
+                    case Le.UPDATE_CLONE_TITLE_MODAL:
+                        Or(b);
+                        break;
+                    case Le.CONVERSATION_MEMORY_MODAL:
+                        Ur(b);
+                        break;
+                    case Le.CHANGE_PERSONA_CONFIRMATION_MODAL:
+                        Br(b);
+                        break;
+                    case Le.CLONE_CONVERSATION_MODAL:
+                        Qs(b);
+                        break;
+                    case Le.CHATBOT_RATING_MODAL:
+                        Hr(b);
+                        break;
+                    case Le.SHOW_MODEL_SELECT_MODAL:
+                        Kr(b);
+                        break;
+                    case Le.SHOW_AUTO_RESPONSE_UPGRADE_MODAL:
+                        on(b);
+                        break
+                }
+            }, io = o.useCallback(() => oe || On || Un || rn || W || un || Mn || _n || kn || Dt || An || Rn || In || Fs || V.isVisible || Ln, [oe, On, Un, rn, W, un, Mn, _n, kn, Dt, An, Rn, In, Fs, V.isVisible, Ln]), Wn = o.useCallback(f => {
+                var b, Q;
+                io() || Ut || ((b = document.activeElement) == null ? void 0 : b.tagName) === "TEXTAREA" || ((Q = document.activeElement) == null ? void 0 : Q.tagName) === "INPUT" || j.length <= 1 || (f.key === "ArrowLeft" && fe > 0 ? It(-1) : f.key === "ArrowRight" && fe < j.length - 1 && It(1))
+            }, [fe, j.length, It, io, Ut]);
+        o.useEffect(() => (window.addEventListener("keydown", Wn), () => {
+            window.removeEventListener("keydown", Wn)
+        }), [Wn]), o.useEffect(() => {
+            if (P && (E == null ? void 0 : E.length) > 0) {
+                const f = E[E.length - 1];
+                (f == null ? void 0 : f.role) === xe.USER && (f == null ? void 0 : f.content) === P && (re(null), J(null), X(!1))
+            }
+        }, [E, P, re, J, X]);
+        const ao = tr(tt, nr.RATE_LIMIT_BREACHED),
+            Ht = !T && ao,
+            lo = T && ao,
+            co = o.useCallback(() => {
+                Ht ? vn(Ao(!0)) : (Kt(), yn.current({
+                    resubmit: !0
+                }))
+            }, [Ht, Kt, vn]),
+            Ei = async f => {
+                if (Be != null && Be.isPaywall) {
+                    on(!0);
+                    return
+                }
+                Us && await Ie({
+                    type: "text",
+                    content: P || "",
+                    image_key: et || void 0,
+                    subCharacterId: null,
+                    resubmit: !1,
+                    regenerate: !1,
+                    autopilot: !1,
+                    image_prompt: "",
+                    continue_chat: !P
+                })
+            }, uo = (f, b) => {
+                Kt(), re(f), J(b || null), X(!0)
+            }, yi = async f => {
+                if (de(!1), Pe(!1), rt.reset(), At && !sn) {
+                    uo(f.content);
+                    return
+                }
+                await Ie({
+                    type: "text",
+                    content: f.content
+                })
+            }, Si = o.useCallback(async () => {
+                Pt.current.clearCache(), await Pt.current.refresh()
+            }, []), vi = o.useCallback(async () => {
+                Pt.current.clearCache(), await Pt.current.refresh()
+            }, []), fo = o.useRef(!1);
+        o.useEffect(() => {
+            if (!fo.current) {
+                fo.current = !0;
+                return
+            }(P || U) && (de(!1), Pe(!1), Pt.current.reset())
+        }, [P, U]);
+        const po = o.useCallback(() => {
+                if (Ht) return "Sign Up";
+                if (!lo) return "Resubmit"
+            }, [Ht, lo]),
+            Ti = o.useMemo(() => ({
+                isError: !!Os,
+                errorMessage: ht || "",
+                actionHandler: co,
+                variant: Ht ? ns.DEFAULT : ns.ERROR,
+                actionTitle: po()
+            }), [Os, ht, co, Ht, po]),
+            at = o.useMemo(() => {
+                const f = [...E];
+                if (j.length > 0 && fe >= 0 && fe < j.length && !U && f.push(j[fe]), !P) return f;
+                const b = f.at(-1);
+                if ((b == null ? void 0 : b.role) === xe.USER && (b == null ? void 0 : b.content) === P) return f;
+                const Te = {
+                    id: "pending-temp",
+                    role: xe.USER,
+                    content: P,
+                    created_at: new Date().toISOString(),
+                    conversation_id: se || "",
+                    prev_id: "",
+                    createdAt: new Date().getTime()
+                };
+                return [...f, Te]
+            }, [P, E, j, fe, U, se]),
+            ho = it.current && ((Eo = it.current) == null ? void 0 : Eo.scrollHeight) > ((yo = it.current) == null ? void 0 : yo.clientHeight);
+        o.useLayoutEffect(() => {
+            if (!Tn.current) return;
+            const f = Tn.current;
+            ho && !y && !S ? f.style.marginLeft = "-10px" : f.style.marginLeft = "0px"
+        }, [ho, y, S]);
+        const $n = {
+                conversationLength: E == null ? void 0 : E.length,
+                currentConversationId: se,
+                handlePreferredVoiceActions: ke,
+                isClonePartial: an,
+                onRegenerate: async f => {
+                    await yn.current(f)
+                },
+                removalMode: oe,
+                setIsMessageEditMode: ni,
+                voiceId: pt
+            },
+            Ai = {
+                handleFlagModalOpen: gi,
+                infoMessage: tn,
+                isMessageEditMode: Ut,
+                isRemoveMessageLoading: we,
+                onCloneSelected: Vn,
+                onDeleteMessage: pi,
+                onRemovalSelected: G,
+                setErrorCode: Es,
+                showCheckbox: oe || an,
+                deletingMessageIds: ye,
+                user_avatar_url: H,
+                user_name: I || "",
+                handleDeleteMessageImage: Nt,
+                isImageDeleteFromMessageLoading: Qe
+            },
+            mo = {
+                showVoiceSelectionModal: Dt,
+                allowRegenerate: !1,
+                character: m,
+                sendRating: nt,
+                currentAudioMessageId: ot,
+                defaultPersonaId: k,
+                isAudioLoading: A,
+                loadMessages: Ve,
+                handleModalVisibility: Fn,
+                handleVoiceButtonClick: ri,
+                scrollToBottom: Bt,
+                isTyping: U !== null
+            },
+            Ri = o.useMemo(() => ({
+                characterName: (m == null ? void 0 : m.name) ?? void 0
+            }), [m == null ? void 0 : m.name]),
+            Ii = qa(m == null ? void 0 : m.name);
+        if (Ot || !m || T && !(i != null && i.length)) return n.jsx(Ro, {
+            className: "absolute top-1/2 left-1/2 scale-[1.5]"
+        });
+        if (T && (Ue || rn)) return n.jsx(Ja, {
+            personas: i,
+            selectedPersona: a,
+            character: m,
+            setIsChoosePersona: Wt,
+            setIsChangePersona: Dn,
+            isDoNotShow: ce,
+            setSelectedPersonaIds: c,
+            onUserConfirmChangePersonaInConversation: () => d(se ?? ""),
+            conversationId: se ?? "",
+            loading: w ?? {
+                isLoading: !1,
+                loadingType: ca.getPersona
+            },
+            isChangePersona: rn,
+            onUserConfirmSelectedPersonaToChat: g,
+            onNewConversation: Zs,
+            setIsNewConversation: q,
+            isNewConversation: W,
+            resetSelectedPersonaIds: x,
+            defaultPersonaId: k || "",
+            selectedPersonaIds: N,
+            handlePreferredVoiceActions: ke
+        });
+        const Mi = () => {
+            if (T) return s(xl);
+            vn(Ao(!0))
+        };
+        return At ? "Groups are not supported yet" : n.jsxs(n.Fragment, {
+            children: [n.jsx(Za, {
+                pageId: "chat",
+                properties: Ri,
+                ogImage: ss((m == null ? void 0 : m.avatar_url) ?? "", {
+                    preset: os.IMAGE_500X650
+                }) ?? void 0,
+                jsonLdTokens: Ii
+            }), n.jsxs("div", {
+                className: "flex grow flex-col top-0 left-0 w-full h-full dark:bg-gray-4",
+                children: [!Xt && n.jsx(ua, {
+                    children: n.jsx("meta", {
+                        name: "prerender-status-code",
+                        content: "404"
+                    })
+                }), !Ut && !(Rs && Is) && n.jsx(je, {
+                    className: "w-full py-0 px-2 z-[2] items-center flex-col",
+                    children: n.jsxs(_t, {
+                        className: "max-w-[800px] w-full",
+                        children: [m.id === No && z === xn.WAITING && n.jsx(el, {}), n.jsx(tl, {
+                            onNewConversation: Zs,
+                            onClearConversationErrors: Kt,
+                            character: ee,
+                            onRemoveChat: () => qe(!0),
+                            isShowRemove: ((E == null ? void 0 : E.length) ?? 0) > 1 || ((j == null ? void 0 : j.length) ?? 0) > 0,
+                            conversationLength: E == null ? void 0 : E.length,
+                            setErrorModalVisible: Ps,
+                            setErrorModalMessage: Fr,
+                            isBotAccessAllowed: Xt,
+                            conversation: E,
+                            altMsgs: j,
+                            conversationId: se ?? "",
+                            handleCloneTitleUpdate: zt,
+                            handleAutoResponseUpdate: () => ui(!sn),
+                            isAutoResponseActivated: sn,
+                            conversationLabel: jt,
+                            setIsChangePersona: Dn,
+                            setIsNewConversation: q,
+                            selectedPersonaId: (a == null ? void 0 : a.id) ?? "",
+                            setSelectedPersonaIds: c,
+                            isDoNotShowChoosePersonaChecked: ce,
+                            onUserStartCloning: si,
+                            voiceId: pt,
+                            handlePreferredVoiceActions: ke,
+                            isShowChangePersonaConfirmationModal: kn,
+                            isShowConversationMemoryModal: _n,
+                            isUpdateCloneTitleModal: Mn,
+                            showBlockModal: In,
+                            showModelSettings: Rn,
+                            showShare: An,
+                            showVoiceSelectionModal: Dt,
+                            showChatbotRatingModal: Nn,
+                            handleModalVisibility: Fn,
+                            defaultPersonaId: (a == null ? void 0 : a.id) || k || "",
+                            isChatWithGroup: At,
+                            typingMode: U,
+                            isStoryMode: !0
+                        })]
+                    })
+                }), n.jsx(_t, {
+                    className: "grow relative",
+                    children: n.jsxs("div", {
+                        className: "grow flex flex-col w-full left-0 items-center absolute h-full overflow-auto " + (_ && "custom-scroll"),
+                        ref: it,
+                        children: [n.jsx(da, {}), E.length <= 1 && n.jsx("div", {
+                            className: "justify-end",
+                            children: n.jsx(fa, {
+                                capability: gn.CharacterTranslate,
+                                children: n.jsx(nl, {
+                                    dataTestId: "CharacterTranslateCapabilityGate",
+                                    characterId: e,
+                                    characterLanguage: m == null ? void 0 : m.language,
+                                    characterVisibility: m == null ? void 0 : m.visibility,
+                                    style: "chat",
+                                    onTranslationSuccess: () => {
+                                        c([a == null ? void 0 : a.id]), q(!0), Dn(!0)
+                                    }
+                                })
+                            })
+                        }), n.jsx("div", {
+                            className: "max-w-[620px]",
+                            children: n.jsx(sl, {
+                                chatHeroData: ai,
+                                disclaimer: li,
+                                chatHeroAlertProps: ci
+                            })
+                        }), n.jsx(Yn, {
+                            y: 2.5
+                        }), n.jsxs("div", {
+                            className: "flex-shrink-0 py-0 w-full",
+                            children: [Je || ct ? n.jsxs(je, {
+                                justify: "center",
+                                className: "pb-0",
+                                children: [!ut && n.jsx(Cn, {
+                                    variant: "secondary_short",
+                                    color: "neutral",
+                                    onPress: () => {
+                                        ii(), v()
+                                    },
+                                    children: n.jsx($e, {
+                                        variant: yt.LABEL_XSMALL_REGULAR,
+                                        children: "Load Previous Chapters"
+                                    })
+                                }), ut ? n.jsx(Ro, {
+                                    size: "sm"
+                                }) : null]
+                            }) : null, at == null ? void 0 : at.map((f, b) => {
+                                var Te;
+                                const Q = ((Te = j[fe]) == null ? void 0 : Te.id) === (f == null ? void 0 : f.id);
+                                return n.jsxs("div", {
+                                    children: [!Pn && (E == null ? void 0 : E.length) > pa && St === (f == null ? void 0 : f.id) && n.jsx(ol, {}), n.jsx(je, {
+                                        children: n.jsx(_t, {
+                                            className: "flex flex-col items-center",
+                                            children: n.jsxs(gc, {
+                                                ...Ai,
+                                                ...$n,
+                                                chatIndex: b,
+                                                character: bi(f, m),
+                                                createConversation: yr,
+                                                isSelectedForClone: ei(b),
+                                                isSelectedForRemoval: ae !== null && b >= ae,
+                                                loadMessages: Ve,
+                                                message: f,
+                                                ...Q && {
+                                                    altMsgs: j ?? []
+                                                },
+                                                ...Q && {
+                                                    isTyping: U !== null
+                                                },
+                                                ...Q && {
+                                                    onClickPrevious: () => It(-1),
+                                                    onClickNext: () => It(1),
+                                                    altMsgCount: j.length,
+                                                    altMsgPosition: fe + 1
+                                                },
+                                                removalMode: oe,
+                                                requestErrorHandler: b === (E == null ? void 0 : E.length) - 1 && Ti || void 0,
+                                                setConversation: Q ? $t : Ne,
+                                                isChatWithGroup: At,
+                                                handleEditPendingMessage: Qt => re(Qt),
+                                                children: [b === at.length - 2 && n.jsx("div", {
+                                                    className: "flex justify-center items-center w-full pt-4 ",
+                                                    children: n.jsx("hr", {
+                                                        className: "shrink-0 bg-divider border-none w-80 h-divider",
+                                                        role: "separator"
+                                                    })
+                                                }), Q ? n.jsx(ls, {
+                                                    ...mo,
+                                                    ...$n,
+                                                    onShowStoryChoices: () => de(Qt => !Qt),
+                                                    isStoryChoicesVisible: te,
+                                                    onClickPrevious: () => It(-1),
+                                                    onClickNext: () => It(1),
+                                                    count: fe + 1,
+                                                    altMsgs: j,
+                                                    isChatWithGroup: At,
+                                                    hasPendingMessage: be,
+                                                    isLastMessage: b === at.length - 1
+                                                }) : n.jsx(ls, {
+                                                    ...$n,
+                                                    ...mo,
+                                                    onShowStoryChoices: () => de(Qt => !Qt),
+                                                    isStoryChoicesVisible: te,
+                                                    isChatWithGroup: At,
+                                                    hasPendingMessage: be,
+                                                    isLastMessage: b === at.length - 1
+                                                })]
+                                            })
+                                        })
+                                    })]
+                                }, f.id || b)
+                            }), n.jsx("div", {
+                                ref: Ee,
+                                children: n.jsx(Mc, {
+                                    choices: {
+                                        choices: rt.choices
+                                    },
+                                    onSelectChoice: yi,
+                                    isExpanded: Oe,
+                                    onToggleExpanded: Pe,
+                                    isVisible: te,
+                                    onClose: () => de(!1),
+                                    onRefresh: Si,
+                                    isRefreshing: rt.isLoading,
+                                    error: rt.error,
+                                    onRetry: vi
+                                })
+                            }), U && !ht && U !== ha.AUTOPILOT ? n.jsx(je, {
+                                className: "justify-center",
+                                children: n.jsx(rl, {})
+                            }) : null, !Xt || eo ? n.jsx(il, {
+                                error: Xt ? Lo.BLOCKED_BOT_CREATOR : Lo.INVALID_ACCESS,
+                                invalidUrlError: Lt,
+                                character: m
+                            }) : null, n.jsx(Yn, {
+                                y: .5
+                            })]
+                        }), !qs && n.jsx(Kn, {
+                            onClick: () => ys(!0),
+                            className: "justify-center fixed bottom-0 left-0 right-0 z-50 gap-6 bg-colorWaitingBanner text-center px-3 pt-2 pb-2",
+                            children: n.jsxs(_t, {
+                                children: [n.jsxs(je, {
+                                    justify: "center",
+                                    className: "flex-wrap gap-5",
+                                    children: [n.jsx(Kn, {
+                                        children: n.jsxs($e, {
+                                            children: ["Waiting Room Position : ", B]
+                                        })
+                                    }), n.jsx(Kn, {
+                                        align: "center",
+                                        className: "self-center object-cover mt-1 cursor-pointer",
+                                        children: n.jsx(ma, {
+                                            src: "/Assets/minimize.png",
+                                            className: "rounded-none",
+                                            height: 20,
+                                            width: 20
+                                        })
+                                    })]
+                                }), n.jsx(je, {
+                                    justify: "center",
+                                    children: n.jsx($e, {
+                                        children: Number(K) >= 60 && "Estimated Time Left is " + Math.floor(Number(K) / 60) + " Minutes"
+                                    })
+                                })]
+                            })
+                        })]
+                    })
+                }), n.jsx(Yn, {
+                    y: 3
+                }), n.jsx(je, {
+                    children: n.jsx(_t, {
+                        className: `items-center pb-2 ${oe||an?"bg-gray-1 dark:bg-gray-3 border-0 border-solid border-t-1 border-gray-5":""}`,
+                        children: oe ? n.jsxs(je, {
+                            className: "max-mob:flex-wrap gap-sm items-center w-full justify-between",
+                            style: {
+                                maxWidth: kt
+                            },
+                            children: [n.jsx($e, {
+                                variant: yt.LABEL_LARGE_REGULAR,
+                                className: "text-gray-11",
+                                children: "Select the first message to remove. All messages after it will be removed."
+                            }), n.jsxs(je, {
+                                className: "max-mob:w-full gap-sm",
+                                children: [n.jsx(lt, {
+                                    variant: $.OUTLINED,
+                                    size: le.LARGE,
+                                    onClick: oo,
+                                    disabled: we,
+                                    className: "max-mob:w-full",
+                                    children: "Cancel"
+                                }), n.jsx(lt, {
+                                    variant: $.CONTAINED,
+                                    color: ga.ERROR,
+                                    onClick: fi,
+                                    size: le.LARGE,
+                                    loading: we,
+                                    disabled: ae == null,
+                                    className: "max-mob:w-full",
+                                    children: "Remove"
+                                })]
+                            })]
+                        }) : an ? n.jsxs(je, {
+                            className: "max-mob:flex-wrap gap-sm items-center w-full justify-between",
+                            style: {
+                                maxWidth: kt
+                            },
+                            children: [n.jsx($e, {
+                                variant: yt.LABEL_LARGE_REGULAR,
+                                children: "Select the last message that you want to clone"
+                            }), n.jsxs(je, {
+                                className: "max-mob:w-full gap-sm",
+                                children: [n.jsx(lt, {
+                                    variant: $.OUTLINED,
+                                    size: le.LARGE,
+                                    onClick: oo,
+                                    className: "max-mob:w-full",
+                                    children: "Cancel"
+                                }), n.jsx(lt, {
+                                    size: le.LARGE,
+                                    onClick: di,
+                                    disabled: ti < 0,
+                                    className: "max-mob:w-full",
+                                    children: "Clone"
+                                })]
+                            })]
+                        }) : !oi && n.jsx(bc, {
+                            errorCode: tt,
+                            isLastMessageImage: wi,
+                            generate: Ie,
+                            typingMode: U,
+                            character: ee,
+                            isCloneLoading: Hn || Ft,
+                            wrapperRef: Tn,
+                            handlePreferredVoiceActions: ke,
+                            setIsInputActionDisabled: Dr,
+                            isInputActionDisabled: Pr,
+                            isMessageEditMode: Ut,
+                            setCharacterThatIsTyping: Qr,
+                            isAutoResponseActivated: sn,
+                            onPendingMessage: uo,
+                            hasPendingMessage: be,
+                            scrollToBottom: Bt,
+                            isCharacterAvatarBlurred: fn,
+                            isChatWithGroup: At,
+                            droppedFile: Ar,
+                            shouldRenderImageUploader: Ir,
+                            setDroppedFile: Rr,
+                            hideSuggest: !0,
+                            onInputFocusChange: st,
+                            isTopMenuHidden: Ut || Rs && Is,
+                            onNeedsMoreSpace: Vr
+                        })
+                    })
+                }), (() => {
+                    if (!Pn) return n.jsx(al, {
+                        showWaitingQueueModal: _r,
+                        setShowWaitingQueueModal: ys
+                    })
+                })(), n.jsx(ll, {
+                    setErrorModalVisible: Ps,
+                    errorModalMessage: zr,
+                    errorModalVisible: On
+                })]
+            }), n.jsxs(n.Fragment, {
+                children: [Hn ? n.jsx(cl, {}) : null, n.jsx(ul, {
+                    handleFlagMessage: mi,
+                    isOpen: Un,
+                    onClose: xi,
+                    isLoading: $r,
+                    progressStep: Yr,
+                    setProgressStep: Xr
+                }), un ? n.jsx(dl, {
+                    isOpen: un,
+                    onOpenChange: f => {
+                        f || ro()
+                    },
+                    onCancel: Ws,
+                    onSubmit: Ci,
+                    isLoading: Hn
+                }) : null, V != null && V.isVisible ? n.jsx(fl, {
+                    messageId: V.messageId,
+                    voiceId: V.voiceId,
+                    showRateVoiceModal: V.isVisible,
+                    onCloseRateModal: gt,
+                    rateVoiceQuality: me,
+                    setInfoMessageForRatingVoice: We,
+                    loadingFromPreferredVoice: nn
+                }) : null, Ts ? n.jsx(pl, {
+                    open: Ts,
+                    onPressUpgrade: Mi,
+                    onOpenChange: As,
+                    voiceUpgradeVariant: L,
+                    characterAvatarUrl: m.avatar_url,
+                    isCharacterAvatarBlurred: fn
+                }) : null, n.jsx(hl, {
+                    title: r("chat:modal.tryAIAutoSelect.upgradePlan.title"),
+                    isOpen: Ln,
+                    onClose: () => on(!1),
+                    paywallRoles: Be == null ? void 0 : Be.paywallRoles
+                }), Nn ? n.jsx(ml, {
+                    characterId: e,
+                    conversationLength: E == null ? void 0 : E.length,
+                    onClose: () => Fn(Le.CHATBOT_RATING_MODAL, !1),
+                    open: Nn
+                }) : null, n.jsx(gl, {
+                    version: "chat",
+                    forceIsRequired: To((So = u == null ? void 0 : u.age_verification) == null ? void 0 : So.status),
+                    isOpen: Ye,
+                    onClose: () => Re(!1)
+                })]
+            })]
+        })
+    };
+export {
+    Oc as ChatStory, jc as RESPONSE_MODE_AUTO, Oc as
+    default
+};
+//# sourceMappingURL=https://sourcemaps.nd-api.com/chat-story-CzlWBq7z.js.map

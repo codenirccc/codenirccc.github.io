@@ -1,0 +1,67 @@
+import {
+    E as a,
+    _ as r,
+    $ as l,
+    av as o,
+    J as c,
+    V as d,
+    g_ as g
+} from "./vendor-CPQsO5nz.js";
+import {
+    T as u,
+    aq as x,
+    P as p,
+    ar as m,
+    as as f
+} from "./common-GQ-Rvgly.js";
+import "./lodash-B4kOJTym.js";
+const j = ({
+        children: e,
+        "data-testid": s = "PageHeader",
+        className: t
+    }) => a.jsx("div", {
+        "data-testid": s,
+        children: a.jsx(r, {
+            as: "h1",
+            variant: l.HEADING_1_BOLD,
+            className: t,
+            children: e
+        })
+    }),
+    P = () => {
+        const {
+            applicationName: e
+        } = o(), {
+            isAuthenticated: s,
+            isLoading: t
+        } = u(), i = x(), n = c.useMemo(() => ({
+            applicationName: e ?? ""
+        }), [e]);
+        return t ? a.jsx(d, {}) : s ? a.jsx(g, {
+            to: i("/"),
+            replace: !0
+        }) : a.jsxs("div", {
+            className: "flex-grow flex flex-col justify-center gap-lg",
+            children: [a.jsx(p, {
+                pageId: "login"
+            }), a.jsx(j, {
+                "data-testid": "PageStaticHeader",
+                className: "text-center",
+                children: a.jsx(m, {
+                    i18nKey: "common:login.pageTitle",
+                    values: n
+                })
+            }), a.jsx("div", {
+                className: "w-full flex justify-center",
+                children: a.jsx(f, {
+                    hideSignInLabel: !0,
+                    className: "w-full max-w-[400px] p-lg bg-gray-3 rounded-lg"
+                })
+            })]
+        })
+    };
+export {
+    P as
+    default
+};
+//# sourceMappingURL=https://sourcemaps.nd-api.com/login-DuXmHf_m.js.map
