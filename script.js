@@ -13,13 +13,13 @@
   /* ============================================================
    *  CONFIG — site keys only. Secrets stay on your server.
    * ============================================================ */
-  const KEYS = Object.freeze({
-    recaptchaV2:       "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
-    recaptchaV2Inv:    "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe",
-    recaptchaV3:       "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
-    hcaptcha:          "10000000-ffff-ffff-ffff-000000000001",
-    turnstile:         "3x00000000000000000000FF",
-  });
+   const KEYS = Object.freeze({
+     recaptchaV2:       "",
+     recaptchaV2Inv:    "",
+     recaptchaV3:       "",
+     hcaptcha:          "",
+     turnstile:         "",
+   });
 
   /* ============================================================
    *  TOKEN STORE — frozen proxy, no silent mutation
@@ -87,11 +87,16 @@
    * ============================================================ */
   const registry = new Map();
 
-  function renderWidget(desc) {
-    const container = $(desc.container);
-    if (!container) return null;
-    const win = window[desc.engine];
-    if (!win) return null;
+   function renderWidget(desc) {
+     const container = $(desc.container);
+     if (!container) return null;
+     const win = window[desc.engine];
+     if (!win) return null;
+     const key = KEYS[desc.key];
+     if (!key) {
+       container.innerHTML = '<span style="color:#999;font-size:0.85rem">Add site key in script.js → KEYS</span>';
+       return null;
+     }
 
     const opts = { sitekey: KEYS[desc.key], theme: desc.theme };
     if (desc.engine === "grecaptcha") {
@@ -156,11 +161,12 @@
    * ============================================================ */
   let v3Executing = false;
 
-  function runV3(action, cb) {
-    if (v3Executing) { cb(null, "already executing"); return; }
-    const g = window.grecaptcha;
-    if (!g) { cb(null, "SDK not loaded"); return; }
-    v3Executing = true;
+   function runV3(action, cb) {
+     if (v3Executing) { cb(null, "already executing"); return; }
+     if (!KEYS.recaptchaV3) { cb(null, "no key"); return; }
+     const g = window.grecaptcha;
+     if (!g) { cb(null, "SDK not loaded"); return; }
+     v3Executing = true;
     g.ready(() => {
       g.execute(KEYS.recaptchaV3, { action })
         .then((t) => { v3Executing = false; cb(t); })
@@ -173,18 +179,19 @@
    * ============================================================ */
   let invWidgetId = null;
 
-  function ensureInvWidget() {
-    if (invWidgetId !== null) return invWidgetId;
-    const btn = $("form-v2-invisible")?.querySelector("button");
-    if (!btn || !window.grecaptcha) return null;
-    invWidgetId = window.grecaptcha.render(btn, {
-      sitekey: KEYS.recaptchaV2Inv,
-      size: "invisible",
-      callback: onInvisibleV2,
-      "expired-callback": () => { tokens.recaptchaV2Invisible = ""; },
-    });
-    return invWidgetId;
-  }
+   function ensureInvWidget() {
+     if (invWidgetId !== null) return invWidgetId;
+     if (!KEYS.recaptchaV2Inv) return null;
+     const btn = $("form-v2-invisible")?.querySelector("button");
+     if (!btn || !window.grecaptcha) return null;
+     invWidgetId = window.grecaptcha.render(btn, {
+       sitekey: KEYS.recaptchaV2Inv,
+       size: "invisible",
+       callback: onInvisibleV2,
+       "expired-callback": () => { tokens.recaptchaV2Invisible = ""; },
+     });
+     return invWidgetId;
+   }
 
   /* ============================================================
    *  GLOBAL CALLBACKS
