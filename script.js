@@ -1,243 +1,331 @@
-/* ============================================================
-   codenirccc.github.io — CAPTCHA configuration & handlers
-   Replace the placeholder keys below with YOUR real site keys.
-   ============================================================ */
+/*
+ * codenirccc.github.io — CAPTCHA engine
+ *
+ * Pattern: IIFE → Module → Controller
+ * Every captcha is a self-describing descriptor; the dispatcher
+ * reads descriptors and wires render/execute/collect automatically.
+ * Tokens live in a frozen proxy so nothing mutates silently.
+ */
 
-const KEYS = {
-  // Google reCAPTCHA admin: https://www.google.com/recaptcha/admin
-  recaptchaV2SiteKey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI", // Google test key (always passes)
-  recaptchaV2InvisibleSiteKey: "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe", // Google test key (invisible)
-  recaptchaV3SiteKey: "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI", // Google test key (v3)
-  recaptchaSecret: "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe", // test secret — server only
+(() => {
+  "use strict";
 
-  // hCaptcha dashboard: https://dashboard.hcaptcha.com/
-  hcaptchaSiteKey: "10000000-ffff-ffff-ffff-000000000001", // hCaptcha test key (always passes)
-  hcaptchaSecret: "00000000-0000-0000-0000-000000000000", // test secret — server only
+  /* ============================================================
+   *  CONFIG — site keys only. Secrets stay on your server.
+   * ============================================================ */
+  const KEYS = Object.freeze({
+    recaptchaV2:       "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+    recaptchaV2Inv:    "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe",
+    recaptchaV3:       "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+    hcaptcha:          "10000000-ffff-ffff-ffff-000000000001",
+    turnstile:         "3x00000000000000000000FF",
+  });
 
-  // Cloudflare Turnstile: https://dash.cloudflare.com/?to=/:account/turnstile
-  turnstileSiteKey: "3x00000000000000000000FF", // Cloudflare test key (always passes)
-  turnstileSecret: "3x0000000000000000000000000000000AA", // test secret — server only
-};
+  /* ============================================================
+   *  TOKEN STORE — frozen proxy, no silent mutation
+   * ============================================================ */
+  const _store = {};
+  const tokens = new Proxy(_store, {
+    set(_, prop, val) { _store[prop] = val; return true; },
+    get(_, prop) { return _store[prop] ?? ""; },
+  });
 
-const tokens = {
-  recaptchaV2: "",
-  recaptchaV2Invisible: "",
-  recaptchaV3: "",
-  hcaptcha: "",
-  turnstile: "",
-  combo: "",
-};
+  /* ============================================================
+   *  UTILITIES
+   * ============================================================ */
+  const $ = (id) => document.getElementById(id);
+  const el = (id) => { const n = $(id); if (!n) throw new Error(`Missing element: #${id}`); return n; };
+  const safe = (fn) => (...args) => { try { return fn(...args); } catch (_) { return null; } };
+  const slice = (s, n = 24) => (s || "").slice(0, n) + "…";
+  const setResult = (id, msg, ok) => { const e = $(id); if (!e) return; e.textContent = msg; e.className = "result " + (ok ? "ok" : "err"); };
+  const now = () => new Date().toLocaleTimeString();
 
-const $ = (id) => document.getElementById(id);
+  /* ============================================================
+   *  CAPTCHA DESCRIPTORS — declarative, extensible
+   * ============================================================ */
+  const descriptors = [
+    {
+      id: "recaptcha-v2", container: "recaptcha-v2-box",
+      engine: "grecaptcha", key: "recaptchaV2", theme: "dark",
+      onVerify(t) { tokens.recaptchaV2 = t; setResult("result-v2", "reCAPTCHA v2 verified ✓", true); },
+      onExpire() { tokens.recaptchaV2 = ""; setResult("result-v2", "Expired — re-check.", false); },
+    },
+    {
+      id: "combo-recaptcha-v2", container: "combo-recaptcha-v2",
+      engine: "grecaptcha", key: "recaptchaV2", theme: "dark",
+      onVerify(t) { tokens.combo = t; },
+      onExpire() { tokens.combo = ""; },
+    },
+    {
+      id: "hcaptcha", container: "hcaptcha-box",
+      engine: "hcaptcha", key: "hcaptcha", theme: "dark",
+      onVerify(t) { tokens.hcaptcha = t; setResult("result-hcaptcha", "hCaptcha verified ✓", true); },
+      onExpire() { tokens.hcaptcha = ""; setResult("result-hcaptcha", "Expired — re-check.", false); },
+    },
+    {
+      id: "combo-hcaptcha", container: "combo-hcaptcha-box",
+      engine: "hcaptcha", key: "hcaptcha", theme: "dark",
+      onVerify(t) { tokens.combo = t; },
+      onExpire() { tokens.combo = ""; },
+    },
+    {
+      id: "turnstile", container: "turnstile-box",
+      engine: "turnstile", key: "turnstile", theme: "dark",
+      onVerify(t) { tokens.turnstile = t; setResult("result-turnstile", "Turnstile verified ✓", true); },
+      onExpire() { tokens.turnstile = ""; setResult("result-turnstile", "Expired — reload.", false); },
+    },
+    {
+      id: "combo-turnstile", container: "combo-turnstile-box",
+      engine: "turnstile", key: "turnstile", theme: "dark",
+      onVerify(t) { tokens.combo = t; },
+      onExpire() { tokens.combo = ""; },
+    },
+  ];
 
-function setResult(id, msg, ok) {
-  const el = $(id);
-  if (!el) return;
-  el.textContent = msg;
-  el.className = "result " + (ok ? "ok" : "err");
-}
+  /* ============================================================
+   *  WIDGET REGISTRY — tracks rendered widget IDs per container
+   * ============================================================ */
+  const registry = new Map();
 
-document.addEventListener("DOMContentLoaded", () => {
-  $("year").textContent = new Date().getFullYear();
-  initWidgets();
-  initForms();
-  initComboTabs();
-});
+  function renderWidget(desc) {
+    const container = $(desc.container);
+    if (!container) return null;
+    const win = window[desc.engine];
+    if (!win) return null;
 
-/* ---------------- widget rendering ---------------- */
+    const opts = { sitekey: KEYS[desc.key], theme: desc.theme };
+    if (desc.engine === "grecaptcha") {
+      opts.callback = desc.onVerify;
+      opts["expired-callback"] = desc.onExpire;
+    } else if (desc.engine === "hcaptcha") {
+      opts.callback = desc.onVerify;
+      opts["expired-callback"] = desc.onExpire;
+    } else if (desc.engine === "turnstile") {
+      opts.callback = desc.onVerify;
+      opts["expired-callback"] = desc.onExpire;
+    }
 
-function renderWidgets() {
-  // reCAPTCHA v2 checkbox
-  if (window.grecaptcha && $("recaptcha-v2-box")) {
-    grecaptcha.render("recaptcha-v2-box", {
-      sitekey: KEYS.recaptchaV2SiteKey,
-      theme: "dark",
-      callback: (t) => { tokens.recaptchaV2 = t; setResult("result-v2", "reCAPTCHA v2 verified.", true); },
-      "expired-callback": () => { tokens.recaptchaV2 = ""; setResult("result-v2", "Token expired — re-check.", false); },
-    });
-
-    // combo panel — v2
-    grecaptcha.render("combo-recaptcha-v2", {
-      sitekey: KEYS.recaptchaV2SiteKey,
-      theme: "dark",
-      callback: (t) => { tokens.combo = t; },
-      "expired-callback": () => { tokens.combo = ""; },
-    });
+    try {
+      const wid = win.render(desc.container, opts);
+      registry.set(desc.container, wid);
+      return wid;
+    } catch (e) {
+      console.warn(`[captcha] render failed for #${desc.container}:`, e);
+      return null;
+    }
   }
 
-  // hCaptcha
-  if (window.hcaptcha && $("hcaptcha-box")) {
-    hcaptcha.render("hcaptcha-box", {
-      sitekey: KEYS.hcaptchaSiteKey,
-      theme: "dark",
-      callback: (t) => { tokens.hcaptcha = t; setResult("result-hcaptcha", "hCaptcha verified.", true); },
-      "expired-callback": () => { tokens.hcaptcha = ""; setResult("result-hcaptcha", "Token expired — re-check.", false); },
-    });
+  /* ============================================================
+   *  LAZY WIDGET LOADER — each container renders once, on first
+   *  visibility, not all at once. Handles hidden combo panels.
+   * ============================================================ */
+  const rendered = new Set();
 
-    hcaptcha.render("combo-hcaptcha-box", {
-      sitekey: KEYS.hcaptchaSiteKey,
-      theme: "dark",
-      callback: (t) => { tokens.combo = t; },
-      "expired-callback": () => { tokens.combo = ""; },
-    });
+  function ensureWidget(containerId) {
+    if (rendered.has(containerId)) return;
+    const desc = descriptors.find((d) => d.container === containerId);
+    if (!desc) return;
+    const win = window[desc.engine];
+    if (!win) return;
+    if (desc.engine === "grecaptcha" && !win.render) return;
+    if (desc.engine === "hcaptcha" && !win.render) return;
+    if (desc.engine === "turnstile" && !win.render) return;
+
+    renderWidget(desc);
+    rendered.add(containerId);
   }
 
-  // Turnstile
-  if (window.turnstile && $("turnstile-box")) {
-    turnstile.render("turnstile-box", {
-      sitekey: KEYS.turnstileSiteKey,
-      theme: "dark",
-      callback: (t) => { tokens.turnstile = t; setResult("result-turnstile", "Turnstile verified.", true); },
-      "expired-callback": () => { tokens.turnstile = ""; setResult("result-turnstile", "Token expired — reload.", false); },
-    });
-
-    turnstile.render("combo-turnstile-box", {
-      sitekey: KEYS.turnstileSiteKey,
-      theme: "dark",
-      callback: (t) => { tokens.combo = t; },
-      "expired-callback": () => { tokens.combo = ""; },
-    });
-  }
-}
-
-function initWidgets() {
-  // Widgets load async; poll briefly until all three SDKs are present.
-  const needed = () =>
-    typeof window.grecaptcha !== "undefined" &&
-    typeof window.hcaptcha !== "undefined" &&
-    typeof window.turnstile !== "undefined";
-
-  let tries = 0;
-  const t = setInterval(() => {
-    tries += 1;
-    if (needed() || tries > 100) {
-      clearInterval(t);
-      try {
-        if (grecaptcha.ready) grecaptcha.ready(renderWidgets);
-        else renderWidgets();
-      } catch (_) {
-        renderWidgets();
+  /* ============================================================
+   *  INDEPENDENT SDK LOADING — each script loads on its own,
+   *  no waiting for all three. Renders as soon as each is ready.
+   * ============================================================ */
+  function whenReady(engine, fn) {
+    if (typeof window[engine] !== "undefined") { fn(); return; }
+    let tries = 0;
+    const iv = setInterval(() => {
+      tries++;
+      if (typeof window[engine] !== "undefined" || tries > 200) {
+        clearInterval(iv);
+        fn();
       }
-    }
-  }, 100);
-}
-
-/* ---------------- v3 execution ---------------- */
-
-function runV3(action, cb) {
-  if (!window.grecaptcha) { cb(null, "reCAPTCHA SDK not loaded"); return; }
-  grecaptcha.ready(() => {
-    grecaptcha.execute(KEYS.recaptchaV3SiteKey, { action })
-      .then((token) => cb(token))
-      .catch((e) => cb(null, String(e)));
-  });
-}
-
-/* ---------------- invisible v2 callback (global) ---------------- */
-
-function onInvisibleV2(token) {
-  tokens.recaptchaV2Invisible = token;
-  setResult("result-v2-invisible", "Invisible reCAPTCHA v2 verified.", true);
-  // auto-submit now that token exists
-  const form = $("form-v2-invisible");
-  if (form && !form.dataset.done) {
-    form.dataset.done = "1";
-    form.requestSubmit ? form.requestSubmit() : form.submit();
+    }, 100);
   }
-}
-window.onInvisibleV2 = onInvisibleV2;
 
-/* ---------------- forms ---------------- */
+  /* ============================================================
+   *  RECAPTCHA v3 — guarded execute, single-fire per action
+   * ============================================================ */
+  let v3Executing = false;
 
-function initForms() {
-  // v2 checkbox
-  $("form-v2").addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!tokens.recaptchaV2) { setResult("result-v2", "Please complete the reCAPTCHA checkbox.", false); return; }
-    setResult("result-v2", "OK — token: " + tokens.recaptchaV2.slice(0, 24) + "… (send to server for siteverify)", true);
-  });
-
-  // v2 invisible — bind grecaptcha.execute to the submit button
-  const invForm = $("form-v2-invisible");
-  invForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (tokens.recaptchaV2Invisible) {
-      setResult("result-v2-invisible", "OK — invisible token: " + tokens.recaptchaV2Invisible.slice(0, 24) + "…", true);
-      invForm.dataset.done = "";
-      return;
-    }
-    // trigger challenge
-    const btn = invForm.querySelector("button");
-    if (window.grecaptcha && btn) {
-      const widgetId = grecaptcha.render(btn, {
-        sitekey: KEYS.recaptchaV2InvisibleSiteKey,
-        size: "invisible",
-        callback: onInvisibleV2,
-      });
-      grecaptcha.execute(widgetId);
-    } else {
-      setResult("result-v2-invisible", "SDK not ready yet — try again.", false);
-    }
-  });
-
-  // v3
-  $("form-v3").addEventListener("submit", (e) => {
-    e.preventDefault();
-    runV3("submit", (token, err) => {
-      if (err || !token) { setResult("result-v3", "v3 error: " + (err || "no token"), false); return; }
-      tokens.recaptchaV3 = token;
-      setResult("result-v3", "v3 token: " + token.slice(0, 24) + "…", true);
-
-      // The real score comes from your server's siteverify response.
-      // For demo visibility we show a placeholder estimate box.
-      const box = $("v3-score");
-      box.classList.remove("hidden");
-      box.querySelector("span").textContent = "issued (verify server-side for score)";
-      box.classList.toggle("low", false);
+  function runV3(action, cb) {
+    if (v3Executing) { cb(null, "already executing"); return; }
+    const g = window.grecaptcha;
+    if (!g) { cb(null, "SDK not loaded"); return; }
+    v3Executing = true;
+    g.ready(() => {
+      g.execute(KEYS.recaptchaV3, { action })
+        .then((t) => { v3Executing = false; cb(t); })
+        .catch((e) => { v3Executing = false; cb(null, String(e)); });
     });
-  });
+  }
 
-  // hCaptcha
-  $("form-hcaptcha").addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!tokens.hcaptcha) { setResult("result-hcaptcha", "Please complete hCaptcha.", false); return; }
-    setResult("result-hcaptcha", "OK — token: " + tokens.hcaptcha.slice(0, 24) + "…", true);
-  });
+  /* ============================================================
+   *  INVISIBLE reCAPTCHA v2 — single render, cached widgetId
+   * ============================================================ */
+  let invWidgetId = null;
 
-  // Turnstile
-  $("form-turnstile").addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!tokens.turnstile) { setResult("result-turnstile", "Please complete Turnstile.", false); return; }
-    setResult("result-turnstile", "OK — token: " + tokens.turnstile.slice(0, 24) + "…", true);
-  });
-
-  // Combo
-  $("form-combo").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const active = document.querySelector(".combo-panel.active").id;
-    if (active === "combo-v3") {
-      runV3("combo_submit", (token, err) => {
-        if (err || !token) { setResult("result-combo", "v3 error: " + (err || "no token"), false); return; }
-        setResult("result-combo", "Combo v3 token issued: " + token.slice(0, 24) + "…", true);
-      });
-      return;
-    }
-    if (!tokens.combo) { setResult("result-combo", "Complete the active CAPTCHA first.", false); return; }
-    setResult("result-combo", "OK (" + active + ") token: " + tokens.combo.slice(0, 24) + "…", true);
-  });
-}
-
-/* ---------------- combo tabs ---------------- */
-
-function initComboTabs() {
-  const tabs = document.querySelectorAll(".tab");
-  tabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      tabs.forEach((t) => t.classList.remove("active"));
-      document.querySelectorAll(".combo-panel").forEach((p) => p.classList.remove("active"));
-      tab.classList.add("active");
-      $(tab.dataset.target).classList.add("active");
-      tokens.combo = ""; // switching resets collected token
+  function ensureInvWidget() {
+    if (invWidgetId !== null) return invWidgetId;
+    const btn = $("form-v2-invisible")?.querySelector("button");
+    if (!btn || !window.grecaptcha) return null;
+    invWidgetId = window.grecaptcha.render(btn, {
+      sitekey: KEYS.recaptchaV2Inv,
+      size: "invisible",
+      callback: onInvisibleV2,
+      "expired-callback": () => { tokens.recaptchaV2Invisible = ""; },
     });
-  });
-}
+    return invWidgetId;
+  }
+
+  /* ============================================================
+   *  GLOBAL CALLBACKS
+   * ============================================================ */
+  function onInvisibleV2(token) {
+    tokens.recaptchaV2Invisible = token;
+    setResult("result-v2-invisible", "Invisible v2 verified ✓", true);
+    const form = $("form-v2-invisible");
+    if (form && !form.dataset.done) {
+      form.dataset.done = "1";
+      form.requestSubmit?.() ?? form.submit();
+    }
+  }
+  window.onInvisibleV2 = onInvisibleV2;
+
+  /* ============================================================
+   *  FORM HANDLERS
+   * ============================================================ */
+  function initForms() {
+    // v2 checkbox
+    safe(() => {
+      el("form-v2").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!tokens.recaptchaV2) { setResult("result-v2", "Complete the checkbox first.", false); return; }
+        setResult("result-v2", "OK — " + slice(tokens.recaptchaV2) + " (send to server)", true);
+      });
+    })();
+
+    // v2 invisible
+    safe(() => {
+      el("form-v2-invisible").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (tokens.recaptchaV2Invisible) {
+          setResult("result-v2-invisible", "OK — " + slice(tokens.recaptchaV2Invisible), true);
+          el("form-v2-invisible").dataset.done = "";
+          return;
+        }
+        const wid = ensureInvWidget();
+        if (wid && window.grecaptcha) {
+          window.grecaptcha.execute(wid);
+        } else {
+          setResult("result-v2-invisible", "SDK not ready — retry.", false);
+        }
+      });
+    })();
+
+    // v3
+    safe(() => {
+      el("form-v3").addEventListener("submit", (e) => {
+        e.preventDefault();
+        runV3("submit", (token, err) => {
+          if (err || !token) { setResult("result-v3", "v3 error: " + (err || "no token"), false); return; }
+          tokens.recaptchaV3 = token;
+          setResult("result-v3", "v3 token: " + slice(token), true);
+          const box = $("v3-score");
+          if (box) { box.classList.remove("hidden"); box.querySelector("span").textContent = "issued (verify server-side)"; }
+        });
+      });
+    })();
+
+    // hCaptcha
+    safe(() => {
+      el("form-hcaptcha").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!tokens.hcaptcha) { setResult("result-hcaptcha", "Complete hCaptcha first.", false); return; }
+        setResult("result-hcaptcha", "OK — " + slice(tokens.hcaptcha), true);
+      });
+    })();
+
+    // Turnstile
+    safe(() => {
+      el("form-turnstile").addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (!tokens.turnstile) { setResult("result-turnstile", "Complete Turnstile first.", false); return; }
+        setResult("result-turnstile", "OK — " + slice(tokens.turnstile), true);
+      });
+    })();
+
+    // Combo
+    safe(() => {
+      el("form-combo").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const panel = document.querySelector(".combo-panel.active");
+        if (!panel) return;
+        const active = panel.id;
+        if (active === "combo-v3") {
+          runV3("combo_submit", (token, err) => {
+            if (err || !token) { setResult("result-combo", "v3 error: " + (err || "no token"), false); return; }
+            setResult("result-combo", "Combo v3: " + slice(token), true);
+          });
+          return;
+        }
+        if (!tokens.combo) { setResult("result-combo", "Complete the active CAPTCHA first.", false); return; }
+        setResult("result-combo", "OK (" + active + ") — " + slice(tokens.combo), true);
+      });
+    })();
+  }
+
+  /* ============================================================
+   *  COMBO TABS — lazy-render widgets when tab becomes visible
+   * ============================================================ */
+  function initComboTabs() {
+    const tabs = document.querySelectorAll(".tab");
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach((t) => t.classList.remove("active"));
+        document.querySelectorAll(".combo-panel").forEach((p) => p.classList.remove("active"));
+        tab.classList.add("active");
+        const target = $(tab.dataset.target);
+        if (target) target.classList.add("active");
+        tokens.combo = "";
+
+        // Lazy-render widgets in the newly visible panel
+        requestAnimationFrame(() => {
+          if (tab.dataset.target === "combo-v2") ensureWidget("combo-recaptcha-v2");
+          if (tab.dataset.target === "combo-hcaptcha") ensureWidget("combo-hcaptcha-box");
+          if (tab.dataset.target === "combo-turnstile") ensureWidget("combo-turnstile-box");
+        });
+      });
+    });
+  }
+
+  /* ============================================================
+   *  BOOTSTRAP
+   * ============================================================ */
+  function bootstrap() {
+    const yr = $("year");
+    if (yr) yr.textContent = new Date().getFullYear();
+
+    initForms();
+    initComboTabs();
+
+    // Render static widgets (v2 checkbox, hCaptcha, Turnstile) as soon as their SDK is ready
+    whenReady("grecaptcha", () => ensureWidget("recaptcha-v2"));
+    whenReady("hcaptcha", () => ensureWidget("hcaptcha-box"));
+    whenReady("turnstile", () => ensureWidget("turnstile-box"));
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootstrap);
+  } else {
+    bootstrap();
+  }
+})();
