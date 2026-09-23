@@ -10,16 +10,32 @@
 (() => {
   "use strict";
 
-  /* ============================================================
-   *  CONFIG — site keys only. Secrets stay on your server.
-   * ============================================================ */
-   const KEYS = Object.freeze({
+   const TEST_KEYS = Object.freeze({
+     recaptchaV2:       "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+     recaptchaV2Inv:    "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe",
+     recaptchaV3:       "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+     hcaptcha:          "10000000-ffff-ffff-ffff-000000000001",
+     turnstile:         "3x00000000000000000000FF",
+   });
+
+   const REG_LINKS = Object.freeze({
+     recaptchaV2:    "https://www.google.com/recaptcha/admin",
+     recaptchaV2Inv: "https://www.google.com/recaptcha/admin",
+     recaptchaV3:    "https://www.google.com/recaptcha/admin",
+     hcaptcha:       "https://dashboard.hcaptcha.com/",
+     turnstile:      "https://dash.cloudflare.com/",
+   });
+
+   /* ============================================================
+    *  CONFIG — site keys only. Secrets stay on your server.
+    * ============================================================ */
+   const KEYS = {
      recaptchaV2:       "",
      recaptchaV2Inv:    "",
      recaptchaV3:       "",
      hcaptcha:          "",
      turnstile:         "",
-   });
+   };
 
   /* ============================================================
    *  TOKEN STORE — frozen proxy, no silent mutation
@@ -314,21 +330,77 @@
     });
   }
 
-  /* ============================================================
-   *  BOOTSTRAP
-   * ============================================================ */
-  function bootstrap() {
-    const yr = $("year");
-    if (yr) yr.textContent = new Date().getFullYear();
+   function initKeyGen() {
+     // Populate key display elements
+     for (const [name, key] of Object.entries(TEST_KEYS)) {
+       const el = $(("key-" + name));
+       if (el) el.textContent = key;
+     }
 
-    initForms();
-    initComboTabs();
+     // Copy buttons
+     document.querySelectorAll("[data-copy]").forEach((btn) => {
+       btn.addEventListener("click", () => {
+         const keyEl = $(btn.dataset.copy);
+         if (!keyEl) return;
+         const text = keyEl.textContent;
+         navigator.clipboard?.writeText(text).then(() => {
+           btn.textContent = "Copied";
+           setTimeout(() => { btn.textContent = "Copy"; }, 1500);
+         }).catch(() => {
+           // fallback
+           const ta = document.createElement("textarea");
+           ta.value = text;
+           document.body.appendChild(ta);
+           ta.select();
+           document.execCommand("copy");
+           document.body.removeChild(ta);
+           btn.textContent = "Copied";
+           setTimeout(() => { btn.textContent = "Copy"; }, 1500);
+         });
+       });
+     });
 
-    // Render static widgets (v2 checkbox, hCaptcha, Turnstile) as soon as their SDK is ready
-    whenReady("grecaptcha", () => ensureWidget("recaptcha-v2"));
-    whenReady("hcaptcha", () => ensureWidget("hcaptcha-box"));
-    whenReady("turnstile", () => ensureWidget("turnstile-box"));
-  }
+     // Fill keys into KEYS and reload so widgets render fresh
+     const fillBtn = $("fill-keys");
+     const fillMsg = $("fill-msg");
+     if (fillBtn && fillMsg) {
+       fillBtn.addEventListener("click", () => {
+         for (const [name, key] of Object.entries(TEST_KEYS)) {
+           KEYS[name] = key;
+         }
+         try { localStorage.setItem("captchaKeys", JSON.stringify(TEST_KEYS)); } catch(_) {}
+         fillMsg.textContent = "Keys filled — reloading…";
+         location.reload();
+       });
+     }
+
+     // On load, if keys were saved, use them
+     try {
+       const saved = JSON.parse(localStorage.getItem("captchaKeys") || "null");
+       if (saved && typeof saved === "object") {
+         for (const [k, v] of Object.entries(saved)) {
+           if (typeof v === "string") KEYS[k] = v;
+         }
+       }
+     } catch(_) {}
+   }
+
+   /* ============================================================
+    *  BOOTSTRAP
+    * ============================================================ */
+   function bootstrap() {
+     const yr = $("year");
+     if (yr) yr.textContent = new Date().getFullYear();
+
+     initForms();
+     initComboTabs();
+     initKeyGen();
+
+     // Render static widgets (v2 checkbox, hCaptcha, Turnstile) as soon as their SDK is ready
+     whenReady("grecaptcha", () => ensureWidget("recaptcha-v2"));
+     whenReady("hcaptcha", () => ensureWidget("hcaptcha-box"));
+     whenReady("turnstile", () => ensureWidget("turnstile-box"));
+   }
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", bootstrap);

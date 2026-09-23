@@ -115,6 +115,48 @@
       </form>
     </section>
 
+    <section id="keys" class="card">
+      <h2>Site Key Generator</h2>
+      <p>Official test keys below actually work with the CAPTCHA APIs.
+      For production, register on each provider's dashboard.</p>
+      <div class="key-grid">
+        <div class="key-item">
+          <strong>reCAPTCHA v2</strong>
+          <code id="key-recaptcha-v2"></code>
+          <button data-copy="key-recaptcha-v2" data-keys="recaptchaV2">Copy</button>
+          <a href="https://www.google.com/recaptcha/admin" target="_blank" rel="noopener">Get real key</a>
+        </div>
+        <div class="key-item">
+          <strong>reCAPTCHA v2 Invisible</strong>
+          <code id="key-recaptcha-v2-inv"></code>
+          <button data-copy="key-recaptcha-v2-inv" data-keys="recaptchaV2Inv">Copy</button>
+          <a href="https://www.google.com/recaptcha/admin" target="_blank" rel="noopener">Get real key</a>
+        </div>
+        <div class="key-item">
+          <strong>reCAPTCHA v3</strong>
+          <code id="key-recaptcha-v3"></code>
+          <button data-copy="key-recaptcha-v3" data-keys="recaptchaV3">Copy</button>
+          <a href="https://www.google.com/recaptcha/admin" target="_blank" rel="noopener">Get real key</a>
+        </div>
+        <div class="key-item">
+          <strong>hCaptcha</strong>
+          <code id="key-hcaptcha"></code>
+          <button data-copy="key-hcaptcha" data-keys="hcaptcha">Copy</button>
+          <a href="https://dashboard.hcaptcha.com/" target="_blank" rel="noopener">Get real key</a>
+        </div>
+        <div class="key-item">
+          <strong>Turnstile</strong>
+          <code id="key-turnstile"></code>
+          <button data-copy="key-turnstile" data-keys="turnstile">Copy</button>
+          <a href="https://dash.cloudflare.com/" target="_blank" rel="noopener">Get real key</a>
+        </div>
+      </div>
+      <p style="margin-top:12px">
+        <button id="fill-keys">Fill all test keys into script.js</button>
+        <span id="fill-msg" class="muted"></span>
+      </p>
+    </section>
+
     <section class="card">
       <h2>Server-side verification (Node.js)</h2>
       <pre><code>const axios = require("axios");
