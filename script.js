@@ -29,13 +29,13 @@
    /* ============================================================
     *  CONFIG — site keys only. Secrets stay on your server.
     * ============================================================ */
-   const KEYS = {
-     recaptchaV2:       "",
-     recaptchaV2Inv:    "",
-     recaptchaV3:       "",
-     hcaptcha:          "",
-     turnstile:         "",
-   };
+    const KEYS = {
+      recaptchaV2:       "",
+      recaptchaV2Inv:    "",
+      recaptchaV3:       "",
+      hcaptcha:          "10000000-ffff-ffff-ffff-000000000001",
+      turnstile:         "",
+    };
 
   /* ============================================================
    *  TOKEN STORE — frozen proxy, no silent mutation
