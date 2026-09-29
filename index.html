@@ -1,198 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>codenirccc — CAPTCHA Demos</title>
-  <meta name="description" content="hCaptcha, reCAPTCHA v2, reCAPTCHA v3, and Cloudflare Turnstile — all in one page." />
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- hCaptcha -->
-  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-  <!-- Google reCAPTCHA (v2 + v3) -->
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <!-- Cloudflare Turnstile -->
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Minecraft 3D — Creative Voxel Sandbox</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23795c34'/><rect width='16' height='5' fill='%235f9c3a'/></svg>">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap">
-      <h1 class="logo">codenir<em>ccc</em>.github.io</h1>
-      <p class="tagline">Every CAPTCHA in one place</p>
-      <nav class="nav" aria-label="Main navigation">
-        <a href="#recaptcha-v2">reCAPTCHA v2</a>
-        <a href="#recaptcha-v2-invisible">v2 Invisible</a>
-        <a href="#recaptcha-v3">reCAPTCHA v3</a>
-        <a href="#hcaptcha">hCaptcha</a>
-        <a href="#turnstile">Turnstile</a>
-        <a href="#combo">Combo</a>
-      </nav>
+<canvas id="game"></canvas>
+
+<div id="crosshair"></div>
+
+<div id="hudTop">
+    <div id="itemName"></div>
+</div>
+
+<div id="hotbar"></div>
+
+<div id="debug" class="hidden"></div>
+
+<div id="toast" class="hidden"></div>
+
+<div id="touchControls">
+    <div id="stickBase"><div id="stickKnob"></div></div>
+    <div id="touchButtons">
+        <button class="tbtn" data-act="jump">JUMP</button>
+        <button class="tbtn" data-act="break">BREAK</button>
+        <button class="tbtn" data-act="place">PLACE</button>
+        <button class="tbtn small" data-act="fly">FLY</button>
     </div>
-  </header>
+</div>
 
-  <main class="wrap">
+<div id="loading">
+    <h1>MINECRAFT 3D</h1>
+    <div class="bar"><i id="loadBar"></i></div>
+    <p id="loadText">Loading</p>
+    <button id="playBtn" hidden>Play</button>
+</div>
 
-    <section class="notice">
-      <strong>Keys needed:</strong> All site keys in <code>script.js</code> → <code>KEYS</code> are empty.
-      CAPTCHAs won't render until you add real keys.
-      <a href="https://www.google.com/recaptcha/admin" target="_blank" rel="noopener">reCAPTCHA</a> ·
-      <a href="https://dashboard.hcaptcha.com/" target="_blank" rel="noopener">hCaptcha</a> ·
-      <a href="https://dash.cloudflare.com/" target="_blank" rel="noopener">Turnstile</a>.
-      Never put a <code>secret</code> in client code.
-    </section>
-
-    <section id="recaptcha-v2" class="card">
-      <h2>reCAPTCHA v2 — Checkbox</h2>
-      <p>The classic "I'm not a robot" checkbox.</p>
-      <form id="form-v2" class="demo-form" novalidate>
-        <label>Email <input type="email" name="email" placeholder="you@example.com" required /></label>
-        <div id="recaptcha-v2-box" class="captcha-box"></div>
-        <button type="submit">Verify &amp; Submit</button>
-        <p class="result" id="result-v2" aria-live="polite"></p>
-      </form>
-    </section>
-
-    <section id="recaptcha-v2-invisible" class="card">
-      <h2>reCAPTCHA v2 — Invisible</h2>
-      <p>No checkbox; the challenge fires when you click submit.</p>
-      <form id="form-v2-invisible" class="demo-form" novalidate>
-        <label>Message <textarea name="msg" rows="3" placeholder="Say something..." required></textarea></label>
-        <button type="submit">Submit (invisible challenge)</button>
-        <p class="result" id="result-v2-invisible" aria-live="polite"></p>
-      </form>
-    </section>
-
-    <section id="recaptcha-v3" class="card">
-      <h2>reCAPTCHA v3 — Score based</h2>
-      <p>No user interaction. Returns a score 0.0–1.0; decide server-side.</p>
-      <form id="form-v3" class="demo-form" novalidate>
-        <label>Comment <input type="text" name="comment" placeholder="Nice site!" required /></label>
-        <button type="submit">Submit (v3 scored)</button>
-        <p class="result" id="result-v3" aria-live="polite"></p>
-        <div id="v3-score" class="score hidden">Score: <span>—</span></div>
-      </form>
-    </section>
-
-    <section id="hcaptcha" class="card">
-      <h2>hCaptcha</h2>
-      <p>Privacy-focused alternative to reCAPTCHA.</p>
-      <form id="form-hcaptcha" class="demo-form" novalidate>
-        <label>Username <input type="text" name="user" placeholder="coder" required /></label>
-        <div id="hcaptcha-box" class="captcha-box"></div>
-        <button type="submit">Verify &amp; Submit</button>
-        <p class="result" id="result-hcaptcha" aria-live="polite"></p>
-      </form>
-    </section>
-
-    <section id="turnstile" class="card">
-      <h2>Cloudflare Turnstile</h2>
-      <p>Often fully invisible; privacy-respecting, no puzzle for most users.</p>
-      <form id="form-turnstile" class="demo-form" novalidate>
-        <label>Topic <input type="text" name="topic" placeholder="rust" required /></label>
-        <div id="turnstile-box" class="captcha-box"></div>
-        <button type="submit">Verify &amp; Submit</button>
-        <p class="result" id="result-turnstile" aria-live="polite"></p>
-      </form>
-    </section>
-
-    <section id="combo" class="card">
-      <h2>Combo Form</h2>
-      <p>Switchable protection. Tokens collected independently.</p>
-      <div class="tabs" role="tablist">
-        <button class="tab active" data-target="combo-v2" role="tab">reCAPTCHA v2</button>
-        <button class="tab" data-target="combo-hcaptcha" role="tab">hCaptcha</button>
-        <button class="tab" data-target="combo-v3" role="tab">reCAPTCHA v3</button>
-        <button class="tab" data-target="combo-turnstile" role="tab">Turnstile</button>
-      </div>
-      <form id="form-combo" class="demo-form" novalidate>
-        <label>Feedback <textarea name="feedback" rows="3" placeholder="Great CAPTCHAs!" required></textarea></label>
-        <div id="combo-v2" class="combo-panel active"><div id="combo-recaptcha-v2" class="captcha-box"></div></div>
-        <div id="combo-hcaptcha" class="combo-panel"><div id="combo-hcaptcha-box" class="captcha-box"></div></div>
-        <div id="combo-v3" class="combo-panel"><p class="muted">No widget — v3 scores on submit.</p></div>
-        <div id="combo-turnstile" class="combo-panel"><div id="combo-turnstile-box" class="captcha-box"></div></div>
-        <button type="submit">Submit with active CAPTCHA</button>
-        <p class="result" id="result-combo" aria-live="polite"></p>
-      </form>
-    </section>
-
-    <section id="keys" class="card">
-      <h2>Site Key Generator</h2>
-      <p>Official test keys below actually work with the CAPTCHA APIs.
-      For production, register on each provider's dashboard.</p>
-      <div class="key-grid">
-        <div class="key-item">
-          <strong>reCAPTCHA v2</strong>
-          <code id="key-recaptcha-v2"></code>
-          <button data-copy="key-recaptcha-v2" data-keys="recaptchaV2">Copy</button>
-          <a href="https://www.google.com/recaptcha/admin" target="_blank" rel="noopener">Get real key</a>
+<div id="menu" class="hidden">
+    <div class="panel">
+        <h2>Game Menu</h2>
+        <div class="rows">
+            <div class="row">
+                <span>Render distance</span>
+                <input type="range" id="setRender" min="3" max="12" step="1" value="7">
+                <b id="valRender">7</b>
+            </div>
+            <div class="row">
+                <span>FOV</span>
+                <input type="range" id="setFov" min="60" max="110" step="1" value="75">
+                <b id="valFov">75</b>
+            </div>
+            <div class="row">
+                <span>Sensitivity</span>
+                <input type="range" id="setSens" min="20" max="300" step="5" value="100">
+                <b id="valSens">1.00</b>
+            </div>
+            <div class="row">
+                <span>Day speed</span>
+                <input type="range" id="setDay" min="0" max="40" step="1" value="10">
+                <b id="valDay">1x</b>
+            </div>
+            <div class="row">
+                <span>Volume</span>
+                <input type="range" id="setVol" min="0" max="100" step="5" value="50">
+                <b id="valVol">50</b>
+            </div>
         </div>
-        <div class="key-item">
-          <strong>reCAPTCHA v2 Invisible</strong>
-          <code id="key-recaptcha-v2-inv"></code>
-          <button data-copy="key-recaptcha-v2-inv" data-keys="recaptchaV2Inv">Copy</button>
-          <a href="https://www.google.com/recaptcha/admin" target="_blank" rel="noopener">Get real key</a>
+        <div class="btnRow">
+            <button id="btnResume">Back to Game</button>
+            <button id="btnNewWorld">New World</button>
+            <button id="btnHome">GitHub</button>
         </div>
-        <div class="key-item">
-          <strong>reCAPTCHA v3</strong>
-          <code id="key-recaptcha-v3"></code>
-          <button data-copy="key-recaptcha-v3" data-keys="recaptchaV3">Copy</button>
-          <a href="https://www.google.com/recaptcha/admin" target="_blank" rel="noopener">Get real key</a>
+        <div class="help">
+            WASD move &middot; Space jump &middot; Shift down &middot; F fly &middot; Ctrl sprint<br>
+            1-9 or scroll select &middot; Left click break &middot; Right click place<br>
+            E block list &middot; Esc menu &middot; F3 debug
         </div>
-        <div class="key-item">
-          <strong>hCaptcha</strong>
-          <code id="key-hcaptcha"></code>
-          <button data-copy="key-hcaptcha" data-keys="hcaptcha">Copy</button>
-          <a href="https://dashboard.hcaptcha.com/" target="_blank" rel="noopener">Get real key</a>
+    </div>
+</div>
+
+<div id="picker" class="hidden">
+    <div class="panel wide">
+        <h2>Blocks</h2>
+        <div id="pickerGrid"></div>
+        <div class="btnRow">
+            <button id="btnPickerClose">Close</button>
+            <button id="btnMobSheep">Spawn Sheep</button>
+            <button id="btnMobCow">Spawn Cow</button>
+            <button id="btnMobPig">Spawn Pig</button>
+            <button id="btnMobChicken">Spawn Chicken</button>
         </div>
-        <div class="key-item">
-          <strong>Turnstile</strong>
-          <code id="key-turnstile"></code>
-          <button data-copy="key-turnstile" data-keys="turnstile">Copy</button>
-          <a href="https://dash.cloudflare.com/" target="_blank" rel="noopener">Get real key</a>
-        </div>
-      </div>
-      <p style="margin-top:12px">
-        <button id="fill-keys">Fill all test keys into script.js</button>
-        <span id="fill-msg" class="muted"></span>
-      </p>
-    </section>
+    </div>
+</div>
 
-    <section class="card">
-      <h2>Server-side verification (Node.js)</h2>
-      <pre><code>const axios = require("axios");
-
-async function verifyRecaptcha(token, secret) {
-  const { data } = await axios.post(
-    "https://www.google.com/recaptcha/api/siteverify",
-    new URLSearchParams({ secret, response: token }),
-    { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
-  );
-  return data.success;
-}
-
-async function verifyHCaptcha(token, secret) {
-  const { data } = await axios.post(
-    "https://hcaptcha.com/siteverify",
-    new URLSearchParams({ secret, response: token })
-  );
-  return data.success;
-}
-
-async function verifyTurnstile(token, secret) {
-  const { data } = await axios.post(
-    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-    new URLSearchParams({ secret, response: token })
-  );
-  return data.success;
-}</code></pre>
-    </section>
-
-  </main>
-
-  <footer class="site-footer">
-    <div class="wrap">© <span id="year"></span> codenirccc — CAPTCHA playground</div>
-  </footer>
-
-  <script src="script.js"></script>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.js" } }
+</script>
+<script type="module" src="js/main.js"></script>
 </body>
 </html>
